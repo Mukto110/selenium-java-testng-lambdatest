@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 
 public class BaseTest {
@@ -16,12 +17,14 @@ public class BaseTest {
 
     @Parameters("browser")
     @BeforeMethod
-    public void setUp() {
+    public void setUp(@Optional("chrome") String browser) {
         log.info("====================================================");
         log.info("Starting test: {}", this.getClass().getSimpleName());
-        WebDriverFactory.setDriver(ConfigReader.getProperty("browser"));
+        String browserName = System.getProperty("browser", "chrome");
+        WebDriverFactory.setDriver(browserName);
         driver = WebDriverFactory.getDriver();
-        log.info("Browser launched: {}", driver);
+        driver.manage().window().maximize();
+        log.info("Browser launched: {}", browserName);
     }
 
     @AfterMethod

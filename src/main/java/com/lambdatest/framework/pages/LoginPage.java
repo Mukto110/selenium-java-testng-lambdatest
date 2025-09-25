@@ -1,41 +1,49 @@
 package com.lambdatest.framework.pages;
 
 import com.lambdatest.framework.base.BasePage;
+import com.lambdatest.framework.utils.ElementActions;
+import com.lambdatest.framework.utils.LoggerHelper;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class LoginPage extends BasePage {
 
-    // Locators
+    private static final Logger log = LoggerHelper.getLogger(LoginPage.class);
+    private final ElementActions actions;
+
+    public LoginPage() {
+        super();
+        this.actions = new ElementActions(driver, log);
+    }
+
     @FindBy(xpath = "//h2[normalize-space()='Returning Customer']")
-    WebElement loginTitle;
+    private WebElement loginTitle;
 
     @FindBy(id = "input-email")
-    WebElement emailInputField;
+    private WebElement emailInputField;
 
     @FindBy(id = "input-password")
-    WebElement passwordInputField;
+    private WebElement passwordInputField;
 
-    @FindBy(css = "input[value='Login'")
-    WebElement loginButton;
+    @FindBy(css = "input[value='Login']")
+    private WebElement loginButton;
 
-    // Action methods
+
     public String getLoginTitle() {
-        return loginTitle.getText();
+        return actions.getText(loginTitle);
     }
 
     public void enterEmail(String email) {
-        emailInputField.clear();
-        emailInputField.sendKeys(email);
+        actions.fillInputBox(emailInputField, email);
     }
 
     public void enterPassword(String password) {
-        passwordInputField.clear();
-        passwordInputField.sendKeys(password);
+        actions.fillInputBox(passwordInputField, password);
     }
 
     public void clickLogin() {
-        loginButton.click();
+        actions.click(loginButton);
     }
 
     public void login(String email, String password) {

@@ -15,10 +15,14 @@ public class WebDriverFactory {
         switch (browser.toLowerCase()){
             case "chrome":
                 WebDriverManager.chromedriver().setup();
-                ChromeOptions chromeOptions = new ChromeOptions();
-                chromeOptions.addArguments("--disable-dev-shm-usage");
-                chromeOptions.addArguments("--no-sandbox");
-                driver.set(new ChromeDriver(chromeOptions));
+                ChromeOptions options = new ChromeOptions();
+                boolean headless = Boolean.parseBoolean(System.getProperty("headless", "false"));
+                if (headless) {
+                    options.addArguments("--headless=new");
+                }
+                options.addArguments("--disable-dev-shm-usage");
+                options.addArguments("--no-sandbox");
+                driver.set(new ChromeDriver(options));
                 break;
 
             case "firefox":
