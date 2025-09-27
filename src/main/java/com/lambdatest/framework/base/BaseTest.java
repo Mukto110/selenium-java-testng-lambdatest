@@ -1,6 +1,5 @@
 package com.lambdatest.framework.base;
 
-import com.lambdatest.framework.utils.ConfigReader;
 import com.lambdatest.framework.utils.LoggerHelper;
 import com.lambdatest.framework.utils.WebDriverFactory;
 import org.apache.logging.log4j.Logger;
@@ -14,6 +13,10 @@ public class BaseTest {
 
     protected WebDriver driver;
     private static final Logger log = LoggerHelper.getLogger(BaseTest.class);
+
+    public WebDriver getDriver() {
+        return driver;
+    }
 
     @Parameters("browser")
     @BeforeMethod

@@ -1,6 +1,7 @@
 package com.lambdatest.framework.pages;
 
 import com.lambdatest.framework.base.BasePage;
+import com.lambdatest.framework.utils.ConfigReader;
 import com.lambdatest.framework.utils.ElementActions;
 import com.lambdatest.framework.utils.LoggerHelper;
 import org.apache.logging.log4j.Logger;
@@ -29,6 +30,13 @@ public class LoginPage extends BasePage {
     @FindBy(css = "input[value='Login']")
     private WebElement loginButton;
 
+    @FindBy(xpath = "//div[@class='alert alert-danger alert-dismissible']")
+    private  WebElement wrongCredentialErrorMessage;
+
+
+    public void goToLoginPage() {
+        navigateTo(ConfigReader.getProperty("loginUrl"));
+    }
 
     public String getLoginTitle() {
         return actions.getText(loginTitle);
@@ -50,5 +58,9 @@ public class LoginPage extends BasePage {
         enterEmail(email);
         enterPassword(password);
         clickLogin();
+    }
+
+    public String getWrongCredentialErrorText() {
+        return wrongCredentialErrorMessage.getText();
     }
 }

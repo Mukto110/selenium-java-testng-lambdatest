@@ -15,6 +15,11 @@ public class BasePage {
         PageFactory.initElements(driver, this);
     }
 
+    public void navigateTo(String url) {
+        log.info("Navigating to URL: {}", url);
+        driver.get(url);
+    }
+
     public String getPageTitle() {
         log.debug("Getting page title");
         return driver.getTitle();
@@ -23,10 +28,5 @@ public class BasePage {
     public String getCurrentUrl() {
         log.debug("Getting current URL");
         return driver.getCurrentUrl();
-    }
-
-    public void navigateTo(String url) {
-        log.info("Navigating to URL: {}", url);
-        driver.get(url);
     }
 }
