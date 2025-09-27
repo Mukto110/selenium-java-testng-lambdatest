@@ -1,3 +1,10 @@
-2025-09-27 12:44:41 [main] INFO  com.lambdatest.framework.base.BaseTest - ====================================================
-2025-09-27 12:44:41 [main] INFO  com.lambdatest.framework.base.BaseTest - Starting test: LoginTests
-2025-09-27 12:44:42 [main] INFO  com.lambdatest.framework.base.BaseTest - Browser launched: chrome
+2025-09-27 15:05:02 [main] INFO  com.lambdatest.framework.base.BaseTest - ====================================================
+2025-09-27 15:05:02 [main] INFO  com.lambdatest.framework.base.BaseTest - Starting test: LoginTests
+2025-09-27 15:05:04 [main] INFO  com.lambdatest.framework.base.BaseTest - Browser launched: chrome
+2025-09-27 15:05:04 [main] INFO  com.lambdatest.framework.base.BasePage - Navigating to URL: https://ecommerce-playground.lambdatest.io/index.php?route=account/login
+2025-09-27 15:05:06 [main] INFO  com.lambdatest.framework.pages.LoginPage - Retrieved text from element: xpath: //h2[normalize-space()='Returning Customer'] → 'Returning Customer'
+2025-09-27 15:05:06 [main] INFO  com.lambdatest.tests.LoginTests - Asserting Equals → Expected: Returning Customer, Actual: Returning Customer
+2025-09-27 15:05:06 [main] INFO  com.lambdatest.tests.LoginTests - ✅ Assertion Passed
+2025-09-27 15:05:06 [main] INFO  com.lambdatest.framework.base.BaseTest - Closing browser for test: LoginTests
+2025-09-27 15:05:06 [main] INFO  com.lambdatest.framework.base.BaseTest - Test finished: LoginTests
+2025-09-27 15:05:06 [main] INFO  com.lambdatest.framework.base.BaseTest - ====================================================

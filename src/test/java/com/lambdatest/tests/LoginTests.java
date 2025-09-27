@@ -1,10 +1,10 @@
 package com.lambdatest.tests;
 
 import com.lambdatest.framework.base.BaseTest;
+import com.lambdatest.framework.data.TestData;
 import com.lambdatest.framework.pages.LoginPage;
 import com.lambdatest.framework.pages.MyAccountPage;
 import com.lambdatest.framework.utils.AssertUtils;
-import com.lambdatest.framework.utils.ConfigReader;
 import com.lambdatest.framework.utils.LoggerHelper;
 import org.apache.logging.log4j.Logger;
 import org.testng.annotations.BeforeMethod;
@@ -29,23 +29,21 @@ public class LoginTests  extends BaseTest {
     public void testLoginPageLoads() {
         loginPage.goToLoginPage();
         String actualTitle = loginPage.getLoginTitle();
-        String expectedTitle = ConfigReader.getProperty("loginPageTitle");
+        String expectedTitle = TestData.LOGIN_PAGE_TITLE;
         assertUtils.assertEquals(actualTitle, expectedTitle);
     }
 
     @Test(description = "Verify login with valid username & password", groups = {"smoke"})
     public void testValidLogin() {
         loginPage.goToLoginPage();
-        String email = ConfigReader.getProperty("email");
-        String password = ConfigReader.getProperty("password");
-        loginPage.login(email, password);
+        loginPage.login(TestData.VALID_EMAIL, TestData.VALID_PASSWORD);
         String actualTitle = myAccountPage.getMyAccountTitleText();
-        String expectedTitle = ConfigReader.getProperty("myAccountPageTitle");
-        assertUtils.assertEquals(actualTitle, expectedTitle);
+        assertUtils.assertEquals(actualTitle, TestData.MY_ACCOUNT_PAGE_TITLE);
     }
 
     @Test(description = "Verify error message with invalid email.", groups = {"regression"})
     public void testInvalidEmail() {
-
+        loginPage.goToLoginPage();
+        loginPage.login(TestData.INVALID_EMAIL, TestData.VALID_PASSWORD);
     }
 }
