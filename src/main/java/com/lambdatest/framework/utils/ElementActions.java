@@ -6,15 +6,14 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 
 public class ElementActions {
+    private static final Logger log = LoggerHelper.getLogger(ElementActions.class);
     private final WebDriver driver;
-    private final Logger log;
 
-    public ElementActions(WebDriver driver, Logger log) {
+    public ElementActions(WebDriver driver) {
         this.driver = driver;
-        this.log = log;
     }
 
-    // This method is to resolve locator for better loggin (Will try to find any better alternative option in future)
+    // This method is to resolve locator for better logging (Will try to find any better alternative option in future)
     private String describeElement(WebElement element) {
         try {
             String str = element.toString();

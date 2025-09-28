@@ -3,19 +3,17 @@ package com.lambdatest.framework.pages;
 import com.lambdatest.framework.base.BasePage;
 import com.lambdatest.framework.utils.ConfigReader;
 import com.lambdatest.framework.utils.ElementActions;
-import com.lambdatest.framework.utils.LoggerHelper;
-import org.apache.logging.log4j.Logger;
+import com.lambdatest.framework.utils.WaitUtils;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class LoginPage extends BasePage {
 
-    private static final Logger log = LoggerHelper.getLogger(LoginPage.class);
     private final ElementActions actions;
 
     public LoginPage() {
         super();
-        this.actions = new ElementActions(driver, log);
+        this.actions = new ElementActions(driver);
     }
 
     @FindBy(xpath = "//h2[normalize-space()='Returning Customer']")
@@ -30,8 +28,11 @@ public class LoginPage extends BasePage {
     @FindBy(css = "input[value='Login']")
     private WebElement loginButton;
 
-    @FindBy(xpath = "//div[@class='alert alert-danger alert-dismissible']")
+    @FindBy(css = "div#account-login .alert.alert-danger.alert-dismissible")
     private  WebElement wrongCredentialErrorMessage;
+
+    @FindBy(css = "div[class='form-group'] a")
+    private WebElement forgetPasswordLink;
 
 
     public void goToLoginPage() {
@@ -61,6 +62,11 @@ public class LoginPage extends BasePage {
     }
 
     public String getWrongCredentialErrorText() {
-        return wrongCredentialErrorMessage.getText();
+        WaitUtils.waitForVisibility(wrongCredentialErrorMessage);
+        return actions.getText(wrongCredentialErrorMessage);
+    }
+
+    public void clickForgetPasswordLink() {
+        actions.click(forgetPasswordLink);
     }
 }

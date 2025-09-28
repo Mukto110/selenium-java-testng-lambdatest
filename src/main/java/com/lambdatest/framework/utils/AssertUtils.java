@@ -5,13 +5,9 @@ import org.testng.Assert;
 import org.openqa.selenium.WebElement;
 
 public class AssertUtils {
-    private final Logger log;
 
-    public AssertUtils(Logger log) {
-        this.log = log;
-    }
+    private static final Logger log = LoggerHelper.getLogger(AssertUtils.class);
 
-    // ✅ ❌
 
     public void assertEquals(Object actual, Object expected) {
         log.info("Asserting Equals → Expected: {}, Actual: {}", expected, actual);
@@ -24,13 +20,13 @@ public class AssertUtils {
         }
     }
 
-    public void assertTrue(boolean condition) {
+    public void assertTrue(boolean condition, String message) {
         log.info("Asserting True → {}", condition);
         try {
-            Assert.assertTrue(condition);
+            Assert.assertTrue(condition, message);
             log.info("✅ Assertion Passed");
         } catch (AssertionError e) {
-            log.error("❌ Assertion Failed. Condition was false", e);
+            log.error("❌ Assertion Failed. " + message, e);
             throw e;
         }
     }

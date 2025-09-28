@@ -1,7 +1,7 @@
 package com.lambdatest.framework.pages;
 
 import com.lambdatest.framework.base.BasePage;
-import com.lambdatest.framework.utils.ConfigReader;
+import com.lambdatest.framework.data.TestData;
 import com.lambdatest.framework.utils.ElementActions;
 import com.lambdatest.framework.utils.LoggerHelper;
 import com.lambdatest.framework.utils.WaitUtils;
@@ -17,7 +17,7 @@ public class MyAccountPage extends BasePage {
     // Constructor
     public MyAccountPage() {
         super();
-        this.actions = new ElementActions(driver, log);
+        this.actions = new ElementActions(driver);
     }
 
     // Locators
@@ -28,7 +28,7 @@ public class MyAccountPage extends BasePage {
     public String getMyAccountTitleText() {
         log.info("Validating My Account page title");
         WaitUtils.waitForVisibility(myAccountTitle);
-        WaitUtils.waitForTitleContains(ConfigReader.getProperty("myAccountPageTitle"));
+        WaitUtils.waitForTitleContains(TestData.MY_ACCOUNT_PAGE_TITLE);
         return actions.getText(myAccountTitle);
     }
 }
