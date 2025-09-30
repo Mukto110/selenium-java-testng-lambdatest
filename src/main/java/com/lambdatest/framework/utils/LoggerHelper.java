@@ -6,7 +6,7 @@ import org.apache.logging.log4j.Logger;
 public class LoggerHelper {
 
     private LoggerHelper() {
-        // Prevent instantiation → Since it's an utility class, so that nobody can create instances of it
+        // Prevent instantiation -> Don't need to make objects, just use the static methods from here
     }
 
     public static Logger getLogger(Class<?> clazz) {

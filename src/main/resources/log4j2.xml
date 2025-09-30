@@ -15,7 +15,7 @@
         <!-- Root Logger (applies to all loggers) -->
         <Root level="debug">
             <AppenderRef ref="Console"/>
-            <AppenderRef ref="FileLogger"/>
+<!--            <AppenderRef ref="FileLogger"/>-->
         </Root>
     </Loggers>
 </Configuration>

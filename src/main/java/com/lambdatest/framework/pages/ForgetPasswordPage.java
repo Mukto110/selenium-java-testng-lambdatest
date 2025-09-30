@@ -9,15 +9,15 @@ public class ForgetPasswordPage extends BasePage {
 
     private final ElementActions actions;
 
-    public ForgetPasswordPage(ElementActions actions) {
+    public ForgetPasswordPage() {
         super();
         this.actions = new ElementActions(driver);
     }
 
     @FindBy(css = ".page-title.h3.mb-3")
-    private WebElement forgetPasswordPageHeader;
+    private WebElement forgetPasswordPageTitle;
 
-    public String getForgetPasswordPageHeaderText() {
-        return actions.getText(forgetPasswordPageHeader);
+    public String getForgetPasswordPageTitleText() {
+        return actions.getText(forgetPasswordPageTitle);
     }
 }

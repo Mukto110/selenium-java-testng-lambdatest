@@ -1,5 +1,6 @@
 package com.lambdatest.framework.utils;
 
+import com.lambdatest.framework.pages.LoginPage;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.openqa.selenium.WebElement;
@@ -21,12 +22,12 @@ public class AssertUtils {
     }
 
     public void assertTrue(boolean condition, String message) {
-        log.info("Asserting True → {}", condition);
+        log.info("Asserting True → {}", message);
         try {
             Assert.assertTrue(condition, message);
             log.info("✅ Assertion Passed");
         } catch (AssertionError e) {
-            log.error("❌ Assertion Failed. " + message, e);
+            log.error("❌ Assertion Failed. {}", String.valueOf(e));
             throw e;
         }
     }
@@ -108,5 +109,10 @@ public class AssertUtils {
             log.error("❌ Assertion Failed. Expected URL: '{}', Actual: '{}'", expectedUrl, actualUrl, e);
             throw e;
         }
+    }
+
+    public void assertWrongCredentialError(LoginPage loginPage, String expectedMessage) {
+        String actualError = loginPage.getWrongCredentialErrorText();
+        assertEquals(actualError, expectedMessage);
     }
 }

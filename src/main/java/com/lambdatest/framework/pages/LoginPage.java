@@ -16,8 +16,9 @@ public class LoginPage extends BasePage {
         this.actions = new ElementActions(driver);
     }
 
+    // Locators (as PageFactory elements)
     @FindBy(xpath = "//h2[normalize-space()='Returning Customer']")
-    private WebElement loginTitle;
+    private WebElement loginFormHeader;
 
     @FindBy(id = "input-email")
     private WebElement emailInputField;
@@ -29,36 +30,52 @@ public class LoginPage extends BasePage {
     private WebElement loginButton;
 
     @FindBy(css = "div#account-login .alert.alert-danger.alert-dismissible")
-    private  WebElement wrongCredentialErrorMessage;
+    private WebElement wrongCredentialErrorMessage;
 
-    @FindBy(css = "div[class='form-group'] a")
+    @FindBy(css = "div.form-group a")
     private WebElement forgetPasswordLink;
 
+    // ---------- Page Actions ---------- //
 
-    public void goToLoginPage() {
+    public LoginPage goToLoginPage() {
         navigateTo(ConfigReader.getProperty("loginUrl"));
+        return this;
     }
 
-    public String getLoginTitle() {
-        return actions.getText(loginTitle);
+    public String getLoginFormHeaderText() {
+        return actions.getText(loginFormHeader);
     }
 
-    public void enterEmail(String email) {
+    public LoginPage enterEmail(String email) {
         actions.fillInputBox(emailInputField, email);
+        return this;
     }
 
-    public void enterPassword(String password) {
+    public LoginPage enterPassword(String password) {
         actions.fillInputBox(passwordInputField, password);
+        return this;
     }
 
-    public void clickLogin() {
+    public LoginPage clickLoginExpectingFailure() {
         actions.click(loginButton);
+        return this;
     }
 
-    public void login(String email, String password) {
-        enterEmail(email);
-        enterPassword(password);
-        clickLogin();
+    public MyAccountPage clickLoginExpectingSuccess() {
+        actions.click(loginButton);
+        return new MyAccountPage();
+    }
+
+    public MyAccountPage loginAsValidUser(String email, String password) {
+        return enterEmail(email)
+                .enterPassword(password)
+                .clickLoginExpectingSuccess();
+    }
+
+    public LoginPage loginAsInvalidUser(String email, String password) {
+        return enterEmail(email)
+                .enterPassword(password)
+                .clickLoginExpectingFailure();
     }
 
     public String getWrongCredentialErrorText() {
@@ -66,7 +83,8 @@ public class LoginPage extends BasePage {
         return actions.getText(wrongCredentialErrorMessage);
     }
 
-    public void clickForgetPasswordLink() {
+    public ForgetPasswordPage clickForgetPasswordLink() {
         actions.click(forgetPasswordLink);
+        return new ForgetPasswordPage();
     }
 }

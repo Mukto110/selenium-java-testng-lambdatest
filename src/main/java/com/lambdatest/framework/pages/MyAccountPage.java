@@ -22,13 +22,13 @@ public class MyAccountPage extends BasePage {
 
     // Locators
     @FindBy(xpath = "//h2[normalize-space()='My Account']")
-    private WebElement myAccountTitle;
+    private WebElement myAccountPageHeader;
 
     // Actions
-    public String getMyAccountTitleText() {
+    public String getMyAccountPageHeaderText() {
         log.info("Validating My Account page title");
-        WaitUtils.waitForVisibility(myAccountTitle);
+        WaitUtils.waitForVisibility(myAccountPageHeader);
         WaitUtils.waitForTitleContains(TestData.MY_ACCOUNT_PAGE_TITLE);
-        return actions.getText(myAccountTitle);
+        return actions.getText(myAccountPageHeader);
     }
 }

@@ -17,6 +17,7 @@ public class TestData {
     // Page titles
     public static final String LOGIN_PAGE_TITLE = reader.getProperty("loginPageTitle");
     public static final String MY_ACCOUNT_PAGE_TITLE = reader.getProperty("myAccountPageTitle");
+    public static final String FORGET_PASSWORD_PAGE_TITLE = reader.getProperty("forgetPasswordPageTitle");
 
     // Error messages
     public static final String WRONG_CREDENTIAL_MESSAGE = reader.getProperty("wrongCredentialMessage");
