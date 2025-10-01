@@ -38,6 +38,7 @@ public class LoginPage extends BasePage {
     @FindBy(css = "div.form-group a")
     private WebElement forgetPasswordLink;
 
+
     // ---------- Page Actions ---------- //
 
     public LoginPage goToLoginPage() {
@@ -99,5 +100,13 @@ public class LoginPage extends BasePage {
         log.info("Clicking Forget Password link");
         actions.click(forgetPasswordLink);
         return new ForgetPasswordPage(driver);
+    }
+
+    public String getEmailFieldPlaceholder() {
+        return actions.getAttribute(emailInputField, "placeholder");
+    }
+
+    public String getPasswordFieldPlaceholder() {
+        return passwordInputField.getAttribute("placeholder");
     }
 }

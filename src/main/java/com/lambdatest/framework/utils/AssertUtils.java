@@ -110,9 +110,4 @@ public class AssertUtils {
             throw e;
         }
     }
-
-    public void assertWrongCredentialError(LoginPage loginPage, String expectedMessage) {
-        String actualError = loginPage.getWrongCredentialErrorText();
-        assertEquals(actualError, expectedMessage);
-    }
 }

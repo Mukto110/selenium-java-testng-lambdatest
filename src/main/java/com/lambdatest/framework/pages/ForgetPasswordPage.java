@@ -18,7 +18,7 @@ public class ForgetPasswordPage extends BasePage {
     @FindBy(css = ".page-title.h3.mb-3")
     private WebElement forgetPasswordPageTitle;
 
-    public String getForgetPasswordPageTitleText() {
+    public String getForgetPasswordPageHeaderText() {
         return actions.getText(forgetPasswordPageTitle);
     }
 }

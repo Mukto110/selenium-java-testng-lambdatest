@@ -25,11 +25,20 @@ public class MyAccountPage extends BasePage {
     @FindBy(xpath = "//h2[normalize-space()='My Account']")
     private WebElement myAccountPageHeader;
 
+    @FindBy(xpath = "//a[contains(text(),'Logout')]")
+    private WebElement sidebarLogout;
+
     // Actions
     public String getMyAccountPageHeaderText() {
         log.info("Validating My Account page title");
         WaitUtils.waitForVisibility(myAccountPageHeader);
-        WaitUtils.waitForTitleContains(TestData.MY_ACCOUNT_PAGE_TITLE);
+        WaitUtils.waitForTitleContains(TestData.MY_ACCOUNT_PAGE_HEADER);
         return actions.getText(myAccountPageHeader);
+    }
+
+    public AccountLogoutPage clickOnSidebarLogout() {
+        WaitUtils.waitForVisibility(sidebarLogout);
+        actions.click(sidebarLogout);
+        return new AccountLogoutPage(driver);
     }
 }
