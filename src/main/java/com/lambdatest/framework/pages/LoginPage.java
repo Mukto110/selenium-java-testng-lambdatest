@@ -103,10 +103,12 @@ public class LoginPage extends BasePage {
     }
 
     public String getEmailFieldPlaceholder() {
+        log.info("Getting email field placeholder");
         return actions.getAttribute(emailInputField, "placeholder");
     }
 
     public String getPasswordFieldPlaceholder() {
+        log.info("Getting password field placeholder");
         return passwordInputField.getAttribute("placeholder");
     }
 }

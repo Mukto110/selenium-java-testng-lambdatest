@@ -37,6 +37,7 @@ public class MyAccountPage extends BasePage {
     }
 
     public AccountLogoutPage clickOnSidebarLogout() {
+        log.info("Clicking on sidebar logout");
         WaitUtils.waitForVisibility(sidebarLogout);
         actions.click(sidebarLogout);
         return new AccountLogoutPage(driver);

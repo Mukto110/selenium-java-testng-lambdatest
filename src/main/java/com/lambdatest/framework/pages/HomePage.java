@@ -34,23 +34,27 @@ public class HomePage extends BasePage {
 
 
     public HomePage navigateToHomePage() {
+        log.info("Navigating to the home page");
         navigateTo(ConfigReader.getProperty("baseUrl"));
         return this;
     }
 
     public HomePage hoverOnMyAccountDropdown() {
+        log.info("Hovering on 'My Account' navbar option");
         actions.hover(myAccountDropdown);
         WaitUtils.waitForVisibility(loginOption);
         return this;
     }
 
     public LoginPage clickLogin() {
+        log.info("Clicking on login");
         WaitUtils.waitForVisibility(loginOption);
         actions.click(loginOption);
         return new LoginPage(driver);
     }
 
     public AccountLogoutPage clickLogout() {
+        log.info("Clicking on logout");
         WaitUtils.waitForVisibility(logoutOption);
         actions.click(logoutOption);
         return new AccountLogoutPage(driver);

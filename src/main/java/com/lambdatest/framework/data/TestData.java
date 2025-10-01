@@ -10,10 +10,6 @@ public class TestData {
     public static final String VALID_EMAIL = reader.getProperty("validEmail");
     public static final String VALID_PASSWORD = reader.getProperty("validPassword");
 
-    // Invalid credentials
-    public static final String INVALID_EMAIL = reader.getProperty("invalidEmail");
-    public static final String INVALID_PASSWORD = reader.getProperty("invalidPassword");
-
     // Page titles
     public static final String LOGIN_PAGE_HEADER = reader.getProperty("loginPageHeader");
     public static final String MY_ACCOUNT_PAGE_HEADER = reader.getProperty("myAccountPageHeader");

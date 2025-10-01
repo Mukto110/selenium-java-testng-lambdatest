@@ -27,12 +27,14 @@ public class AccountLogoutPage extends BasePage {
 
     public HomePage clickOnContinueButton() {
         WaitUtils.waitForVisibility(continueButton);
+        log.info("Clicking on the continue button");
         actions.click(continueButton);
         return new HomePage(driver);
     }
 
     public LoginPage clickOnSideBarMyAccountLink() {
         WaitUtils.waitForVisibility(sideBarMyAccountLink);
+        log.info("Clicking on the 'My Account' link from the sidebar");
         actions.click(sideBarMyAccountLink);
         return new LoginPage(driver);
     }
