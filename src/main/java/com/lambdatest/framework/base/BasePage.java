@@ -1,7 +1,6 @@
 package com.lambdatest.framework.base;
 
 import com.lambdatest.framework.utils.LoggerHelper;
-import com.lambdatest.framework.utils.WebDriverFactory;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
@@ -10,8 +9,8 @@ public class BasePage {
     protected WebDriver driver;
     private static final Logger log = LoggerHelper.getLogger(BasePage.class);
 
-    public BasePage() {
-        this.driver = WebDriverFactory.getDriver();
+    public BasePage(WebDriver driver) {
+        this.driver = driver;
         PageFactory.initElements(driver, this);
     }
 

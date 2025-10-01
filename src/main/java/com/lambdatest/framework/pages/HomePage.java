@@ -4,6 +4,7 @@ import com.lambdatest.framework.base.BasePage;
 import com.lambdatest.framework.utils.ConfigReader;
 import com.lambdatest.framework.utils.ElementActions;
 import com.lambdatest.framework.utils.WaitUtils;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -11,8 +12,8 @@ public class HomePage extends BasePage {
 
     private final ElementActions actions;
 
-    public HomePage() {
-        super();
+    public HomePage(WebDriver driver) {
+        super(driver);
         this.actions = new ElementActions(driver);
     }
 
@@ -40,6 +41,6 @@ public class HomePage extends BasePage {
     public LoginPage clickLogin() {
         WaitUtils.waitForVisibility(loginOption);
         actions.click(loginOption);
-        return new LoginPage();
+        return new LoginPage(driver);
     }
 }

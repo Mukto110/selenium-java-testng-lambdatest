@@ -13,33 +13,45 @@ public class ElementActions {
         this.driver = driver;
     }
 
-    // This method is to resolve locator for better logging (Will try to find any better alternative option in future)
-    private String describeElement(WebElement element) {
+    // Friendly description (for debug logs)
+    private String shortDescribe(WebElement element) {
+        try {
+            String tag = element.getTagName();
+            String text = element.getText().trim();
+            if (text.length() > 20) text = text.substring(0, 20) + "...";
+            return "<" + tag + "> " + (text.isEmpty() ? "" : "with text='" + text + "'");
+        } catch (Exception e) {
+            return element.toString();
+        }
+    }
+
+    // Full locator (for error logs)
+    private String fullDescribe(WebElement element) {
         try {
             String str = element.toString();
             return str.substring(str.indexOf("->") + 3, str.length() - 1);
         } catch (Exception e) {
-            return element.toString(); // fallback if parsing fails
+            return element.toString();
         }
     }
 
     public void click(WebElement element) {
         try {
-            log.info("Clicking on element: {}", describeElement(element));
+            log.debug("Clicking {}", shortDescribe(element));
             element.click();
         } catch (Exception e) {
-            log.error("❌ Failed to click on element: {}", describeElement(element), e);
+            log.error("❌ Failed to click element: {}", fullDescribe(element), e);
             throw e;
         }
     }
 
     public void fillInputBox(WebElement element, String text) {
         try {
-            log.info("Typing '{}' into element: {}", text, describeElement(element));
+            log.debug("Typing '{}' into {}", text, shortDescribe(element));
             element.clear();
             element.sendKeys(text);
         } catch (Exception e) {
-            log.error("❌ Failed to type '{}' into element: {}", text, describeElement(element), e);
+            log.error("❌ Failed to type '{}' into element: {}", text, fullDescribe(element), e);
             throw e;
         }
     }
@@ -47,10 +59,10 @@ public class ElementActions {
     public String getText(WebElement element) {
         try {
             String text = element.getText().trim();
-            log.info("Retrieved text from element: {} → '{}'", describeElement(element), text);
+            log.debug("Retrieved text from {} → '{}'", shortDescribe(element), text);
             return text;
         } catch (Exception e) {
-            log.error("❌ Failed to get text from element: {}", describeElement(element), e);
+            log.error("❌ Failed to get text from element: {}", fullDescribe(element), e);
             throw e;
         }
     }
@@ -58,10 +70,10 @@ public class ElementActions {
     public String getAttribute(WebElement element, String attribute) {
         try {
             String value = element.getAttribute(attribute);
-            log.info("Retrieved attribute '{}' from element: {} → '{}'", attribute, describeElement(element), value);
+            log.debug("Retrieved attribute '{}' from {} → '{}'", attribute, shortDescribe(element), value);
             return value;
         } catch (Exception e) {
-            log.error("❌ Failed to get attribute '{}' from element: {}", attribute, describeElement(element), e);
+            log.error("❌ Failed to get attribute '{}' from element: {}", attribute, fullDescribe(element), e);
             throw e;
         }
     }
@@ -69,76 +81,71 @@ public class ElementActions {
     public boolean isDisplayed(WebElement element) {
         try {
             boolean visible = element.isDisplayed();
-            log.info("Element displayed? {} → {}", describeElement(element), visible);
+            log.debug("Element displayed? {} → {}", shortDescribe(element), visible);
             return visible;
         } catch (NoSuchElementException e) {
-            log.warn("❌ Element not found: {}", describeElement(element), e);
+            log.warn("❌ Element not found: {}", fullDescribe(element), e);
             return false;
         }
     }
 
     public void selectByText(WebElement element, String visibleText) {
         try {
-            log.info("Selecting '{}' from dropdown: {}", visibleText, describeElement(element));
-            Select select = new Select(element);
-            select.selectByVisibleText(visibleText);
+            log.debug("Selecting '{}' from {}", visibleText, shortDescribe(element));
+            new Select(element).selectByVisibleText(visibleText);
         } catch (Exception e) {
-            log.error("❌ Failed to select '{}' from dropdown: {}", visibleText, describeElement(element), e);
+            log.error("❌ Failed to select '{}' from element: {}", visibleText, fullDescribe(element), e);
             throw e;
         }
     }
 
     public void selectByValue(WebElement element, String value) {
         try {
-            log.info("Selecting value '{}' from dropdown: {}", value, describeElement(element));
-            Select select = new Select(element);
-            select.selectByValue(value);
+            log.debug("Selecting value '{}' from {}", value, shortDescribe(element));
+            new Select(element).selectByValue(value);
         } catch (Exception e) {
-            log.error("❌ Failed to select value '{}' from dropdown: {}", value, describeElement(element), e);
+            log.error("❌ Failed to select value '{}' from element: {}", value, fullDescribe(element), e);
             throw e;
         }
     }
 
     public void selectByIndex(WebElement element, int index) {
         try {
-            log.info("Selecting index '{}' from dropdown: {}", index, describeElement(element));
-            Select select = new Select(element);
-            select.selectByIndex(index);
+            log.debug("Selecting index '{}' from {}", index, shortDescribe(element));
+            new Select(element).selectByIndex(index);
         } catch (Exception e) {
-            log.error("❌ Failed to select index '{}' from dropdown: {}", index, describeElement(element), e);
+            log.error("❌ Failed to select index '{}' from element: {}", index, fullDescribe(element), e);
             throw e;
         }
     }
 
     public void hover(WebElement element) {
         try {
-            log.info("Hovering over element: {}", describeElement(element));
-            Actions actions = new Actions(driver);
-            actions.moveToElement(element).perform();
+            log.debug("Hovering over {}", shortDescribe(element));
+            new Actions(driver).moveToElement(element).perform();
         } catch (Exception e) {
-            log.error("❌ Failed to hover over element: {}", describeElement(element), e);
+            log.error("❌ Failed to hover over element: {}", fullDescribe(element), e);
             throw e;
         }
     }
 
     public void scrollIntoView(WebElement element) {
         try {
-            log.info("Scrolling into view: {}", describeElement(element));
+            log.debug("Scrolling into view: {}", shortDescribe(element));
             ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
         } catch (Exception e) {
-            log.error("❌ Failed to scroll into view: {}", describeElement(element), e);
+            log.error("❌ Failed to scroll into view: {}", fullDescribe(element), e);
             throw e;
         }
     }
 
     public void jsClick(WebElement element) {
         try {
-            log.info("Performing JavaScript click on: {}", describeElement(element));
+            log.debug("Performing JavaScript click on {}", shortDescribe(element));
             ((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
         } catch (Exception e) {
-            log.error("❌ Failed to JS-click element: {}", describeElement(element), e);
+            log.error("❌ Failed to JS-click element: {}", fullDescribe(element), e);
             throw e;
         }
     }
 }
-

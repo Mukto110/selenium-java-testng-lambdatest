@@ -6,6 +6,7 @@ import com.lambdatest.framework.utils.ElementActions;
 import com.lambdatest.framework.utils.LoggerHelper;
 import com.lambdatest.framework.utils.WaitUtils;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -15,8 +16,8 @@ public class MyAccountPage extends BasePage {
     private final ElementActions actions;
 
     // Constructor
-    public MyAccountPage() {
-        super();
+    public MyAccountPage(WebDriver driver) {
+        super(driver);
         this.actions = new ElementActions(driver);
     }
 

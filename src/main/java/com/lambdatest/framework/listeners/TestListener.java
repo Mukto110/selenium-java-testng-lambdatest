@@ -1,7 +1,7 @@
 package com.lambdatest.framework.listeners;
 
-import com.lambdatest.framework.base.BaseTest;
 import com.lambdatest.framework.utils.LoggerHelper;
+import com.lambdatest.framework.utils.WebDriverFactory;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -50,7 +50,7 @@ public class TestListener implements ITestListener {
         log.error("❌ Test FAILED: {}", result.getMethod().getMethodName(), result.getThrowable());
 
         Object testClass = result.getInstance();
-        WebDriver driver = ((BaseTest) testClass).getDriver();
+        WebDriver driver = WebDriverFactory.getDriver();
 
         if (driver != null) {
             try {
