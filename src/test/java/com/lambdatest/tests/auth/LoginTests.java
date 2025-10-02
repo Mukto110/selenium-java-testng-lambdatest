@@ -1,10 +1,9 @@
-package com.lambdatest.tests;
+package com.lambdatest.tests.auth;
 
 import com.lambdatest.framework.base.BaseTest;
 import com.lambdatest.framework.data.TestData;
 import com.lambdatest.framework.data.TestDataGenerator;
 import com.lambdatest.framework.pages.*;
-import com.lambdatest.framework.utils.AssertUtils;
 import com.lambdatest.framework.utils.ConfigReader;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -13,12 +12,9 @@ public class LoginTests extends BaseTest {
 
     private LoginPage loginPage;
     private HomePage homePage;
-    private MyAccountPage myAccountPage;
-    private AssertUtils assertUtils;
 
     @BeforeMethod(alwaysRun = true)
     public void initPageObjects() {
-        this.assertUtils = new AssertUtils();
         loginPage = new LoginPage(driver);
         homePage = new HomePage(driver);
     }

@@ -12,23 +12,19 @@ import org.openqa.selenium.support.FindBy;
 
 public class MyAccountPage extends BasePage {
 
-    private static final Logger log = LoggerHelper.getLogger(MyAccountPage.class);
-    private final ElementActions actions;
 
-    // Constructor
     public MyAccountPage(WebDriver driver) {
         super(driver);
-        this.actions = new ElementActions(driver);
     }
 
-    // Locators
     @FindBy(xpath = "//h2[normalize-space()='My Account']")
     private WebElement myAccountPageHeader;
 
     @FindBy(xpath = "//a[contains(text(),'Logout')]")
     private WebElement sidebarLogout;
 
-    // Actions
+
+
     public String getMyAccountPageHeaderText() {
         log.info("Validating My Account page title");
         WaitUtils.waitForVisibility(myAccountPageHeader);

@@ -7,8 +7,11 @@ import org.openqa.selenium.WebElement;
 
 public class AssertUtils {
 
-    private static final Logger log = LoggerHelper.getLogger(AssertUtils.class);
+    private final Logger log;
 
+    public AssertUtils(Logger log) {
+        this.log = log;
+    }
 
     public void assertEquals(Object actual, Object expected) {
         log.info("Asserting Equals → Expected: {}, Actual: {}", expected, actual);

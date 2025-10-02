@@ -12,12 +12,9 @@ import org.openqa.selenium.support.FindBy;
 
 public class HomePage extends BasePage {
 
-    private static final Logger log = LoggerHelper.getLogger(HomePage.class);
-    private final ElementActions actions;
 
     public HomePage(WebDriver driver) {
         super(driver);
-        this.actions = new ElementActions(driver);
     }
 
     @FindBy(css = "img[alt='Poco Electro']")

@@ -12,12 +12,8 @@ import org.openqa.selenium.support.FindBy;
 
 public class LoginPage extends BasePage {
 
-    private static final Logger log = LoggerHelper.getLogger(LoginPage.class);
-    private final ElementActions actions;
-
     public LoginPage(WebDriver driver) {
         super(driver);
-        this.actions = new ElementActions(driver);
     }
 
     @FindBy(xpath = "//h2[normalize-space()='Returning Customer']")

@@ -1,5 +1,6 @@
 package com.lambdatest.framework.base;
 
+import com.lambdatest.framework.utils.AssertUtils;
 import com.lambdatest.framework.utils.LoggerHelper;
 import com.lambdatest.framework.utils.WebDriverFactory;
 import org.apache.logging.log4j.Logger;
@@ -11,10 +12,12 @@ import java.lang.reflect.Method;
 public class BaseTest {
 
     protected WebDriver driver;
-    private static final Logger log = LoggerHelper.getLogger(BaseTest.class);
+    protected Logger log;
+    protected AssertUtils assertUtils;
 
     @BeforeClass
     public void preSetUp() {
+        log = LoggerHelper.getLogger(this.getClass());
         log.info("==========================================================");
         log.info("Starting test: {}", this.getClass());
     }
@@ -29,6 +32,7 @@ public class BaseTest {
         driver = WebDriverFactory.getDriver();
         driver.manage().window().maximize();
         driver.manage().deleteAllCookies();
+        assertUtils = new AssertUtils(log);
         log.info("Browser launched: {}", browserName);
     }
 

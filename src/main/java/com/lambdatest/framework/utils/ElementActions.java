@@ -6,11 +6,13 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 
 public class ElementActions {
-    private static final Logger log = LoggerHelper.getLogger(ElementActions.class);
-    private final WebDriver driver;
 
-    public ElementActions(WebDriver driver) {
+    private final WebDriver driver;
+    private final Logger log;
+
+    public ElementActions(WebDriver driver, Logger log) {
         this.driver = driver;
+        this.log = log;
     }
 
     // Friendly description (for debug logs)

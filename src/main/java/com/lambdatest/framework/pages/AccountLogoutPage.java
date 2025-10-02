@@ -11,12 +11,8 @@ import org.openqa.selenium.support.FindBy;
 
 public class AccountLogoutPage extends BasePage {
 
-    private static final Logger log = LoggerHelper.getLogger(AccountLogoutPage.class);
-    private final ElementActions actions;
-
     public AccountLogoutPage(WebDriver driver) {
         super(driver);
-        this.actions = new ElementActions(driver);
     }
 
     @FindBy(css = "a[class='btn btn-primary']")

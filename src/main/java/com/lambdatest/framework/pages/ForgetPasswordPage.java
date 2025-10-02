@@ -10,12 +10,8 @@ import org.openqa.selenium.support.FindBy;
 
 public class ForgetPasswordPage extends BasePage {
 
-    private static final Logger log = LoggerHelper.getLogger(ForgetPasswordPage.class);
-    private final ElementActions actions;
-
     public ForgetPasswordPage(WebDriver driver) {
         super(driver);
-        this.actions = new ElementActions(driver);
     }
 
     @FindBy(css = ".page-title.h3.mb-3")

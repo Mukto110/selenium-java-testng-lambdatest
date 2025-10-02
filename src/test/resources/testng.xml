@@ -7,7 +7,7 @@
     <test name="ChromeTest">
         <parameter name="browser" value="chrome"/>
         <classes>
-            <class name="com.lambdatest.tests.LoginTests"/>
+            <class name="com.lambdatest.tests.auth.LoginTests"/>
         </classes>
     </test>
 </suite>
