@@ -2,10 +2,6 @@ package com.lambdatest.framework.pages;
 
 import com.lambdatest.framework.base.BasePage;
 import com.lambdatest.framework.utils.ConfigReader;
-import com.lambdatest.framework.utils.ElementActions;
-import com.lambdatest.framework.utils.LoggerHelper;
-import com.lambdatest.framework.utils.WaitUtils;
-import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -39,20 +35,20 @@ public class HomePage extends BasePage {
     public HomePage hoverOnMyAccountDropdown() {
         log.info("Hovering on 'My Account' navbar option");
         actions.hover(myAccountDropdown);
-        WaitUtils.waitForVisibility(loginOption);
+        wait.waitForVisibility(loginOption);
         return this;
     }
 
     public LoginPage clickLogin() {
         log.info("Clicking on login");
-        WaitUtils.waitForVisibility(loginOption);
+        wait.waitForVisibility(loginOption);
         actions.click(loginOption);
         return new LoginPage(driver);
     }
 
     public AccountLogoutPage clickLogout() {
         log.info("Clicking on logout");
-        WaitUtils.waitForVisibility(logoutOption);
+        wait.waitForVisibility(logoutOption);
         actions.click(logoutOption);
         return new AccountLogoutPage(driver);
     }

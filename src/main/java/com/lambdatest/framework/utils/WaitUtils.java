@@ -1,33 +1,59 @@
 package com.lambdatest.framework.utils;
 
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.apache.logging.log4j.Logger;
 
 import java.time.Duration;
 
 public class WaitUtils {
-    private static final int TIMEOUT = Integer.parseInt(ConfigReader.getProperty("timeout"));
+    private final WebDriverWait wait;
+    private final Logger log;
 
-    private static WebDriverWait getWait() {
-        WebDriver driver = WebDriverFactory.getDriver();
-        return new WebDriverWait(driver, Duration.ofSeconds(TIMEOUT));
+    public WaitUtils(WebDriver driver, Logger log) {
+        int timeout = Integer.parseInt(ConfigReader.getProperty("timeout"));
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(timeout));
+        this.log = log;
     }
 
-    public static void waitForVisibility(WebElement element) {
-        getWait().until(ExpectedConditions.visibilityOf(element));
+    public void waitForVisibility(WebElement element) {
+        try {
+            log.debug("Waiting for visibility of element: {}", element);
+            wait.until(ExpectedConditions.visibilityOf(element));
+        } catch (TimeoutException e) {
+            log.error("Timeout waiting for visibility of element: {}", element, e);
+            throw e;
+        }
     }
 
-    public static void waitForClickable(WebElement element) {
-        getWait().until(ExpectedConditions.elementToBeClickable(element));
+    public void waitForClickable(WebElement element) {
+        try {
+            log.debug("Waiting for element to be clickable: {}", element);
+            wait.until(ExpectedConditions.elementToBeClickable(element));
+        } catch (TimeoutException e) {
+            log.error("Timeout waiting for element to be clickable: {}", element, e);
+            throw e;
+        }
     }
 
-    public static void waitForUrlContains(String fraction) {
-        getWait().until(ExpectedConditions.urlContains(fraction));
+    public void waitForUrlContains(String fraction) {
+        try {
+            log.debug("Waiting for URL to contain: {}", fraction);
+            wait.until(ExpectedConditions.urlContains(fraction));
+        } catch (TimeoutException e) {
+            log.error("Timeout waiting for URL to contain: {}", fraction, e);
+            throw e;
+        }
     }
 
-    public static void waitForTitleContains(String title) {
-        getWait().until(ExpectedConditions.titleContains(title));
+    public void waitForTitleContains(String title) {
+        try {
+            log.debug("Waiting for title to contain: {}", title);
+            wait.until(ExpectedConditions.titleContains(title));
+        } catch (TimeoutException e) {
+            log.error("Timeout waiting for title to contain: {}", title, e);
+            throw e;
+        }
     }
 }

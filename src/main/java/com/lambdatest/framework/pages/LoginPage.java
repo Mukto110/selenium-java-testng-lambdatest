@@ -2,10 +2,6 @@ package com.lambdatest.framework.pages;
 
 import com.lambdatest.framework.base.BasePage;
 import com.lambdatest.framework.utils.ConfigReader;
-import com.lambdatest.framework.utils.ElementActions;
-import com.lambdatest.framework.utils.LoggerHelper;
-import com.lambdatest.framework.utils.WaitUtils;
-import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -88,7 +84,7 @@ public class LoginPage extends BasePage {
 
     public String getWrongCredentialErrorText() {
         log.info("Getting wrong credential error message text");
-        WaitUtils.waitForVisibility(wrongCredentialErrorMessage);
+        wait.waitForVisibility(wrongCredentialErrorMessage);
         return actions.getText(wrongCredentialErrorMessage);
     }
 
