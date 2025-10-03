@@ -10,6 +10,7 @@ import org.testng.annotations.Test;
 
 public class LoginAfterPasswordChangeTest extends BaseTest {
 
+    // These data will be store somewhere else later.
     private final String email = "testuser2@test.com";
     private final String originalPassword = "testuser001";
     private final String newPassword = "Thisistest102";
@@ -47,7 +48,7 @@ public class LoginAfterPasswordChangeTest extends BaseTest {
         loginPage.loginAsValidUser(email, newPassword);
         assertUtils.assertEquals(myAccountPage.getMyAccountPageHeaderText(), TestData.MY_ACCOUNT_PAGE_HEADER);
 
-        // 🔄 Step 9 -> ROLLBACK (new → original password)
+        // 🔄 Step 9 -> ROLLBACK (new → original password) -> I don't have DB or API access for this demo website, so I need to rollback the password to run this test continuously
         changePasswordPage = myAccountPage.clickOnSidebarPasswordLink();
         myAccountPage = changePasswordPage.changePassword(originalPassword, originalPassword);
         assertUtils.assertEquals(myAccountPage.getPasswordUpdateSuccessText(), TestData.PASSWORD_UPDATE_SUCCESS_MESSAGE);

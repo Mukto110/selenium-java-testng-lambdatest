@@ -16,7 +16,7 @@ public class HomePage extends BasePage {
     @FindBy(css = "img[alt='Poco Electro']")
     private WebElement homeLogo;
 
-    @FindBy(xpath = "//body/div[@class='mz-pure-container']/div[@id='container']/header[@class='header']/div[@id='main-navigation']/div[@id='entry_217831']/div[@class='entry-section container d-none d-md-flex flex-row align-items-center']/div[@id='entry_217834']/nav[@class='navbar navbar-expand-sm hoverable navbar-default bg-default horizontal']/div[@id='widget-navbar-217834']/ul[@class='navbar-nav horizontal']/li[6]/a[1]")
+    @FindBy(css = "a.nav-link.dropdown-toggle[href*='route=account/account']")
     private WebElement myAccountDropdown;
 
     @FindBy(xpath = "//span[normalize-space()='Login']")
