@@ -51,7 +51,7 @@ public class LoginPage extends BasePage {
     }
 
     public LoginPage enterPassword(String password) {
-        log.info("Entering password [PROTECTED]");
+        log.info("Entering password: [PROTECTED]");
         actions.fillInputBox(passwordInputField, password);
         return this;
     }

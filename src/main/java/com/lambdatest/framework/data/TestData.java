@@ -12,6 +12,7 @@ public class TestData {
 
     // Page titles
     public static final String LOGIN_PAGE_HEADER = reader.getProperty("loginPageHeader");
+    public static final String REGISTER_PAGE_HEADER = reader.getProperty("registerPageHeader");
     public static final String MY_ACCOUNT_PAGE_HEADER = reader.getProperty("myAccountPageHeader");
     public static final String FORGET_PASSWORD_PAGE_HEADER = reader.getProperty("forgetPasswordPageHeader");
     public static final String CHANGE_PASSWORD_PAGE_HEADER = reader.getProperty("changePasswordPageHeader");

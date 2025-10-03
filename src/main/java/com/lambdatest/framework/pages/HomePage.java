@@ -25,6 +25,9 @@ public class HomePage extends BasePage {
     @FindBy(xpath = "//span[normalize-space()='Logout']")
     private WebElement logoutOption;
 
+    @FindBy(xpath = "//span[normalize-space()='Register']")
+    private WebElement registerOption;
+
 
     public HomePage navigateToHomePage() {
         log.info("Navigating to the home page");
@@ -44,6 +47,13 @@ public class HomePage extends BasePage {
         wait.waitForVisibility(loginOption);
         actions.click(loginOption);
         return new LoginPage(driver);
+    }
+
+    public RegisterPage clickRegister() {
+        log.info("Clicking on Register");
+        wait.waitForVisibility(registerOption);
+        actions.click(registerOption);
+        return new RegisterPage(driver);
     }
 
     public AccountLogoutPage clickLogout() {

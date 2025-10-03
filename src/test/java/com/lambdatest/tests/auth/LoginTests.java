@@ -10,12 +10,11 @@ import org.testng.annotations.Test;
 
 public class LoginTests extends BaseTest {
 
-    private LoginPage loginPage;
     private HomePage homePage;
+    private LoginPage loginPage;
 
     @BeforeMethod(alwaysRun = true)
     public void initPageObjects() {
-        loginPage = new LoginPage(driver);
         homePage = new HomePage(driver);
     }
 
@@ -24,14 +23,14 @@ public class LoginTests extends BaseTest {
         // Step 1 -> Navigate to the homepage
         homePage.navigateToHomePage();
         // Step 2 -> Hover on 'My Account' dropdown and click 'Login'
-        homePage.hoverOnMyAccountDropdown().clickLogin();
+        loginPage = homePage.hoverOnMyAccountDropdown().clickLogin();
     }
 
-    @Test(description = "TC_Login_000: Verify user can navigate to Login Page", groups = {"smoke"})
+    @Test(description = "TC_Login_000: Validate user can navigate to Login Page", groups = {"smoke"})
     public void testNavigateToLoginPage() {
         // Assertion (If the user landed to the login page successfully or not)
         assertUtils.assertEquals(loginPage.getLoginFormHeaderText(), TestData.LOGIN_PAGE_HEADER);
-        assertUtils.assertTrue(loginPage.getCurrentUrl().contains("route=account/login"), "User successfully landed to the login page");
+        assertUtils.assertTrue(loginPage.getCurrentUrl().contains("route=account/login"), "Login page URL contains 'route=account/login'");
     }
 
 
@@ -79,7 +78,7 @@ public class LoginTests extends BaseTest {
         assertUtils.assertEquals(loginPage.getPasswordFieldPlaceholder(), "Password");
     }
 
-    @Test(description = "TC_Login_010: Validate any action on dashboard get user logout after successfull logout and click browser back button", groups = {"regression", "security"})
+    @Test(description = "TC_Login_010: Validate any action on dashboard get user logout after successful logout and click browser back button", groups = {"regression", "security"})
     public void testUserCannotAccessDashboardAfterLogout() {
         MyAccountPage myAccountPage = loginPage.loginAsValidUser(TestData.VALID_EMAIL, TestData.VALID_PASSWORD);
         AccountLogoutPage accountLogoutPage = myAccountPage.clickOnSidebarLogout();

@@ -22,7 +22,7 @@ public class BasePage {
     }
 
     public void navigateTo(String url) {
-        log.info("Navigating to URL: {}", url);
+        log.debug("Navigating to URL: {}", url);
         driver.get(url);
     }
 
