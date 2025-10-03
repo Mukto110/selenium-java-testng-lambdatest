@@ -2,6 +2,7 @@ package com.lambdatest.framework.base;
 
 import com.lambdatest.framework.utils.AssertUtils;
 import com.lambdatest.framework.utils.LoggerHelper;
+import com.lambdatest.framework.utils.WaitUtils;
 import com.lambdatest.framework.utils.WebDriverFactory;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
@@ -14,6 +15,7 @@ public class BaseTest {
     protected WebDriver driver;
     protected Logger log;
     protected AssertUtils assertUtils;
+    protected WaitUtils wait;
 
     @BeforeClass
     public void preSetUp() {
@@ -33,6 +35,7 @@ public class BaseTest {
         driver.manage().window().maximize();
         driver.manage().deleteAllCookies();
         assertUtils = new AssertUtils(log);
+        wait = new WaitUtils(driver, log);
         log.info("Browser launched: {}", browserName);
     }
 

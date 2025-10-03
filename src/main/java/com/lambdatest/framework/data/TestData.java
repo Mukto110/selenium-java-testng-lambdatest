@@ -16,10 +16,17 @@ public class TestData {
     public static final String MY_ACCOUNT_PAGE_HEADER = reader.getProperty("myAccountPageHeader");
     public static final String FORGET_PASSWORD_PAGE_HEADER = reader.getProperty("forgetPasswordPageHeader");
     public static final String CHANGE_PASSWORD_PAGE_HEADER = reader.getProperty("changePasswordPageHeader");
+    public static final String ACCOUNT_SUCCESS_HEADER = reader.getProperty("accountSuccessPageHeader");
 
     // Success message
     public static final String PASSWORD_UPDATE_SUCCESS_MESSAGE = reader.getProperty("passwordUpdateSuccessMessage");
 
     // Error messages
     public static final String WRONG_CREDENTIAL_MESSAGE = reader.getProperty("wrongCredentialMessage");
+    public static final String FIRST_NAME_EMPTY_FIELD_ERROR_MESSAGE = reader.getProperty("firstNameEmptyFieldErrorMessage");
+    public static final String LAST_NAME_EMPTY_FIELD_ERROR_MESSAGE = reader.getProperty("lastNameEmptyFieldErrorMessage");
+    public static final String EMAIL_EMPTY_FIELD_ERROR_MESSAGE = reader.getProperty("emailEmptyFieldErrorMessage");
+    public static final String TELEPHONE_EMPTY_FIELD_ERROR_MESSAGE = reader.getProperty("telephoneEmptyFieldErrorMessage");
+    public static final String PASSWORD_EMPTY_FIELD_ERROR_MESSAGE = reader.getProperty("passwordEmptyFieldErrorMessage");
+    public static final String PRIVACY_POLICY_WARNING_MESSAGE = reader.getProperty("privacyPolicyWarningMessage");
 }

@@ -32,11 +32,29 @@ public class RegisterPage extends BasePage {
     @FindBy(id = "input-confirm")
     private WebElement confirmPasswordInputField;
 
-    @FindBy(id = "input-agree")
+    @FindBy(css = "label[for='input-agree']")
     private WebElement privacyPolicyAgreeCheckbox;
 
     @FindBy(css = "input[value='Continue']")
     private WebElement continueButton;
+
+    @FindBy(xpath = "//div[contains(text(),'First Name must be between 1 and 32 characters!')]")
+    private WebElement firstNameEmptyFieldErrorMessage;
+
+    @FindBy(xpath = "//div[contains(text(),'Last Name must be between 1 and 32 characters!')]")
+    private WebElement lastNameEmptyFieldErrorMessage;
+
+    @FindBy(xpath = "//div[contains(text(),'E-Mail Address does not appear to be valid!')]")
+    private WebElement emailEmptyFieldErrorMessage;
+
+    @FindBy(xpath = "//div[normalize-space()='Telephone must be between 3 and 32 characters!']")
+    private WebElement telephoneEmptyFieldErrorMessage;
+
+    @FindBy(xpath = "//div[contains(text(),'Password must be between 4 and 20 characters!')]")
+    private WebElement passwordEmptyFieldErrorMessage;
+
+    @FindBy(css = "div[id='account-register'] div[class='alert alert-danger alert-dismissible']")
+    private WebElement privacyPolicyWarningMessage;
 
 
     public String getRegisterPageHeaderText() {
@@ -120,5 +138,36 @@ public class RegisterPage extends BasePage {
                 .enterConfirmPassword(confirmPassword)
                 .clickPrivacyCheckbox()
                 .clickContinueExpectingFailure();
+    }
+
+    public String getFirstNameEmptyFieldErrorMessage() {
+        log.info("Getting error message for empty First Name field");
+        wait.waitForVisibility(firstNameEmptyFieldErrorMessage);
+        return actions.getText(firstNameEmptyFieldErrorMessage);
+    }
+
+    public String getLastNameEmptyFieldErrorMessage() {
+        log.info("Getting error message for empty Last Name field");
+        return actions.getText(lastNameEmptyFieldErrorMessage);
+    }
+
+    public String getEmailEmptyFieldErrorMessage() {
+        log.info("Getting error message for invalid/empty Email field");
+        return actions.getText(emailEmptyFieldErrorMessage);
+    }
+
+    public String getTelephoneEmptyFieldErrorMessage() {
+        log.info("Getting error message for empty Telephone field");
+        return actions.getText(telephoneEmptyFieldErrorMessage);
+    }
+
+    public String getPasswordEmptyFieldErrorMessage() {
+        log.info("Getting error message for empty Password field");
+        return actions.getText(passwordEmptyFieldErrorMessage);
+    }
+
+    public String getPrivacyPolicyWarningMessage() {
+        log.info("Getting error message for Privacy Policy checkbox");
+        return actions.getText(privacyPolicyWarningMessage);
     }
 }

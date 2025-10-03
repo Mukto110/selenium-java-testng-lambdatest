@@ -30,7 +30,7 @@ public class LoginTests extends BaseTest {
     public void testNavigateToLoginPage() {
         // Assertion (If the user landed to the login page successfully or not)
         assertUtils.assertEquals(loginPage.getLoginFormHeaderText(), TestData.LOGIN_PAGE_HEADER);
-        assertUtils.assertTrue(loginPage.getCurrentUrl().contains("route=account/login"), "Login page URL contains 'route=account/login'");
+        assertUtils.assertTrue(loginPage.getCurrentUrl().contains("route=account/login"), "User is in the login page'");
     }
 
 
