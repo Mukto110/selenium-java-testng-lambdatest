@@ -30,6 +30,12 @@ public class LoginPage extends BasePage {
     @FindBy(css = "div.form-group a")
     private WebElement forgetPasswordLink;
 
+    @FindBy(css = "a[class='btn btn-primary']")
+    private WebElement continueButtonUnderNewCustomer;
+
+    @FindBy(xpath = "//a[@class='list-group-item'][normalize-space()='Forgotten Password']")
+    private WebElement sidebarForgetPasswordLink;
+
 
     // ---------- Page Actions ---------- //
 
@@ -102,5 +108,17 @@ public class LoginPage extends BasePage {
     public String getPasswordFieldPlaceholder() {
         log.info("Getting password field placeholder");
         return passwordInputField.getAttribute("placeholder");
+    }
+
+    public RegisterPage clickContinueButtonUnderNewCustomer() {
+        log.info("Clicking on continue button under 'New Customer' heading");
+        actions.click(continueButtonUnderNewCustomer);
+        return new RegisterPage(driver);
+    }
+
+    public ForgetPasswordPage clickSidebarForgetPasswordLink() {
+        log.info("Clicking on sidebar forget password link");
+        actions.click(sidebarForgetPasswordLink);
+        return new ForgetPasswordPage(driver);
     }
 }

@@ -56,6 +56,12 @@ public class RegisterPage extends BasePage {
     @FindBy(css = "div[id='account-register'] div[class='alert alert-danger alert-dismissible']")
     private WebElement privacyPolicyWarningMessage;
 
+    @FindBy(css = "label[for$='input-newsletter-yes']")
+    private WebElement subscribeYesRadio;
+
+    @FindBy(css = "label[for$='input-newsletter-no']")
+    private WebElement subscribeNoRadio;
+
 
     public String getRegisterPageHeaderText() {
         log.info("Getting register page header text");
@@ -116,16 +122,24 @@ public class RegisterPage extends BasePage {
         return this;
     }
 
-    public AccountCreateSuccessPage validRegister(String firstName, String lastName, String email, String telephoneNo, String password, String confirmPassword) {
-        log.info("Registering account with the mandatory fields:");
-        return enterFirstName(firstName)
+    public AccountCreateSuccessPage validRegister(String firstName, String lastName, String email, String telephoneNo, String password, String confirmPassword, boolean subscribe) {
+        log.info("Registering account with subscription: {}", subscribe ? "Yes" : "No");
+
+        enterFirstName(firstName)
                 .enterLastName(lastName)
                 .enterEmail(email)
                 .enterTelephoneNo(telephoneNo)
                 .enterPassword(password)
-                .enterConfirmPassword(confirmPassword)
-                .clickPrivacyCheckbox()
-                .clickContinueExpectingSuccess();
+                .enterConfirmPassword(confirmPassword);
+
+        if (subscribe) {
+            selectNewsletterYes();
+        } else {
+            selectNewsletterNo();
+        }
+
+        clickPrivacyCheckbox();
+        return clickContinueExpectingSuccess();
     }
 
     public RegisterPage invalidRegister(String firstName, String lastName, String email, String telephoneNo, String password, String confirmPassword) {
@@ -169,5 +183,17 @@ public class RegisterPage extends BasePage {
     public String getPrivacyPolicyWarningMessage() {
         log.info("Getting error message for Privacy Policy checkbox");
         return actions.getText(privacyPolicyWarningMessage);
+    }
+
+    public RegisterPage selectNewsletterYes() {
+        log.info("Selecting newsletter: Yes");
+        actions.click(subscribeYesRadio);
+        return this;
+    }
+
+    public RegisterPage selectNewsletterNo() {
+        log.info("Selecting newsletter: No");
+        actions.click(subscribeNoRadio);
+        return this;
     }
 }

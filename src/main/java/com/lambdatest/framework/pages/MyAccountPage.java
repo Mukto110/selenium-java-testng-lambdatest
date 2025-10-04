@@ -25,6 +25,9 @@ public class MyAccountPage extends BasePage {
     @FindBy(css = "div[id='account-account'] div[class='alert alert-success alert-dismissible']")
     private WebElement passwordUpdateSuccessMessage;
 
+    @FindBy(xpath = "//a[normalize-space()='Newsletter']")
+    private WebElement sidebarNewsletterLink;
+
 
 
     public String getMyAccountPageHeaderText() {
@@ -51,5 +54,11 @@ public class MyAccountPage extends BasePage {
         log.info("Getting password update success text");
         wait.waitForVisibility(passwordUpdateSuccessMessage);
         return actions.getText(passwordUpdateSuccessMessage);
+    }
+
+    public NewsletterSubscriptionPage clickOnSidebarNewsletterLink() {
+        log.info("Clicking on sidebar newsletter link");
+        actions.click(sidebarNewsletterLink);
+        return new NewsletterSubscriptionPage(driver);
     }
 }

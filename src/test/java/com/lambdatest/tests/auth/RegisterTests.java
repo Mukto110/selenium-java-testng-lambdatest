@@ -34,7 +34,7 @@ public class RegisterTests extends BaseTest {
 
     @Test(description = "TC_Register_001: Validate Registering an Account by providing only the Mandatory fields", groups = {"smoke", "regression"})
     public void testValidRegisterWithMandatoryFields() {
-        AccountCreateSuccessPage accountCreateSuccessPage = registerPage.validRegister(TestDataGenerator.getRandomFirstName(), TestDataGenerator.getRandomLastName(), TestDataGenerator.getRandomEmail(), TestDataGenerator.getRandomTelephone(), password, password);
+        AccountCreateSuccessPage accountCreateSuccessPage = registerPage.validRegister(TestDataGenerator.getRandomFirstName(), TestDataGenerator.getRandomLastName(), TestDataGenerator.getRandomEmail(), TestDataGenerator.getRandomTelephone(), password, password, false);
         MyAccountPage myAccountPage = accountCreateSuccessPage.clickContinueButton();
         wait.waitForUrlContains("route=account/account");
         assertUtils.assertTrue(myAccountPage.getCurrentUrl().contains("route=account/account"), "User is in the 'My Account' page");
@@ -50,5 +50,27 @@ public class RegisterTests extends BaseTest {
         assertUtils.assertEquals(registerPage.getTelephoneEmptyFieldErrorMessage(), TestData.TELEPHONE_EMPTY_FIELD_ERROR_MESSAGE);
         assertUtils.assertEquals(registerPage.getPasswordEmptyFieldErrorMessage(), TestData.PASSWORD_EMPTY_FIELD_ERROR_MESSAGE);
         assertUtils.assertEquals(registerPage.getPrivacyPolicyWarningMessage(), TestData.PRIVACY_POLICY_WARNING_MESSAGE);
+    }
+
+    @Test(description = "TC_Register_003: Validate registering an account when 'Yes' option is selected for the Newsletter -> Subscribe field", groups = {"regression"})
+    public void testValidRegisterWithSubscribeYes() {
+        AccountCreateSuccessPage accountCreateSuccessPage = registerPage.validRegister(TestDataGenerator.getRandomFirstName(), TestDataGenerator.getRandomLastName(), TestDataGenerator.getRandomEmail(), TestDataGenerator.getRandomTelephone(), password, password, true);
+        MyAccountPage myAccountPage = accountCreateSuccessPage.clickContinueButton();
+        wait.waitForUrlContains("route=account/account");
+        assertUtils.assertTrue(myAccountPage.getCurrentUrl().contains("route=account/account"), "User is in the 'My Account' page");
+        NewsletterSubscriptionPage newsletterSubscriptionPage = myAccountPage.clickOnSidebarNewsletterLink();
+        assertUtils.assertEquals(newsletterSubscriptionPage.getNewsletterPageHeaderText(), TestData.NEWSLETTER_PAGE_HEADER);
+        assertUtils.assertEquals(newsletterSubscriptionPage.getSelectedNewsletterOption(), TestData.NEWSLETTER_YES);
+    }
+
+    @Test(description = "TC_Register_004: Validate registering an account when 'No' option is selected for the Newsletter -> Subscribe field", groups = {"regression"})
+    public void testValidRegisterWithSubscribeNo() {
+        AccountCreateSuccessPage accountCreateSuccessPage = registerPage.validRegister(TestDataGenerator.getRandomFirstName(), TestDataGenerator.getRandomLastName(), TestDataGenerator.getRandomEmail(), TestDataGenerator.getRandomTelephone(), password, password, false);
+        MyAccountPage myAccountPage = accountCreateSuccessPage.clickContinueButton();
+        wait.waitForUrlContains("route=account/account");
+        assertUtils.assertTrue(myAccountPage.getCurrentUrl().contains("route=account/account"), "User is in the 'My Account' page");
+        NewsletterSubscriptionPage newsletterSubscriptionPage = myAccountPage.clickOnSidebarNewsletterLink();
+        assertUtils.assertEquals(newsletterSubscriptionPage.getNewsletterPageHeaderText(), TestData.NEWSLETTER_PAGE_HEADER);
+        assertUtils.assertEquals(newsletterSubscriptionPage.getSelectedNewsletterOption(), TestData.NEWSLETTER_NO);
     }
 }

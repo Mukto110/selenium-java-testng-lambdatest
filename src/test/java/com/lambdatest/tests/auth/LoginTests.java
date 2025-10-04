@@ -84,9 +84,18 @@ public class LoginTests extends BaseTest {
         AccountLogoutPage accountLogoutPage = myAccountPage.clickOnSidebarLogout();
         accountLogoutPage.clickOnContinueButton();
         assertUtils.assertTrue(homePage.getCurrentUrl().contains("route=common/home"), "User is in the homepage");
-        driver.navigate().back();
+        driver.navigate().back(); // Will put this somewhere later.
         assertUtils.assertPageTitle(accountLogoutPage.getPageTitle(), "Account Logout");
         accountLogoutPage.clickOnSideBarMyAccountLink();
         assertUtils.assertTrue(loginPage.getCurrentUrl().contains(ConfigReader.getProperty("loginUrl")), "User is in the login page after clicking on 'My Account' dashboard/sidebar link");
+    }
+
+    @Test(description = "TC_Login_020: Validate user is able to navigate to different pages from Login page", groups = {"regression"})
+    public void testDifferentPageNavigationFromLoginPage() {
+        RegisterPage registerPage = loginPage.clickContinueButtonUnderNewCustomer();
+        assertUtils.assertEquals(registerPage.getRegisterPageHeaderText(), TestData.REGISTER_PAGE_HEADER);
+        driver.navigate().back();
+        ForgetPasswordPage forgetPasswordPage = loginPage.clickSidebarForgetPasswordLink();
+        assertUtils.assertEquals(forgetPasswordPage.getForgetPasswordPageHeaderText(), TestData.FORGET_PASSWORD_PAGE_HEADER);
     }
 }
