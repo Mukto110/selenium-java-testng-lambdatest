@@ -62,6 +62,9 @@ public class RegisterPage extends BasePage {
     @FindBy(css = "label[for$='input-newsletter-no']")
     private WebElement subscribeNoRadio;
 
+    @FindBy(xpath = "//div[@class='text-danger']")
+    private WebElement confirmPasswordNotMatchErrorMessage;
+
 
     public String getRegisterPageHeaderText() {
         log.info("Getting register page header text");
@@ -195,5 +198,11 @@ public class RegisterPage extends BasePage {
         log.info("Selecting newsletter: No");
         actions.click(subscribeNoRadio);
         return this;
+    }
+
+    public String getPasswordNoMatchErrorMessageText() {
+        log.info("Getting password does not match text under confirm password input box");
+        wait.waitForVisibility(confirmPasswordNotMatchErrorMessage);
+        return actions.getText(confirmPasswordNotMatchErrorMessage);
     }
 }

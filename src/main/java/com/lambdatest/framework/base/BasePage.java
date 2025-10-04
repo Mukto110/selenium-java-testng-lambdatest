@@ -26,6 +26,11 @@ public class BasePage {
         driver.get(url);
     }
 
+    public void navigateBack() {
+        log.debug("Navigating back to the previous page");
+        driver.navigate().back();
+    }
+
     public String getPageTitle() {
         log.debug("Getting page title");
         return driver.getTitle();

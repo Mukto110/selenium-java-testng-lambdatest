@@ -30,6 +30,7 @@ public class TestData {
     public static final String TELEPHONE_EMPTY_FIELD_ERROR_MESSAGE = reader.getProperty("telephoneEmptyFieldErrorMessage");
     public static final String PASSWORD_EMPTY_FIELD_ERROR_MESSAGE = reader.getProperty("passwordEmptyFieldErrorMessage");
     public static final String PRIVACY_POLICY_WARNING_MESSAGE = reader.getProperty("privacyPolicyWarningMessage");
+    public static final String PASSWORD_NOT_MATCH_ERROR_MESSAGE = reader.getProperty("passwordNotMatchErrorMessage");
 
     // Newsletter options
     public static final String NEWSLETTER_YES = "Yes";

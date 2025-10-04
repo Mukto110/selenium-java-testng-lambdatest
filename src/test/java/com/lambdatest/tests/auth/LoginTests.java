@@ -80,7 +80,7 @@ public class LoginTests extends BaseTest {
         AccountLogoutPage accountLogoutPage = myAccountPage.clickOnSidebarLogout();
         accountLogoutPage.clickOnContinueButton();
         assertUtils.assertTrue(homePage.getCurrentUrl().contains("route=common/home"), "User is in the homepage");
-        driver.navigate().back(); // Will put this somewhere later.
+        homePage.navigateBack();
         assertUtils.assertPageTitle(accountLogoutPage.getPageTitle(), "Account Logout");
         accountLogoutPage.clickOnSideBarMyAccountLink();
         assertUtils.assertTrue(loginPage.getCurrentUrl().contains(ConfigReader.getProperty("loginUrl")), "User is in the login page after clicking on 'My Account' dashboard/sidebar link");

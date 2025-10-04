@@ -74,4 +74,10 @@ public class RegisterTests extends BaseTest {
         assertUtils.assertEquals(newsletterSubscriptionPage.getNewsletterPageHeaderText(), TestData.NEWSLETTER_PAGE_HEADER);
         assertUtils.assertEquals(newsletterSubscriptionPage.getSelectedNewsletterOption(), TestData.NEWSLETTER_NO);
     }
+
+    @Test(description = "TC_Register_006: Validate Registering an Account by entering different passwords into 'Password' and 'Password Confirm' fields", groups = {"regression"})
+    public void testDifferentPageNavigationFromRegisterPage() {
+        registerPage.invalidRegister(TestDataGenerator.getRandomFirstName(), TestDataGenerator.getRandomLastName(), TestDataGenerator.getRandomEmail(), TestDataGenerator.getRandomTelephone(), TestDataGenerator.getRandomPassword(), TestDataGenerator.getRandomPassword());
+        assertUtils.assertEquals(registerPage.getPasswordNoMatchErrorMessageText(), TestData.PASSWORD_NOT_MATCH_ERROR_MESSAGE);
+    }
 }
