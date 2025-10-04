@@ -4,6 +4,7 @@ import com.lambdatest.framework.base.BaseTest;
 import com.lambdatest.framework.data.TestData;
 import com.lambdatest.framework.data.TestDataGenerator;
 import com.lambdatest.framework.pages.*;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -14,14 +15,14 @@ public class RegisterTests extends BaseTest {
     private String password;
 
 
-    @BeforeMethod(alwaysRun = true)
-    public void initPageObjects() {
-        homePage = new HomePage(driver);
+    @BeforeClass(alwaysRun = true)
+    public void initTestData() {
         password = TestDataGenerator.getRandomPassword();
     }
 
     @BeforeMethod(alwaysRun = true)
     public void navigateToRegisterPage() {
+        homePage = new HomePage(driver);
         homePage.navigateToHomePage();
         registerPage = homePage.hoverOnMyAccountDropdown().clickRegister();
     }

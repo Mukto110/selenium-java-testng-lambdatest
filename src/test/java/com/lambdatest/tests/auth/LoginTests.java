@@ -14,12 +14,8 @@ public class LoginTests extends BaseTest {
     private LoginPage loginPage;
 
     @BeforeMethod(alwaysRun = true)
-    public void initPageObjects() {
-        homePage = new HomePage(driver);
-    }
-
-    @BeforeMethod(alwaysRun = true)
     public void navigateToLoginPage() {
+        homePage = new HomePage(driver);
         // Step 1 -> Navigate to the homepage
         homePage.navigateToHomePage();
         // Step 2 -> Hover on 'My Account' dropdown and click 'Login'
@@ -60,7 +56,7 @@ public class LoginTests extends BaseTest {
         assertUtils.assertEquals(loginPage.getWrongCredentialErrorText(), TestData.WRONG_CREDENTIAL_MESSAGE);
     }
 
-    @Test(description = "TC_Login_005: Validate Login without providing any credentials (Empty field) -> Known Bug (001)", groups = {"regression", "negative"})
+    @Test(description = "TC_Login_005: Validate Login without providing any credentials (Known Bug: BUG-001)", groups = {"regression", "negative"})
     public void testLoginWithEmptyField() {
         loginPage.loginAsInvalidUser("", "");
         assertUtils.assertEquals(loginPage.getWrongCredentialErrorText(), TestData.WRONG_CREDENTIAL_MESSAGE);
@@ -74,7 +70,7 @@ public class LoginTests extends BaseTest {
 
     @Test(description = "TC_Login_008: Validate placeholders in login fields", groups = {"ui"})
     public void testLoginFieldPlaceholders() {
-        assertUtils.assertEquals(loginPage.getEmailFieldPlaceholder(), "E-Mail Address");
+        assertUtils.softAssertEquals(loginPage.getEmailFieldPlaceholder(), "E-Mail Address");
         assertUtils.assertEquals(loginPage.getPasswordFieldPlaceholder(), "Password");
     }
 

@@ -1,16 +1,22 @@
 package com.lambdatest.framework.utils;
 
 import org.apache.logging.log4j.Logger;
-import org.testng.Assert;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
+import org.testng.asserts.SoftAssert;
 
 public class AssertUtils {
 
     private final Logger log;
+    private final SoftAssert softAssert;
 
+    // Constructor for normal hard assert usage
     public AssertUtils(Logger log) {
         this.log = log;
+        this.softAssert = new SoftAssert();
     }
+
+    // ---------- HARD ASSERTS ---------- //
 
     public void assertEquals(Object actual, Object expected) {
         log.info("Asserting Equals → Expected: {}, Actual: {}", expected, actual);
@@ -45,16 +51,35 @@ public class AssertUtils {
         }
     }
 
-    public void assertContains(String actual, String expectedSubstring) {
-        log.info("Asserting Contains → '{}' should contain '{}'", actual, expectedSubstring);
-        try {
-            Assert.assertTrue(actual.contains(expectedSubstring));
-            log.info("✅ Assertion Passed");
-        } catch (AssertionError e) {
-            log.error("❌ Assertion Failed. '{}' did not contain '{}'", actual, expectedSubstring, e);
-            throw e;
-        }
+    // ---------- SOFT ASSERTS ---------- //
+
+    public void softAssertEquals(Object actual, Object expected) {
+        log.info("Soft Asserting Equals → Expected: {}, Actual: {}", expected, actual);
+        softAssert.assertEquals(actual, expected);
     }
+
+    public void softAssertTrue(boolean condition, String message) {
+        log.info("Soft Asserting True → {}", message);
+        softAssert.assertTrue(condition, message);
+    }
+
+    public void softAssertFalse(boolean condition, String message) {
+        log.info("Soft Asserting False → {}", message);
+        softAssert.assertFalse(condition, message);
+    }
+
+    public void softAssertContains(String actual, String expectedSubstring) {
+        log.info("Soft Asserting Contains → '{}' should contain '{}'", actual, expectedSubstring);
+        softAssert.assertTrue(actual.contains(expectedSubstring));
+    }
+
+    // Call this at the end of a test to aggregate soft assert results
+    public void assertAll() {
+        log.info("🔍 Verifying all soft assertions...");
+        softAssert.assertAll();
+    }
+
+    // ---------- ELEMENT ASSERTS ---------- //
 
     public void assertElementDisplayed(WebElement element) {
         log.info("Asserting Element Displayed → {}", element);

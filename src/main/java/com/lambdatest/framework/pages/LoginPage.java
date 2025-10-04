@@ -62,10 +62,9 @@ public class LoginPage extends BasePage {
         return this;
     }
 
-    public LoginPage clickLoginExpectingFailure() {
+    public void clickLoginExpectingFailure() {
         log.info("Clicking login button (expecting failure)");
         actions.click(loginButton);
-        return this;
     }
 
     public MyAccountPage clickLoginExpectingSuccess() {
@@ -81,9 +80,9 @@ public class LoginPage extends BasePage {
                 .clickLoginExpectingSuccess();
     }
 
-    public LoginPage loginAsInvalidUser(String email, String password) {
+    public void loginAsInvalidUser(String email, String password) {
         log.info("Logging in with invalid credentials: {}", email);
-        return enterEmail(email)
+        enterEmail(email)
                 .enterPassword(password)
                 .clickLoginExpectingFailure();
     }
