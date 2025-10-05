@@ -45,7 +45,7 @@ public class RegisterPage extends BasePage {
     private WebElement lastNameEmptyFieldErrorMessage;
 
     @FindBy(xpath = "//div[contains(text(),'E-Mail Address does not appear to be valid!')]")
-    private WebElement emailEmptyFieldErrorMessage;
+    private WebElement emailErrorMessage;
 
     @FindBy(xpath = "//div[normalize-space()='Telephone must be between 3 and 32 characters!']")
     private WebElement telephoneEmptyFieldErrorMessage;
@@ -54,7 +54,7 @@ public class RegisterPage extends BasePage {
     private WebElement passwordEmptyFieldErrorMessage;
 
     @FindBy(css = "div[id='account-register'] div[class='alert alert-danger alert-dismissible']")
-    private WebElement privacyPolicyWarningMessage;
+    private WebElement errorMessage;
 
     @FindBy(css = "label[for$='input-newsletter-yes']")
     private WebElement subscribeYesRadio;
@@ -64,6 +64,15 @@ public class RegisterPage extends BasePage {
 
     @FindBy(xpath = "//div[@class='text-danger']")
     private WebElement confirmPasswordNotMatchErrorMessage;
+
+    @FindBy(css = "div[id='content'] p a")
+    private WebElement loginPageLink;
+
+    @FindBy(css = ".agree")
+    private WebElement privacyPolicyLink;
+
+    @FindBy(css = ".modal-title")
+    private WebElement privacyPolicyModalHeader;
 
 
     public String getRegisterPageHeaderText() {
@@ -157,6 +166,17 @@ public class RegisterPage extends BasePage {
                 .clickContinueExpectingFailure();
     }
 
+    public RegisterPage registerWithoutPrivacyCheckbox(String firstName, String lastName, String email, String telephoneNo, String password, String confirmPassword) {
+        log.info("Registering account without checking the privacy policy checkbox");
+        return enterFirstName(firstName)
+                .enterLastName(lastName)
+                .enterEmail(email)
+                .enterTelephoneNo(telephoneNo)
+                .enterPassword(password)
+                .enterConfirmPassword(confirmPassword)
+                .clickContinueExpectingFailure();
+    }
+
     public String getFirstNameEmptyFieldErrorMessage() {
         log.info("Getting error message for empty First Name field");
         wait.waitForVisibility(firstNameEmptyFieldErrorMessage);
@@ -168,9 +188,9 @@ public class RegisterPage extends BasePage {
         return actions.getText(lastNameEmptyFieldErrorMessage);
     }
 
-    public String getEmailEmptyFieldErrorMessage() {
+    public String getEmailErrorMessage() {
         log.info("Getting error message for invalid/empty Email field");
-        return actions.getText(emailEmptyFieldErrorMessage);
+        return actions.getText(emailErrorMessage);
     }
 
     public String getTelephoneEmptyFieldErrorMessage() {
@@ -185,7 +205,7 @@ public class RegisterPage extends BasePage {
 
     public String getPrivacyPolicyWarningMessage() {
         log.info("Getting error message for Privacy Policy checkbox");
-        return actions.getText(privacyPolicyWarningMessage);
+        return actions.getText(errorMessage);
     }
 
     public RegisterPage selectNewsletterYes() {
@@ -204,5 +224,61 @@ public class RegisterPage extends BasePage {
         log.info("Getting password does not match text under confirm password input box");
         wait.waitForVisibility(confirmPasswordNotMatchErrorMessage);
         return actions.getText(confirmPasswordNotMatchErrorMessage);
+    }
+
+    public String getEmailAlreadyRegisteredErrorText() {
+        log.info("Getting password already registered error message text");
+        wait.waitForVisibility(errorMessage);
+        return actions.getText(errorMessage);
+    }
+
+    public String getFirstNamePlaceholderText() {
+        log.info("Getting placeholder text for First Name input field");
+        return actions.getAttribute(firstNameInputField, "placeholder");
+    }
+
+    public String getLastNamePlaceholderText() {
+        log.info("Getting placeholder text for Last Name input field");
+        return actions.getAttribute(lastNameInputField, "placeholder");
+    }
+
+    public String getEmailPlaceholderText() {
+        log.info("Getting placeholder text for Email input field");
+        return actions.getAttribute(emailInputField, "placeholder");
+    }
+
+    public String getTelephonePlaceholderText() {
+        log.info("Getting placeholder text for Telephone input field");
+        return actions.getAttribute(telephoneInputField, "placeholder");
+    }
+
+    public String getPasswordPlaceholderText() {
+        log.info("Getting placeholder text for Password input field");
+        return actions.getAttribute(passwordInputField, "placeholder");
+    }
+
+    public String getConfirmPasswordPlaceholderText() {
+        log.info("Getting placeholder text for Confirm Password input field");
+        return actions.getAttribute(confirmPasswordInputField, "placeholder");
+    }
+
+    public LoginPage clickOnLoginPageLink() {
+        log.info("Clicking on login page link");
+        wait.waitForVisibility(loginPageLink);
+        actions.click(loginPageLink);
+        return new LoginPage(driver);
+    }
+
+    public RegisterPage clickOnPrivacyPolicyLink() {
+        log.info("Clicking on 'Privacy Policy' link");
+        wait.waitForVisibility(privacyPolicyLink);
+        actions.click(privacyPolicyLink);
+        return this;
+    }
+
+    public String getPrivacyPolicyModalHeaderText() {
+        log.info("Getting privacy policy modal text");
+        wait.waitForVisibility(privacyPolicyModalHeader);
+        return actions.getText(privacyPolicyModalHeader);
     }
 }

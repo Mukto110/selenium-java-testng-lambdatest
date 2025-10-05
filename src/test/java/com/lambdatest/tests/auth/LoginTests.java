@@ -72,6 +72,10 @@ public class LoginTests extends BaseTest {
     public void testLoginFieldPlaceholders() {
         assertUtils.softAssertEquals(loginPage.getEmailFieldPlaceholder(), "E-Mail Address");
         assertUtils.assertEquals(loginPage.getPasswordFieldPlaceholder(), "Password");
+
+        assertUtils.assertAll();
+
+        log.info("✅ Completed placeholder validation test successfully!");
     }
 
     @Test(description = "TC_Login_010: Validate any action on dashboard get user logout after successful logout and click browser back button", groups = {"regression", "security"})
