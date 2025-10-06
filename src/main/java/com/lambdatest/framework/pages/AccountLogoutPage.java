@@ -11,11 +11,19 @@ public class AccountLogoutPage extends BasePage {
         super(driver);
     }
 
+    @FindBy(css = "div[id$='content'] h1[class='page-title my-3']")
+    private WebElement accountLogoutPageHeader;
+
     @FindBy(css = "a[class='btn btn-primary']")
     private WebElement continueButton;
 
     @FindBy(xpath = "//a[normalize-space()='My Account']")
     private WebElement sideBarMyAccountLink;
+
+    public String getAccountLogoutPageHeaderText() {
+        log.info("Getting account logout page header text");
+        return actions.getText(accountLogoutPageHeader);
+    }
 
     public HomePage clickOnContinueButton() {
         log.info("Clicking on the continue button");

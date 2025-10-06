@@ -38,7 +38,6 @@ public class HomePage extends BasePage {
     public HomePage hoverOnMyAccountDropdown() {
         log.info("Hovering on 'My Account' navbar option");
         actions.hover(myAccountDropdown);
-        wait.waitForVisibility(loginOption);
         return this;
     }
 
@@ -58,5 +57,10 @@ public class HomePage extends BasePage {
         log.info("Clicking on logout");
         actions.click(logoutOption);
         return new AccountLogoutPage(driver);
+    }
+
+    public boolean isLogoutOptionVisible() {
+        log.info("Checking if logout option is visible or not");
+        return actions.isDisplayed(logoutOption);
     }
 }

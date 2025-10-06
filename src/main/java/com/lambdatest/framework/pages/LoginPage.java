@@ -36,6 +36,8 @@ public class LoginPage extends BasePage {
     @FindBy(xpath = "//a[@class='list-group-item'][normalize-space()='Forgotten Password']")
     private WebElement sidebarForgetPasswordLink;
 
+    @FindBy()
+
 
     // ---------- Page Actions ---------- //
 
