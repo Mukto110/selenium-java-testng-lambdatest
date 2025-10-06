@@ -25,6 +25,7 @@ public class AccountCreateSuccessPage extends BasePage {
 
     public MyAccountPage clickContinueButton() {
         log.info("Clicking on continue button");
+        wait.waitForVisibility(continueButton);
         actions.click(continueButton);
         return new MyAccountPage(driver);
     }

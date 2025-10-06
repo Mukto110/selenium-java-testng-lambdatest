@@ -190,6 +190,7 @@ public class RegisterPage extends BasePage {
 
     public String getEmailErrorMessage() {
         log.info("Getting error message for invalid/empty Email field");
+        wait.waitForVisibility(emailErrorMessage);
         return actions.getText(emailErrorMessage);
     }
 
