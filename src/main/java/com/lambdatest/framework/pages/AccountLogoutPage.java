@@ -18,14 +18,12 @@ public class AccountLogoutPage extends BasePage {
     private WebElement sideBarMyAccountLink;
 
     public HomePage clickOnContinueButton() {
-        wait.waitForVisibility(continueButton);
         log.info("Clicking on the continue button");
         actions.click(continueButton);
         return new HomePage(driver);
     }
 
     public LoginPage clickOnSideBarMyAccountLink() {
-        wait.waitForVisibility(sideBarMyAccountLink);
         log.info("Clicking on the 'My Account' link from the sidebar");
         actions.click(sideBarMyAccountLink);
         return new LoginPage(driver);

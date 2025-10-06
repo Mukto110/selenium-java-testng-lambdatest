@@ -179,7 +179,6 @@ public class RegisterPage extends BasePage {
 
     public String getFirstNameEmptyFieldErrorMessage() {
         log.info("Getting error message for empty First Name field");
-        wait.waitForVisibility(firstNameEmptyFieldErrorMessage);
         return actions.getText(firstNameEmptyFieldErrorMessage);
     }
 
@@ -190,7 +189,6 @@ public class RegisterPage extends BasePage {
 
     public String getEmailErrorMessage() {
         log.info("Getting error message for invalid/empty Email field");
-        wait.waitForVisibility(emailErrorMessage);
         return actions.getText(emailErrorMessage);
     }
 
@@ -223,13 +221,11 @@ public class RegisterPage extends BasePage {
 
     public String getPasswordNoMatchErrorMessageText() {
         log.info("Getting password does not match text under confirm password input box");
-        wait.waitForVisibility(confirmPasswordNotMatchErrorMessage);
         return actions.getText(confirmPasswordNotMatchErrorMessage);
     }
 
     public String getEmailAlreadyRegisteredErrorText() {
         log.info("Getting password already registered error message text");
-        wait.waitForVisibility(errorMessage);
         return actions.getText(errorMessage);
     }
 
@@ -265,21 +261,18 @@ public class RegisterPage extends BasePage {
 
     public LoginPage clickOnLoginPageLink() {
         log.info("Clicking on login page link");
-        wait.waitForVisibility(loginPageLink);
         actions.click(loginPageLink);
         return new LoginPage(driver);
     }
 
     public RegisterPage clickOnPrivacyPolicyLink() {
         log.info("Clicking on 'Privacy Policy' link");
-        wait.waitForVisibility(privacyPolicyLink);
         actions.click(privacyPolicyLink);
         return this;
     }
 
     public String getPrivacyPolicyModalHeaderText() {
         log.info("Getting privacy policy modal text");
-        wait.waitForVisibility(privacyPolicyModalHeader);
         return actions.getText(privacyPolicyModalHeader);
     }
 }

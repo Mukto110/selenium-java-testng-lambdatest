@@ -9,10 +9,12 @@ public class ElementActions {
 
     private final WebDriver driver;
     private final Logger log;
+    private final WaitUtils waitUtils;
 
     public ElementActions(WebDriver driver, Logger log) {
         this.driver = driver;
         this.log = log;
+        this.waitUtils = new WaitUtils(driver, log);
     }
 
     // Friendly description (for debug logs)
@@ -40,6 +42,7 @@ public class ElementActions {
     public void click(WebElement element) {
         try {
             log.debug("Clicking {}", shortDescribe(element));
+            waitUtils.waitForClickable(element);
             element.click();
         } catch (Exception e) {
             log.error("❌ Failed to click element: {}", fullDescribe(element), e);
@@ -50,6 +53,7 @@ public class ElementActions {
     public void fillInputBox(WebElement element, String text) {
         try {
             log.debug("Typing '{}' into {}", text, shortDescribe(element));
+            waitUtils.waitForVisibility(element);
             element.clear();
             element.sendKeys(text);
         } catch (Exception e) {
@@ -60,6 +64,7 @@ public class ElementActions {
 
     public String getText(WebElement element) {
         try {
+            waitUtils.waitForVisibility(element);
             String text = element.getText().trim();
             log.debug("Retrieved text from {} → '{}'", shortDescribe(element), text);
             return text;
@@ -71,6 +76,7 @@ public class ElementActions {
 
     public String getAttribute(WebElement element, String attribute) {
         try {
+            waitUtils.waitForVisibility(element);
             String value = element.getAttribute(attribute);
             log.debug("Retrieved attribute '{}' from {} → '{}'", attribute, shortDescribe(element), value);
             return value;
@@ -94,6 +100,7 @@ public class ElementActions {
     public void selectByText(WebElement element, String visibleText) {
         try {
             log.debug("Selecting '{}' from {}", visibleText, shortDescribe(element));
+            waitUtils.waitForVisibility(element);
             new Select(element).selectByVisibleText(visibleText);
         } catch (Exception e) {
             log.error("❌ Failed to select '{}' from element: {}", visibleText, fullDescribe(element), e);
@@ -104,6 +111,7 @@ public class ElementActions {
     public void selectByValue(WebElement element, String value) {
         try {
             log.debug("Selecting value '{}' from {}", value, shortDescribe(element));
+            waitUtils.waitForVisibility(element);
             new Select(element).selectByValue(value);
         } catch (Exception e) {
             log.error("❌ Failed to select value '{}' from element: {}", value, fullDescribe(element), e);
@@ -114,6 +122,7 @@ public class ElementActions {
     public void selectByIndex(WebElement element, int index) {
         try {
             log.debug("Selecting index '{}' from {}", index, shortDescribe(element));
+            waitUtils.waitForVisibility(element);
             new Select(element).selectByIndex(index);
         } catch (Exception e) {
             log.error("❌ Failed to select index '{}' from element: {}", index, fullDescribe(element), e);
@@ -124,6 +133,7 @@ public class ElementActions {
     public void hover(WebElement element) {
         try {
             log.debug("Hovering over {}", shortDescribe(element));
+            waitUtils.waitForVisibility(element);
             new Actions(driver).moveToElement(element).perform();
         } catch (Exception e) {
             log.error("❌ Failed to hover over element: {}", fullDescribe(element), e);
@@ -144,6 +154,7 @@ public class ElementActions {
     public void jsClick(WebElement element) {
         try {
             log.debug("Performing JavaScript click on {}", shortDescribe(element));
+            waitUtils.waitForVisibility(element);
             ((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
         } catch (Exception e) {
             log.error("❌ Failed to JS-click element: {}", fullDescribe(element), e);

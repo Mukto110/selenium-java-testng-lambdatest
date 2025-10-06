@@ -19,13 +19,11 @@ public class AccountCreateSuccessPage extends BasePage {
 
     public String getAccountSuccessHeaderText() {
         log.info("Getting account success page's header text");
-        wait.waitForVisibility(accountSuccessHeader);
         return actions.getText(accountSuccessHeader);
     }
 
     public MyAccountPage clickContinueButton() {
         log.info("Clicking on continue button");
-        wait.waitForVisibility(continueButton);
         actions.click(continueButton);
         return new MyAccountPage(driver);
     }

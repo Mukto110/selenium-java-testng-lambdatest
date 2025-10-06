@@ -90,7 +90,6 @@ public class LoginPage extends BasePage {
 
     public String getWrongCredentialErrorText() {
         log.info("Getting wrong credential error message text");
-        wait.waitForVisibility(wrongCredentialErrorMessage);
         return actions.getText(wrongCredentialErrorMessage);
     }
 

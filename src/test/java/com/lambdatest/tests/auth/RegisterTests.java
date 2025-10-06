@@ -10,7 +10,6 @@ import org.testng.annotations.Test;
 
 public class RegisterTests extends BaseTest {
 
-    private HomePage homePage;
     private RegisterPage registerPage;
     private String password;
 
@@ -21,7 +20,7 @@ public class RegisterTests extends BaseTest {
 
     @BeforeMethod(alwaysRun = true)
     public void navigateToRegisterPage() {
-        homePage = new HomePage(driver);
+        HomePage homePage = new HomePage(driver);
         homePage.navigateToHomePage();
         registerPage = homePage.hoverOnMyAccountDropdown().clickRegister();
     }

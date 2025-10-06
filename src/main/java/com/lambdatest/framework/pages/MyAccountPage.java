@@ -32,14 +32,12 @@ public class MyAccountPage extends BasePage {
 
     public String getMyAccountPageHeaderText() {
         log.info("Validating My Account page title");
-        wait.waitForVisibility(myAccountPageHeader);
         wait.waitForTitleContains(TestData.MY_ACCOUNT_PAGE_HEADER);
         return actions.getText(myAccountPageHeader);
     }
 
     public AccountLogoutPage clickOnSidebarLogout() {
         log.info("Clicking on sidebar logout");
-        wait.waitForVisibility(sidebarLogoutLink);
         actions.click(sidebarLogoutLink);
         return new AccountLogoutPage(driver);
     }
@@ -52,7 +50,6 @@ public class MyAccountPage extends BasePage {
 
     public String getPasswordUpdateSuccessText() {
         log.info("Getting password update success text");
-        wait.waitForVisibility(passwordUpdateSuccessMessage);
         return actions.getText(passwordUpdateSuccessMessage);
     }
 

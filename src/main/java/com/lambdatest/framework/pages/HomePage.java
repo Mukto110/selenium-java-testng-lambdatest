@@ -44,21 +44,18 @@ public class HomePage extends BasePage {
 
     public LoginPage clickLogin() {
         log.info("Clicking on login");
-        wait.waitForVisibility(loginOption);
         actions.click(loginOption);
         return new LoginPage(driver);
     }
 
     public RegisterPage clickRegister() {
         log.info("Clicking on Register");
-        wait.waitForVisibility(registerOption);
         actions.click(registerOption);
         return new RegisterPage(driver);
     }
 
     public AccountLogoutPage clickLogout() {
         log.info("Clicking on logout");
-        wait.waitForVisibility(logoutOption);
         actions.click(logoutOption);
         return new AccountLogoutPage(driver);
     }
