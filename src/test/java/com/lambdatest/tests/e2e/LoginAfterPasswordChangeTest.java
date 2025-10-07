@@ -16,7 +16,7 @@ public class LoginAfterPasswordChangeTest extends BaseTest {
     private final String newPassword = "Thisistest102";
 
     @Test(description = "TC_Login_016: Validate login into the application after password change",
-            groups = {"e2e", "regression"})
+            groups = {"e2e"})
     public void testLoginAfterPasswordChange() {
 
         log.info("🔹 Starting E2E Test: Login after password change.");

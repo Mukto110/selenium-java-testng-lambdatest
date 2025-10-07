@@ -99,4 +99,10 @@ public class LogoutTests extends BaseTest {
                 TestData.LOGIN_PAGE_HEADER
         );
     }
+
+    @Test(description = "TC_Logout_008: Validate 'Account Logout' page breadcrumb", groups = {"ui"})
+    public void testAccountLogoutPageUi() {
+        accountLogoutPage = homePage.getNavbar().clickLogout();
+        assertUtils.softAssertEquals(accountLogoutPage.getBreadcrumbText(), "Logout");
+    }
 }

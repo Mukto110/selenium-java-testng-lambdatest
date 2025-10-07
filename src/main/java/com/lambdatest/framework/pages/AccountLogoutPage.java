@@ -21,6 +21,9 @@ public class AccountLogoutPage extends BasePage {
     @FindBy(css = "a[class='btn btn-primary']")
     private WebElement continueButton;
 
+    @FindBy(xpath = "//li[@class='breadcrumb-item active']")
+    private WebElement breadcrumb;
+
     public Sidebar getSidebar() {
         return sidebar;
     }
@@ -34,5 +37,9 @@ public class AccountLogoutPage extends BasePage {
         log.info("Clicking on the continue button");
         actions.click(continueButton);
         return new HomePage(driver);
+    }
+
+    public String getBreadcrumbText() {
+        return actions.getText(breadcrumb);
     }
 }
