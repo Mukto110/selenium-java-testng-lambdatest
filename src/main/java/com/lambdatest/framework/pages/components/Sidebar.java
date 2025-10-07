@@ -1,0 +1,60 @@
+package com.lambdatest.framework.pages.components;
+
+import com.lambdatest.framework.base.BasePage;
+import com.lambdatest.framework.pages.AccountLogoutPage;
+import com.lambdatest.framework.pages.ChangePasswordPage;
+import com.lambdatest.framework.pages.ForgetPasswordPage;
+import com.lambdatest.framework.pages.LoginPage;
+import com.lambdatest.framework.utils.ElementActions;
+import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+
+public class Sidebar extends BasePage {
+
+    private final Logger log;
+    private final ElementActions actions;
+
+    public Sidebar(WebDriver driver, Logger log) {
+        super(driver);
+        this.log = log;
+        this.actions = new ElementActions(driver, log);
+    }
+
+    @FindBy(xpath = "//a[normalize-space()='My Account']")
+    private WebElement sideBarMyAccountLink;
+
+    @FindBy(xpath = "//a[@class='list-group-item'][normalize-space()='Forgotten Password']")
+    private WebElement sidebarForgetPasswordLink;
+
+    @FindBy(xpath = "//a[contains(text(),'Logout')]")
+    private WebElement sidebarLogoutLink;
+
+    @FindBy(xpath = "//a[normalize-space()='Password']")
+    private WebElement sidebarPasswordLink;
+
+    public LoginPage clickOnSideBarMyAccountLink() {
+        log.info("Clicking on the 'My Account' link from the sidebar");
+        actions.click(sideBarMyAccountLink);
+        return new LoginPage(driver);
+    }
+
+    public ForgetPasswordPage clickSidebarForgetPasswordLink() {
+        log.info("Clicking on sidebar forget password link");
+        actions.click(sidebarForgetPasswordLink);
+        return new ForgetPasswordPage(driver);
+    }
+
+    public AccountLogoutPage clickOnSidebarLogout() {
+        log.info("Clicking on sidebar logout");
+        actions.click(sidebarLogoutLink);
+        return new AccountLogoutPage(driver);
+    }
+
+    public ChangePasswordPage clickOnSidebarPasswordLink() {
+        log.info("Clicking on sidebar password link");
+        actions.click(sidebarPasswordLink);
+        return new ChangePasswordPage(driver);
+    }
+}

@@ -22,7 +22,7 @@ public class RegisterTests extends BaseTest {
     public void navigateToRegisterPage() {
         HomePage homePage = new HomePage(driver);
         homePage.navigateToHomePage();
-        registerPage = homePage.hoverOnMyAccountDropdown().clickRegister();
+        registerPage = homePage.getNavbar().hoverOnMyAccountDropdown().clickRegister();
     }
 
     @Test(description = "TC_Register_000: Validate user can navigate to Register Page", groups = {"smoke"})

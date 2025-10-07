@@ -1,6 +1,7 @@
 package com.lambdatest.framework.pages;
 
 import com.lambdatest.framework.base.BasePage;
+import com.lambdatest.framework.pages.components.Navbar;
 import com.lambdatest.framework.utils.ConfigReader;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -8,26 +9,19 @@ import org.openqa.selenium.support.FindBy;
 
 public class HomePage extends BasePage {
 
+    private final Navbar navbar;
 
     public HomePage(WebDriver driver) {
         super(driver);
+        this.navbar = new Navbar(driver, log);
     }
 
     @FindBy(css = "img[alt='Poco Electro']")
     private WebElement homeLogo;
 
-    @FindBy(css = "a.nav-link.dropdown-toggle[href*='route=account/account']")
-    private WebElement myAccountDropdown;
-
-    @FindBy(xpath = "//span[normalize-space()='Login']")
-    private WebElement loginOption;
-
-    @FindBy(xpath = "//span[normalize-space()='Logout']")
-    private WebElement logoutOption;
-
-    @FindBy(xpath = "//span[normalize-space()='Register']")
-    private WebElement registerOption;
-
+    public Navbar getNavbar() {
+        return navbar;
+    }
 
     public HomePage navigateToHomePage() {
         log.info("Navigating to the home page");
@@ -35,32 +29,8 @@ public class HomePage extends BasePage {
         return this;
     }
 
-    public HomePage hoverOnMyAccountDropdown() {
-        log.info("Hovering on 'My Account' navbar option");
-        actions.hover(myAccountDropdown);
-        return this;
-    }
-
-    public LoginPage clickLogin() {
-        log.info("Clicking on login");
-        actions.click(loginOption);
-        return new LoginPage(driver);
-    }
-
-    public RegisterPage clickRegister() {
-        log.info("Clicking on Register");
-        actions.click(registerOption);
-        return new RegisterPage(driver);
-    }
-
-    public AccountLogoutPage clickLogout() {
-        log.info("Clicking on logout");
-        actions.click(logoutOption);
-        return new AccountLogoutPage(driver);
-    }
-
-    public boolean isLogoutOptionVisible() {
-        log.info("Checking if logout option is visible or not");
-        return actions.isDisplayed(logoutOption);
+    public boolean isHomeLogoVisible() {
+        log.info("Checking if home logo is visible on the homepage");
+        return actions.isDisplayed(homeLogo);
     }
 }

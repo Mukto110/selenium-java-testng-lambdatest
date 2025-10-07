@@ -1,6 +1,7 @@
 package com.lambdatest.framework.pages;
 
 import com.lambdatest.framework.base.BasePage;
+import com.lambdatest.framework.pages.components.Sidebar;
 import com.lambdatest.framework.utils.ConfigReader;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -8,8 +9,11 @@ import org.openqa.selenium.support.FindBy;
 
 public class LoginPage extends BasePage {
 
+    private final Sidebar sidebar;
+
     public LoginPage(WebDriver driver) {
         super(driver);
+        this.sidebar = new Sidebar(driver, log);
     }
 
     @FindBy(xpath = "//h2[normalize-space()='Returning Customer']")
@@ -33,13 +37,11 @@ public class LoginPage extends BasePage {
     @FindBy(css = "a[class='btn btn-primary']")
     private WebElement continueButtonUnderNewCustomer;
 
-    @FindBy(xpath = "//a[@class='list-group-item'][normalize-space()='Forgotten Password']")
-    private WebElement sidebarForgetPasswordLink;
-
-    @FindBy()
-
-
     // ---------- Page Actions ---------- //
+
+    public Sidebar getSidebar() {
+        return sidebar;
+    }
 
     public LoginPage goToLoginPage() {
         log.info("Navigating to Login Page");
@@ -115,11 +117,5 @@ public class LoginPage extends BasePage {
         log.info("Clicking on continue button under 'New Customer' heading");
         actions.click(continueButtonUnderNewCustomer);
         return new RegisterPage(driver);
-    }
-
-    public ForgetPasswordPage clickSidebarForgetPasswordLink() {
-        log.info("Clicking on sidebar forget password link");
-        actions.click(sidebarForgetPasswordLink);
-        return new ForgetPasswordPage(driver);
     }
 }

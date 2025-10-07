@@ -19,7 +19,7 @@ public class LoginTests extends BaseTest {
         // Step 1 -> Navigate to the homepage
         homePage.navigateToHomePage();
         // Step 2 -> Hover on 'My Account' dropdown and click 'Login'
-        loginPage = homePage.hoverOnMyAccountDropdown().clickLogin();
+        loginPage = homePage.getNavbar().hoverOnMyAccountDropdown().clickLogin();
     }
 
     @Test(description = "TC_Login_000: Validate user can navigate to Login Page", groups = {"smoke"})
@@ -81,12 +81,12 @@ public class LoginTests extends BaseTest {
     @Test(description = "TC_Login_010: Validate any action on dashboard get user logout after successful logout and click browser back button", groups = {"regression", "security"})
     public void testUserCannotAccessDashboardAfterLogout() {
         MyAccountPage myAccountPage = loginPage.loginAsValidUser(TestData.VALID_EMAIL, TestData.VALID_PASSWORD);
-        AccountLogoutPage accountLogoutPage = myAccountPage.clickOnSidebarLogout();
+        AccountLogoutPage accountLogoutPage = myAccountPage.getSidebar().clickOnSidebarLogout();
         accountLogoutPage.clickOnContinueButton();
         assertUtils.assertTrue(homePage.getCurrentUrl().contains("route=common/home"), "User is in the homepage");
         homePage.navigateBack();
         assertUtils.assertPageTitle(accountLogoutPage.getPageTitle(), "Account Logout");
-        accountLogoutPage.clickOnSideBarMyAccountLink();
+        accountLogoutPage.getSidebar().clickOnSideBarMyAccountLink();
         assertUtils.assertTrue(loginPage.getCurrentUrl().contains(ConfigReader.getProperty("loginUrl")), "User is in the login page after clicking on 'My Account' dashboard/sidebar link");
     }
 
@@ -95,7 +95,7 @@ public class LoginTests extends BaseTest {
         RegisterPage registerPage = loginPage.clickContinueButtonUnderNewCustomer();
         assertUtils.assertEquals(registerPage.getRegisterPageHeaderText(), TestData.REGISTER_PAGE_HEADER);
         driver.navigate().back();
-        ForgetPasswordPage forgetPasswordPage = loginPage.clickSidebarForgetPasswordLink();
+        ForgetPasswordPage forgetPasswordPage = loginPage.getSidebar().clickSidebarForgetPasswordLink();
         assertUtils.assertEquals(forgetPasswordPage.getForgetPasswordPageHeaderText(), TestData.FORGET_PASSWORD_PAGE_HEADER);
     }
 }

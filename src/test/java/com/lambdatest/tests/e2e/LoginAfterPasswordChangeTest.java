@@ -24,14 +24,14 @@ public class LoginAfterPasswordChangeTest extends BaseTest {
         homePage.navigateToHomePage();
 
         // Step 2 -> Go to Login Page
-        LoginPage loginPage = homePage.hoverOnMyAccountDropdown().clickLogin();
+        LoginPage loginPage = homePage.getNavbar().hoverOnMyAccountDropdown().clickLogin();
 
         // Step 3 -> Login with valid credentials (old/original password)
         MyAccountPage myAccountPage = loginPage.loginAsValidUser(email, originalPassword);
         assertUtils.assertEquals(myAccountPage.getMyAccountPageHeaderText(), TestData.MY_ACCOUNT_PAGE_HEADER);
 
         // Step 4 -> Navigate to Change Password page
-        ChangePasswordPage changePasswordPage = myAccountPage.clickOnSidebarPasswordLink();
+        ChangePasswordPage changePasswordPage = myAccountPage.getSidebar().clickOnSidebarPasswordLink();
         assertUtils.assertEquals(changePasswordPage.getChangePasswordPageHeaderText(), TestData.CHANGE_PASSWORD_PAGE_HEADER);
 
         // Step 5 -> Change Password (original → new)
@@ -39,17 +39,17 @@ public class LoginAfterPasswordChangeTest extends BaseTest {
         assertUtils.assertEquals(myAccountPage.getPasswordUpdateSuccessText(), TestData.PASSWORD_UPDATE_SUCCESS_MESSAGE);
 
         // Step 6 -> Logout
-        homePage = myAccountPage.clickOnSidebarLogout().clickOnContinueButton();
+        homePage = myAccountPage.getSidebar().clickOnSidebarLogout().clickOnContinueButton();
 
         // Step 7 -> Navigate to the login page from homepage
-        loginPage = homePage.hoverOnMyAccountDropdown().clickLogin();
+        loginPage = homePage.getNavbar().hoverOnMyAccountDropdown().clickLogin();
 
         // Step 8 -> Login as a valid user with new password
         loginPage.loginAsValidUser(email, newPassword);
         assertUtils.assertEquals(myAccountPage.getMyAccountPageHeaderText(), TestData.MY_ACCOUNT_PAGE_HEADER);
 
         // 🔄 Step 9 -> ROLLBACK (new → original password) -> I don't have DB or API access for this demo website, so I need to rollback the password to run this test continuously
-        changePasswordPage = myAccountPage.clickOnSidebarPasswordLink();
+        changePasswordPage = myAccountPage.getSidebar().clickOnSidebarPasswordLink();
         myAccountPage = changePasswordPage.changePassword(originalPassword, originalPassword);
         assertUtils.assertEquals(myAccountPage.getPasswordUpdateSuccessText(), TestData.PASSWORD_UPDATE_SUCCESS_MESSAGE);
 
