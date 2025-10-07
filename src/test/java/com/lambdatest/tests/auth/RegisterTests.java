@@ -20,15 +20,26 @@ public class RegisterTests extends BaseTest {
 
     @BeforeMethod(alwaysRun = true)
     public void navigateToRegisterPage() {
+        log.info("🔁 Navigating to the Register page before each test...");
         HomePage homePage = new HomePage(driver);
+
+        // Step 1: Navigate to home page
         homePage.navigateToHomePage();
-        registerPage = homePage.getNavbar().hoverOnMyAccountDropdown().clickRegister();
+
+        // Step 2: Hover and click on "Register" from My Account dropdown
+        registerPage = homePage.getNavbar()
+                .hoverOnMyAccountDropdown()
+                .clickRegister();
+
+        // Step 3: Verify Register page loaded
+        assertUtils.assertEquals(registerPage.getRegisterPageHeaderText(), TestData.REGISTER_PAGE_HEADER);
     }
 
     @Test(description = "TC_Register_000: Validate user can navigate to Register Page", groups = {"smoke"})
     public void testNavigateToRegisterPage() {
         assertUtils.assertEquals(registerPage.getRegisterPageHeaderText(), TestData.REGISTER_PAGE_HEADER);
-        assertUtils.assertTrue(registerPage.getCurrentUrl().contains("route=account/register"), "Register page URL contains 'route=account/register'");
+        assertUtils.assertTrue(registerPage.getCurrentUrl().contains("route=account/register"),
+                "Register page URL should contain 'route=account/register'");
     }
 
     @Test(description = "TC_Register_001: Validate Registering an Account by providing only the Mandatory fields", groups = {"smoke", "regression"})
@@ -41,9 +52,11 @@ public class RegisterTests extends BaseTest {
                 password,
                 password,
                 false);
+
         MyAccountPage myAccountPage = accountCreateSuccessPage.clickContinueButton();
         wait.waitForUrlContains("route=account/account");
-        assertUtils.assertTrue(myAccountPage.getCurrentUrl().contains("route=account/account"), "User is in the 'My Account' page");
+
+        assertUtils.assertTrue(myAccountPage.getCurrentUrl().contains("route=account/account"), "User should be in 'My Account' page");
         assertUtils.assertEquals(myAccountPage.getMyAccountPageHeaderText(), TestData.MY_ACCOUNT_PAGE_HEADER);
     }
 
@@ -68,9 +81,11 @@ public class RegisterTests extends BaseTest {
                 password,
                 password,
                 true);
+
         MyAccountPage myAccountPage = accountCreateSuccessPage.clickContinueButton();
         wait.waitForUrlContains("route=account/account");
-        assertUtils.assertTrue(myAccountPage.getCurrentUrl().contains("route=account/account"), "User is in the 'My Account' page");
+
+        assertUtils.assertTrue(myAccountPage.getCurrentUrl().contains("route=account/account"), "User is in 'My Account' page");
         NewsletterSubscriptionPage newsletterSubscriptionPage = myAccountPage.clickOnSidebarNewsletterLink();
         assertUtils.assertEquals(newsletterSubscriptionPage.getNewsletterPageHeaderText(), TestData.NEWSLETTER_PAGE_HEADER);
         assertUtils.assertEquals(newsletterSubscriptionPage.getSelectedNewsletterOption(), TestData.NEWSLETTER_YES);
@@ -86,9 +101,11 @@ public class RegisterTests extends BaseTest {
                 password,
                 password,
                 false);
+
         MyAccountPage myAccountPage = accountCreateSuccessPage.clickContinueButton();
         wait.waitForUrlContains("route=account/account");
-        assertUtils.assertTrue(myAccountPage.getCurrentUrl().contains("route=account/account"), "User is in the 'My Account' page");
+
+        assertUtils.assertTrue(myAccountPage.getCurrentUrl().contains("route=account/account"), "User is in 'My Account' page");
         NewsletterSubscriptionPage newsletterSubscriptionPage = myAccountPage.clickOnSidebarNewsletterLink();
         assertUtils.assertEquals(newsletterSubscriptionPage.getNewsletterPageHeaderText(), TestData.NEWSLETTER_PAGE_HEADER);
         assertUtils.assertEquals(newsletterSubscriptionPage.getSelectedNewsletterOption(), TestData.NEWSLETTER_NO);
@@ -103,6 +120,7 @@ public class RegisterTests extends BaseTest {
                 TestDataGenerator.getRandomTelephone(),
                 TestDataGenerator.getRandomPassword(),
                 TestDataGenerator.getRandomPassword());
+
         assertUtils.assertEquals(registerPage.getPasswordNoMatchErrorMessageText(), TestData.PASSWORD_NOT_MATCH_ERROR_MESSAGE);
     }
 
@@ -115,6 +133,7 @@ public class RegisterTests extends BaseTest {
                 TestDataGenerator.getRandomTelephone(),
                 TestDataGenerator.getRandomPassword(),
                 TestDataGenerator.getRandomPassword());
+
         assertUtils.assertEquals(registerPage.getEmailAlreadyRegisteredErrorText(), TestData.EMAIL_ALREADY_REGISTERED_MESSAGE);
     }
 
@@ -127,6 +146,7 @@ public class RegisterTests extends BaseTest {
                 TestDataGenerator.getRandomTelephone(),
                 password,
                 password);
+
         assertUtils.assertEquals(registerPage.getEmailErrorMessage(), TestData.EMAIL_ERROR_MESSAGE);
     }
 
@@ -151,6 +171,7 @@ public class RegisterTests extends BaseTest {
                 TestDataGenerator.getRandomTelephone(),
                 password,
                 password);
+
         assertUtils.assertEquals(registerPage.getPrivacyPolicyWarningMessage(), TestData.PRIVACY_POLICY_WARNING_MESSAGE);
     }
 
@@ -158,7 +179,9 @@ public class RegisterTests extends BaseTest {
     public void testNavigateToLinksInRegisterPage() {
         LoginPage loginPage = registerPage.clickOnLoginPageLink();
         assertUtils.assertEquals(loginPage.getLoginFormHeaderText(), TestData.LOGIN_PAGE_HEADER);
+
         loginPage.navigateBack();
+
         registerPage.clickOnPrivacyPolicyLink();
         assertUtils.assertEquals(registerPage.getPrivacyPolicyModalHeaderText(), "Privacy Policy");
     }
@@ -172,6 +195,7 @@ public class RegisterTests extends BaseTest {
                 TestDataGenerator.getRandomTelephone(),
                 password,
                 "");
+
         assertUtils.assertEquals(registerPage.getPasswordNoMatchErrorMessageText(), TestData.PASSWORD_NOT_MATCH_ERROR_MESSAGE);
     }
 }

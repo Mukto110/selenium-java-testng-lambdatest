@@ -10,37 +10,93 @@ public class LogoutTests extends BaseTest {
 
     private HomePage homePage;
     private MyAccountPage myAccountPage;
+    private AccountLogoutPage accountLogoutPage;
 
     @BeforeMethod(alwaysRun = true)
     public void loginToAccount() {
         log.info("🔐 Logging into account before each test...");
         homePage = new HomePage(driver);
+
+        // Step 1: Navigate to home page
         homePage.navigateToHomePage();
-        LoginPage loginPage = homePage.getNavbar().hoverOnMyAccountDropdown().clickLogin();
+
+        // Step 2: Hover and navigate to Login page
+        LoginPage loginPage = homePage.getNavbar()
+                .hoverOnMyAccountDropdown()
+                .clickLogin();
+
+        // Step 3: Log in with valid credentials
         myAccountPage = loginPage.loginAsValidUser(TestData.VALID_EMAIL, TestData.VALID_PASSWORD);
-        assertUtils.assertEquals(myAccountPage.getMyAccountPageHeaderText(), TestData.MY_ACCOUNT_PAGE_HEADER);
+
+        // Step 4: Verify user landed on My Account page
+        assertUtils.assertEquals(
+                myAccountPage.getMyAccountPageHeaderText(),
+                TestData.MY_ACCOUNT_PAGE_HEADER
+        );
     }
 
     @Test(description = "TC_Logout_001: Validate logout from My Account dropdown", groups = {"smoke"})
     public void testLogoutFromMyAccountDropMenu() {
-        AccountLogoutPage logoutPage = homePage.getNavbar().hoverOnMyAccountDropdown().clickLogout();
-        assertUtils.assertEquals(logoutPage.getAccountLogoutPageHeaderText(), TestData.ACCOUNT_LOGOUT_PAGE_HEADER);
-        logoutPage.clickOnContinueButton();
-        assertUtils.assertTrue(homePage.getCurrentUrl().contains("index.php?route=common/home"), "User returned to Home page");
+        log.info("🧭 Logging out using 'My Account' dropdown...");
+        accountLogoutPage = homePage.getNavbar()
+                .hoverOnMyAccountDropdown()
+                .clickLogout();
+
+        assertUtils.assertEquals(
+                accountLogoutPage.getAccountLogoutPageHeaderText(),
+                TestData.ACCOUNT_LOGOUT_PAGE_HEADER
+        );
+
+        accountLogoutPage.clickOnContinueButton();
+
+        assertUtils.assertTrue(
+                homePage.getCurrentUrl().contains("index.php?route=common/home"),
+                "User returned to Home page"
+        );
     }
 
     @Test(description = "TC_Logout_002: Validate logout from sidebar options", groups = {"smoke"})
     public void testLogoutFromSidebarOptions() {
-        AccountLogoutPage logoutPage = myAccountPage.getSidebar().clickOnSidebarLogout();
-        logoutPage.clickOnContinueButton();
-        assertUtils.assertTrue(homePage.getCurrentUrl().contains("index.php?route=common/home"), "User returned to Home page");
+        log.info("🧭 Logging out using sidebar option...");
+        accountLogoutPage = myAccountPage.getSidebar().clickOnSidebarLogout();
+        accountLogoutPage.clickOnContinueButton();
+
+        assertUtils.assertTrue(
+                homePage.getCurrentUrl().contains("index.php?route=common/home"),
+                "User returned to Home page"
+        );
     }
 
     @Test(description = "TC_Logout_005: Validate logout option is not visible after logout", groups = {"regression"})
     public void testLogoutOptionNotVisibleAfterLogout() {
-        AccountLogoutPage logoutPage = homePage.getNavbar().hoverOnMyAccountDropdown().clickLogout();
-        logoutPage.clickOnContinueButton();
+        log.info("👀 Checking visibility of Logout option post-logout...");
+        accountLogoutPage = homePage.getNavbar()
+                .hoverOnMyAccountDropdown()
+                .clickLogout();
+        accountLogoutPage.clickOnContinueButton();
+
         homePage.getNavbar().hoverOnMyAccountDropdown();
-        assertUtils.assertFalse(homePage.getNavbar().isLogoutOptionVisible());
+        assertUtils.assertFalse(
+                homePage.getNavbar().isLogoutOptionVisible()
+        );
+    }
+
+    @Test(description = "TC_Logout_007: Validate logging out and logging in immediately after logout", groups = {"regression"})
+    public void testImmediateLoginAfterLogout() {
+        log.info("🔁 Logging out and immediately logging in again...");
+        accountLogoutPage = homePage.getNavbar()
+                .hoverOnMyAccountDropdown()
+                .clickLogout();
+
+        accountLogoutPage.clickOnContinueButton();
+
+        LoginPage loginPage = homePage.getNavbar()
+                .hoverOnMyAccountDropdown()
+                .clickLogin();
+
+        assertUtils.assertEquals(
+                loginPage.getLoginFormHeaderText(),
+                TestData.LOGIN_PAGE_HEADER
+        );
     }
 }

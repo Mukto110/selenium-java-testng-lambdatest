@@ -41,19 +41,19 @@ public class Navbar extends BasePage {
 
     public LoginPage clickLogin() {
         log.info("Clicking on login");
-        actions.click(loginOption);
+        hoverOnMyAccountDropdown().actions.click(loginOption);
         return new LoginPage(driver);
     }
 
     public RegisterPage clickRegister() {
         log.info("Clicking on Register");
-        actions.click(registerOption);
+        hoverOnMyAccountDropdown().actions.click(registerOption);
         return new RegisterPage(driver);
     }
 
     public AccountLogoutPage clickLogout() {
         log.info("Clicking on logout");
-        actions.click(logoutOption);
+        hoverOnMyAccountDropdown().actions.click(logoutOption);
         return new AccountLogoutPage(driver);
     }
 

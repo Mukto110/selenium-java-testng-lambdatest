@@ -18,8 +18,8 @@ public class LoginTests extends BaseTest {
         homePage = new HomePage(driver);
         // Step 1 -> Navigate to the homepage
         homePage.navigateToHomePage();
-        // Step 2 -> Hover on 'My Account' dropdown and click 'Login'
-        loginPage = homePage.getNavbar().hoverOnMyAccountDropdown().clickLogin();
+        // Step 2 -> Click 'Login' from 'My Account' dropdown (hover handled inside Navbar)
+        loginPage = homePage.getNavbar().clickLogin();
     }
 
     @Test(description = "TC_Login_000: Validate user can navigate to Login Page", groups = {"smoke"})
@@ -29,12 +29,9 @@ public class LoginTests extends BaseTest {
         assertUtils.assertTrue(loginPage.getCurrentUrl().contains("route=account/login"), "User is in the login page'");
     }
 
-
     @Test(description = "TC_Login_001: Validate Login with valid credentials", groups = {"smoke", "regression"})
     public void testLoginWithValidCredentials() {
-        // Step 3 -> Enter valid credentials to the email and password field and click on login button
         MyAccountPage myAccountPage = loginPage.loginAsValidUser(TestData.VALID_EMAIL, TestData.VALID_PASSWORD);
-        // Assertion (Expected Result)
         assertUtils.assertEquals(myAccountPage.getMyAccountPageHeaderText(), TestData.MY_ACCOUNT_PAGE_HEADER);
     }
 
@@ -72,9 +69,7 @@ public class LoginTests extends BaseTest {
     public void testLoginFieldPlaceholders() {
         assertUtils.softAssertEquals(loginPage.getEmailFieldPlaceholder(), "E-Mail Address");
         assertUtils.assertEquals(loginPage.getPasswordFieldPlaceholder(), "Password");
-
         assertUtils.assertAll();
-
         log.info("✅ Completed placeholder validation test successfully!");
     }
 
