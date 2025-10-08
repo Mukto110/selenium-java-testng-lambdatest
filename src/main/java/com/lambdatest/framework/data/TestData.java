@@ -35,6 +35,7 @@ public class TestData {
     public static final String PRIVACY_POLICY_WARNING_MESSAGE = reader.getProperty("privacyPolicyWarningMessage");
     public static final String PASSWORD_NOT_MATCH_ERROR_MESSAGE = reader.getProperty("passwordNotMatchErrorMessage");
     public static final String EMAIL_ALREADY_REGISTERED_MESSAGE = reader.getProperty("emailAlreadyRegisteredMessage");
+    public static final String NO_PRODUCT_MATCH_MESSAGE = reader.getProperty("noProductMatchMessage");
 
     // Newsletter options
     public static final String NEWSLETTER_YES = "Yes";

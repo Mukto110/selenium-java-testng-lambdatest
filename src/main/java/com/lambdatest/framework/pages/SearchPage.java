@@ -19,6 +19,9 @@ public class SearchPage extends BasePage {
     @FindBy(css = "div[id='entry_212469'] h4[class='title'] a")
     private List<WebElement> productsTitles;
 
+    @FindBy(css = "div[id='entry_212469'] p")
+    private WebElement noProductMatchMessage;
+
     public String getSearchPageHeaderText() {
         log.info("Getting search page header text");
         return actions.getText(searchPageHeader);
@@ -38,4 +41,8 @@ public class SearchPage extends BasePage {
         return false;
     }
 
+    public String getNoProductMatchMessage() {
+        log.info("Getting no product match text");
+        return actions.getText(noProductMatchMessage);
+    }
 }
