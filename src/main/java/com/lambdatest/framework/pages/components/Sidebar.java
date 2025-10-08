@@ -5,7 +5,6 @@ import com.lambdatest.framework.pages.AccountLogoutPage;
 import com.lambdatest.framework.pages.ChangePasswordPage;
 import com.lambdatest.framework.pages.ForgetPasswordPage;
 import com.lambdatest.framework.pages.LoginPage;
-import com.lambdatest.framework.utils.ElementActions;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -13,13 +12,8 @@ import org.openqa.selenium.support.FindBy;
 
 public class Sidebar extends BasePage {
 
-    private final Logger log;
-    private final ElementActions actions;
-
     public Sidebar(WebDriver driver, Logger log) {
         super(driver);
-        this.log = log;
-        this.actions = new ElementActions(driver, log);
     }
 
     @FindBy(xpath = "//a[normalize-space()='My Account']")

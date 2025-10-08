@@ -14,7 +14,6 @@ public class LogoutTests extends BaseTest {
 
     @BeforeMethod(alwaysRun = true)
     public void loginToAccount() {
-        log.info("🔐 Logging into account before each test...");
         homePage = new HomePage(driver);
 
         // Step 1: Navigate to home page
@@ -35,9 +34,8 @@ public class LogoutTests extends BaseTest {
         );
     }
 
-    @Test(description = "TC_Logout_001: Validate logout from My Account dropdown", groups = {"smoke"})
+    @Test(description = "TC_Logout_001: Validate logout from My Account dropdown", groups = {"smoke", "regression"})
     public void testLogoutFromMyAccountDropMenu() {
-        log.info("🧭 Logging out using 'My Account' dropdown...");
         accountLogoutPage = homePage.getNavbar()
                 .hoverOnMyAccountDropdown()
                 .clickLogout();
@@ -50,26 +48,22 @@ public class LogoutTests extends BaseTest {
         accountLogoutPage.clickOnContinueButton();
 
         assertUtils.assertTrue(
-                homePage.getCurrentUrl().contains("index.php?route=common/home"),
-                "User returned to Home page"
+                homePage.getCurrentUrl().contains("index.php?route=common/home")
         );
     }
 
-    @Test(description = "TC_Logout_002: Validate logout from sidebar options", groups = {"smoke"})
+    @Test(description = "TC_Logout_002: Validate logout from sidebar options", groups = {"smoke", "regression"})
     public void testLogoutFromSidebarOptions() {
-        log.info("🧭 Logging out using sidebar option...");
         accountLogoutPage = myAccountPage.getSidebar().clickOnSidebarLogout();
         accountLogoutPage.clickOnContinueButton();
 
         assertUtils.assertTrue(
-                homePage.getCurrentUrl().contains("index.php?route=common/home"),
-                "User returned to Home page"
+                homePage.getCurrentUrl().contains("index.php?route=common/home")
         );
     }
 
-    @Test(description = "TC_Logout_005: Validate logout option is not visible after logout", groups = {"regression"})
+    @Test(description = "TC_Logout_005: Validate logout option is not visible after logout", groups = {"regression", "security"})
     public void testLogoutOptionNotVisibleAfterLogout() {
-        log.info("👀 Checking visibility of Logout option post-logout...");
         accountLogoutPage = homePage.getNavbar()
                 .hoverOnMyAccountDropdown()
                 .clickLogout();
@@ -81,9 +75,8 @@ public class LogoutTests extends BaseTest {
         );
     }
 
-    @Test(description = "TC_Logout_007: Validate logging out and logging in immediately after logout", groups = {"regression"})
+    @Test(description = "TC_Logout_007: Validate logging out and logging in immediately after logout", groups = {"regression", "sanity"})
     public void testImmediateLoginAfterLogout() {
-        log.info("🔁 Logging out and immediately logging in again...");
         accountLogoutPage = homePage.getNavbar()
                 .hoverOnMyAccountDropdown()
                 .clickLogout();
@@ -100,7 +93,7 @@ public class LogoutTests extends BaseTest {
         );
     }
 
-    @Test(description = "TC_Logout_008: Validate 'Account Logout' page breadcrumb", groups = {"ui"})
+    @Test(description = "TC_Logout_008: Validate 'Account Logout' page breadcrumb", groups = {"ui", "regression"})
     public void testAccountLogoutPageUi() {
         accountLogoutPage = homePage.getNavbar().clickLogout();
         assertUtils.softAssertEquals(accountLogoutPage.getBreadcrumbText(), "Logout");

@@ -2,6 +2,7 @@ package com.lambdatest.framework.pages;
 
 import com.lambdatest.framework.base.BasePage;
 import com.lambdatest.framework.pages.components.Navbar;
+import com.lambdatest.framework.pages.components.SearchBox;
 import com.lambdatest.framework.utils.ConfigReader;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -10,10 +11,12 @@ import org.openqa.selenium.support.FindBy;
 public class HomePage extends BasePage {
 
     private final Navbar navbar;
+    private final SearchBox searchBox;
 
     public HomePage(WebDriver driver) {
         super(driver);
         this.navbar = new Navbar(driver, log);
+        this.searchBox = new SearchBox(driver, log);
     }
 
     @FindBy(css = "img[alt='Poco Electro']")
@@ -21,6 +24,10 @@ public class HomePage extends BasePage {
 
     public Navbar getNavbar() {
         return navbar;
+    }
+
+    public SearchBox getSearchBox() {
+        return searchBox;
     }
 
     public HomePage navigateToHomePage() {

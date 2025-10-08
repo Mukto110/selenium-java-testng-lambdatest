@@ -29,13 +29,18 @@ public class AssertUtils {
         }
     }
 
-    public void assertTrue(boolean condition, String message) {
-        log.info("Asserting True → {}", message);
+    public void assertTrue(boolean condition) {
+        StackTraceElement caller = Thread.currentThread().getStackTrace()[2];
+        String location = caller.getClassName() + "." + caller.getMethodName() + "():" + caller.getLineNumber();
+
+        log.info("Asserting condition is TRUE → at {}", location);
+
         try {
-            Assert.assertTrue(condition, message);
-            log.info("✅ Assertion Passed");
+            Assert.assertTrue(condition);
+            log.info("✅ Assertion Passed at {}", location);
         } catch (AssertionError e) {
-            log.error("❌ Assertion Failed. {}", String.valueOf(e));
+            log.error("❌ Assertion Failed at {} → Expected [true] but found [false]", location);
+            log.error("🔍 Root cause: {}", e.getMessage());
             throw e;
         }
     }

@@ -4,7 +4,6 @@ import com.lambdatest.framework.base.BasePage;
 import com.lambdatest.framework.pages.AccountLogoutPage;
 import com.lambdatest.framework.pages.LoginPage;
 import com.lambdatest.framework.pages.RegisterPage;
-import com.lambdatest.framework.utils.ElementActions;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -12,13 +11,8 @@ import org.openqa.selenium.support.FindBy;
 
 public class Navbar extends BasePage {
 
-    private final Logger log;
-    private final ElementActions actions;
-
     public Navbar(WebDriver driver, Logger log) {
         super(driver);
-        this.log = log;
-        this.actions = new ElementActions(driver, log);
     }
 
     @FindBy(css = "a.nav-link.dropdown-toggle[href*='route=account/account']")

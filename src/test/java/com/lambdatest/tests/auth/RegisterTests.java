@@ -38,8 +38,7 @@ public class RegisterTests extends BaseTest {
     @Test(description = "TC_Register_000: Validate user can navigate to Register Page", groups = {"smoke"})
     public void testNavigateToRegisterPage() {
         assertUtils.assertEquals(registerPage.getRegisterPageHeaderText(), TestData.REGISTER_PAGE_HEADER);
-        assertUtils.assertTrue(registerPage.getCurrentUrl().contains("route=account/register"),
-                "Register page URL should contain 'route=account/register'");
+        assertUtils.assertTrue(registerPage.getCurrentUrl().contains("route=account/register"));
     }
 
     @Test(description = "TC_Register_001: Validate Registering an Account by providing only the Mandatory fields", groups = {"smoke", "regression"})
@@ -56,7 +55,7 @@ public class RegisterTests extends BaseTest {
         MyAccountPage myAccountPage = accountCreateSuccessPage.clickContinueButton();
         wait.waitForUrlContains("route=account/account");
 
-        assertUtils.assertTrue(myAccountPage.getCurrentUrl().contains("route=account/account"), "User should be in 'My Account' page");
+        assertUtils.assertTrue(myAccountPage.getCurrentUrl().contains("route=account/account"));
         assertUtils.assertEquals(myAccountPage.getMyAccountPageHeaderText(), TestData.MY_ACCOUNT_PAGE_HEADER);
     }
 
@@ -85,7 +84,7 @@ public class RegisterTests extends BaseTest {
         MyAccountPage myAccountPage = accountCreateSuccessPage.clickContinueButton();
         wait.waitForUrlContains("route=account/account");
 
-        assertUtils.assertTrue(myAccountPage.getCurrentUrl().contains("route=account/account"), "User is in 'My Account' page");
+        assertUtils.assertTrue(myAccountPage.getCurrentUrl().contains("route=account/account"));
         NewsletterSubscriptionPage newsletterSubscriptionPage = myAccountPage.clickOnSidebarNewsletterLink();
         assertUtils.assertEquals(newsletterSubscriptionPage.getNewsletterPageHeaderText(), TestData.NEWSLETTER_PAGE_HEADER);
         assertUtils.assertEquals(newsletterSubscriptionPage.getSelectedNewsletterOption(), TestData.NEWSLETTER_YES);
@@ -105,7 +104,7 @@ public class RegisterTests extends BaseTest {
         MyAccountPage myAccountPage = accountCreateSuccessPage.clickContinueButton();
         wait.waitForUrlContains("route=account/account");
 
-        assertUtils.assertTrue(myAccountPage.getCurrentUrl().contains("route=account/account"), "User is in 'My Account' page");
+        assertUtils.assertTrue(myAccountPage.getCurrentUrl().contains("route=account/account"));
         NewsletterSubscriptionPage newsletterSubscriptionPage = myAccountPage.clickOnSidebarNewsletterLink();
         assertUtils.assertEquals(newsletterSubscriptionPage.getNewsletterPageHeaderText(), TestData.NEWSLETTER_PAGE_HEADER);
         assertUtils.assertEquals(newsletterSubscriptionPage.getSelectedNewsletterOption(), TestData.NEWSLETTER_NO);

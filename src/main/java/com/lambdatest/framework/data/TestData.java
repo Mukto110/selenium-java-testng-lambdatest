@@ -20,6 +20,7 @@ public class TestData {
     public static final String ACCOUNT_SUCCESS_HEADER = reader.getProperty("accountSuccessPageHeader");
     public static final String NEWSLETTER_PAGE_HEADER = reader.getProperty("newsletterPageHeader");
     public static final String ACCOUNT_LOGOUT_PAGE_HEADER = reader.getProperty("accountLogoutPageHeader");
+    public static final String SEARCH_PAGE_HEADER = reader.getProperty("searchPageHeader");
 
     // Success message
     public static final String PASSWORD_UPDATE_SUCCESS_MESSAGE = reader.getProperty("passwordUpdateSuccessMessage");

@@ -97,6 +97,17 @@ public class ElementActions {
         }
     }
 
+    public boolean isEnabled(WebElement element) {
+        try {
+            boolean enable = element.isEnabled();
+            log.debug("Element enabled? {} -> {}", shortDescribe(element), enable);
+            return enable;
+        } catch (NoSuchElementException e) {
+            log.warn("❌ Element not found: {}", fullDescribe(element), e);
+            return false;
+        }
+    }
+
     public void selectByText(WebElement element, String visibleText) {
         try {
             log.debug("Selecting '{}' from {}", visibleText, shortDescribe(element));

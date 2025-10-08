@@ -1,0 +1,41 @@
+package com.lambdatest.framework.pages;
+
+import com.lambdatest.framework.base.BasePage;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+
+import java.util.List;
+
+public class SearchPage extends BasePage {
+
+    public SearchPage(WebDriver driver){
+        super(driver);
+    }
+
+    @FindBy(css = "div[id='entry_212456'] h1[class='h4']")
+    private WebElement searchPageHeader;
+
+    @FindBy(css = "div[id='entry_212469'] h4[class='title'] a")
+    private List<WebElement> productsTitles;
+
+    public String getSearchPageHeaderText() {
+        log.info("Getting search page header text");
+        return actions.getText(searchPageHeader);
+    }
+
+    public boolean doesResultContains(String expectedValue) {
+        log.info("🔍 Validating that search results contain the product name: '{}'", expectedValue);
+        for (WebElement productTitle : productsTitles) {
+            String titleText = actions.getText(productTitle);
+            log.info("🧩 Found product title: {}", titleText);
+            if (titleText.toLowerCase().contains(expectedValue.toLowerCase())) {
+                log.info("✅ Match found with: {}", titleText);
+                return true;
+            }
+        }
+        log.warn("❌ No matching product found for: {}", expectedValue);
+        return false;
+    }
+
+}
