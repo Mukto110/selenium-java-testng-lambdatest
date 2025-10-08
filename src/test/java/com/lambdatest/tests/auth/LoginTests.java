@@ -26,7 +26,7 @@ public class LoginTests extends BaseTest {
     public void testNavigateToLoginPage() {
         // Assertion (If the user landed to the login page successfully or not)
         assertUtils.assertEquals(loginPage.getLoginFormHeaderText(), TestData.LOGIN_PAGE_HEADER);
-        assertUtils.assertTrue(loginPage.getCurrentUrl().contains("route=account/login"));
+        assertUtils.assertTrue(loginPage.getCurrentUrl().contains("route=account/login"), "User should be in login page, but current URL: " + loginPage.getCurrentUrl());
     }
 
     @Test(description = "TC_Login_001: Validate Login with valid credentials", groups = {"smoke", "regression"})
@@ -78,11 +78,11 @@ public class LoginTests extends BaseTest {
         MyAccountPage myAccountPage = loginPage.loginAsValidUser(TestData.VALID_EMAIL, TestData.VALID_PASSWORD);
         AccountLogoutPage accountLogoutPage = myAccountPage.getSidebar().clickOnSidebarLogout();
         accountLogoutPage.clickOnContinueButton();
-        assertUtils.assertTrue(homePage.getCurrentUrl().contains("route=common/home"));
+        assertUtils.assertTrue(homePage.getCurrentUrl().contains("route=common/home"), "User should be in homepage, but current URL: " + homePage.getCurrentUrl());
         homePage.navigateBack();
         assertUtils.assertPageTitle(accountLogoutPage.getPageTitle(), "Account Logout");
         accountLogoutPage.getSidebar().clickOnSideBarMyAccountLink();
-        assertUtils.assertTrue(loginPage.getCurrentUrl().contains(ConfigReader.getProperty("loginUrl")));
+        assertUtils.assertTrue(loginPage.getCurrentUrl().contains(ConfigReader.getProperty("loginUrl")), "User should be in login page, but current URL: " + loginPage.getCurrentUrl());
     }
 
     @Test(description = "TC_Login_020: Validate user is able to navigate to different pages from Login page", groups = {"regression"})

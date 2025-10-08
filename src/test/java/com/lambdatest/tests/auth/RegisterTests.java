@@ -27,9 +27,7 @@ public class RegisterTests extends BaseTest {
         homePage.navigateToHomePage();
 
         // Step 2: Hover and click on "Register" from My Account dropdown
-        registerPage = homePage.getNavbar()
-                .hoverOnMyAccountDropdown()
-                .clickRegister();
+        registerPage = homePage.getNavbar().hoverOnMyAccountDropdown().clickRegister();
 
         // Step 3: Verify Register page loaded
         assertUtils.assertEquals(registerPage.getRegisterPageHeaderText(), TestData.REGISTER_PAGE_HEADER);
@@ -38,24 +36,17 @@ public class RegisterTests extends BaseTest {
     @Test(description = "TC_Register_000: Validate user can navigate to Register Page", groups = {"smoke"})
     public void testNavigateToRegisterPage() {
         assertUtils.assertEquals(registerPage.getRegisterPageHeaderText(), TestData.REGISTER_PAGE_HEADER);
-        assertUtils.assertTrue(registerPage.getCurrentUrl().contains("route=account/register"));
+        assertUtils.assertTrue(registerPage.getCurrentUrl().contains("route=account/register"), "User should be in register page, but current URL: " + registerPage.getCurrentUrl());
     }
 
     @Test(description = "TC_Register_001: Validate Registering an Account by providing only the Mandatory fields", groups = {"smoke", "regression"})
     public void testValidRegisterWithMandatoryFields() {
-        AccountCreateSuccessPage accountCreateSuccessPage = registerPage.validRegister(
-                TestDataGenerator.getRandomFirstName(),
-                TestDataGenerator.getRandomLastName(),
-                TestDataGenerator.getRandomEmail(),
-                TestDataGenerator.getRandomTelephone(),
-                password,
-                password,
-                false);
+        AccountCreateSuccessPage accountCreateSuccessPage = registerPage.validRegister(TestDataGenerator.getRandomFirstName(), TestDataGenerator.getRandomLastName(), TestDataGenerator.getRandomEmail(), TestDataGenerator.getRandomTelephone(), password, password, false);
 
         MyAccountPage myAccountPage = accountCreateSuccessPage.clickContinueButton();
         wait.waitForUrlContains("route=account/account");
 
-        assertUtils.assertTrue(myAccountPage.getCurrentUrl().contains("route=account/account"));
+        assertUtils.assertTrue(myAccountPage.getCurrentUrl().contains("route=account/account"), "User should be in my account page, but current URL: " + myAccountPage.getCurrentUrl());
         assertUtils.assertEquals(myAccountPage.getMyAccountPageHeaderText(), TestData.MY_ACCOUNT_PAGE_HEADER);
     }
 
@@ -72,19 +63,12 @@ public class RegisterTests extends BaseTest {
 
     @Test(description = "TC_Register_003: Validate registering an account when 'Yes' is selected for Newsletter -> Subscribe", groups = {"regression"})
     public void testValidRegisterWithSubscribeYes() {
-        AccountCreateSuccessPage accountCreateSuccessPage = registerPage.validRegister(
-                TestDataGenerator.getRandomFirstName(),
-                TestDataGenerator.getRandomLastName(),
-                TestDataGenerator.getRandomEmail(),
-                TestDataGenerator.getRandomTelephone(),
-                password,
-                password,
-                true);
+        AccountCreateSuccessPage accountCreateSuccessPage = registerPage.validRegister(TestDataGenerator.getRandomFirstName(), TestDataGenerator.getRandomLastName(), TestDataGenerator.getRandomEmail(), TestDataGenerator.getRandomTelephone(), password, password, true);
 
         MyAccountPage myAccountPage = accountCreateSuccessPage.clickContinueButton();
         wait.waitForUrlContains("route=account/account");
 
-        assertUtils.assertTrue(myAccountPage.getCurrentUrl().contains("route=account/account"));
+        assertUtils.assertTrue(myAccountPage.getCurrentUrl().contains("route=account/account"), "User should be in my account page, but current URL: " + myAccountPage.getCurrentUrl());
         NewsletterSubscriptionPage newsletterSubscriptionPage = myAccountPage.clickOnSidebarNewsletterLink();
         assertUtils.assertEquals(newsletterSubscriptionPage.getNewsletterPageHeaderText(), TestData.NEWSLETTER_PAGE_HEADER);
         assertUtils.assertEquals(newsletterSubscriptionPage.getSelectedNewsletterOption(), TestData.NEWSLETTER_YES);
@@ -92,19 +76,12 @@ public class RegisterTests extends BaseTest {
 
     @Test(description = "TC_Register_004: Validate registering an account when 'No' is selected for Newsletter -> Subscribe", groups = {"regression"})
     public void testValidRegisterWithSubscribeNo() {
-        AccountCreateSuccessPage accountCreateSuccessPage = registerPage.validRegister(
-                TestDataGenerator.getRandomFirstName(),
-                TestDataGenerator.getRandomLastName(),
-                TestDataGenerator.getRandomEmail(),
-                TestDataGenerator.getRandomTelephone(),
-                password,
-                password,
-                false);
+        AccountCreateSuccessPage accountCreateSuccessPage = registerPage.validRegister(TestDataGenerator.getRandomFirstName(), TestDataGenerator.getRandomLastName(), TestDataGenerator.getRandomEmail(), TestDataGenerator.getRandomTelephone(), password, password, false);
 
         MyAccountPage myAccountPage = accountCreateSuccessPage.clickContinueButton();
         wait.waitForUrlContains("route=account/account");
 
-        assertUtils.assertTrue(myAccountPage.getCurrentUrl().contains("route=account/account"));
+        assertUtils.assertTrue(myAccountPage.getCurrentUrl().contains("route=account/account"), "User should be in my account page, but current URL: " + myAccountPage.getCurrentUrl());
         NewsletterSubscriptionPage newsletterSubscriptionPage = myAccountPage.clickOnSidebarNewsletterLink();
         assertUtils.assertEquals(newsletterSubscriptionPage.getNewsletterPageHeaderText(), TestData.NEWSLETTER_PAGE_HEADER);
         assertUtils.assertEquals(newsletterSubscriptionPage.getSelectedNewsletterOption(), TestData.NEWSLETTER_NO);
@@ -112,39 +89,21 @@ public class RegisterTests extends BaseTest {
 
     @Test(description = "TC_Register_006: Validate Registering an Account with mismatched 'Password' and 'Password Confirm' fields", groups = {"regression"})
     public void testRegisterWithMismatchedPasswords() {
-        registerPage.invalidRegister(
-                TestDataGenerator.getRandomFirstName(),
-                TestDataGenerator.getRandomLastName(),
-                TestDataGenerator.getRandomEmail(),
-                TestDataGenerator.getRandomTelephone(),
-                TestDataGenerator.getRandomPassword(),
-                TestDataGenerator.getRandomPassword());
+        registerPage.invalidRegister(TestDataGenerator.getRandomFirstName(), TestDataGenerator.getRandomLastName(), TestDataGenerator.getRandomEmail(), TestDataGenerator.getRandomTelephone(), TestDataGenerator.getRandomPassword(), TestDataGenerator.getRandomPassword());
 
         assertUtils.assertEquals(registerPage.getPasswordNoMatchErrorMessageText(), TestData.PASSWORD_NOT_MATCH_ERROR_MESSAGE);
     }
 
     @Test(description = "TC_Register_007: Validate Registering an Account with existing email address", groups = {"regression"})
     public void testRegisterWithExistingAccountDetails() {
-        registerPage.invalidRegister(
-                TestDataGenerator.getRandomFirstName(),
-                TestDataGenerator.getRandomLastName(),
-                TestData.VALID_EMAIL,
-                TestDataGenerator.getRandomTelephone(),
-                TestDataGenerator.getRandomPassword(),
-                TestDataGenerator.getRandomPassword());
+        registerPage.invalidRegister(TestDataGenerator.getRandomFirstName(), TestDataGenerator.getRandomLastName(), TestData.VALID_EMAIL, TestDataGenerator.getRandomTelephone(), TestDataGenerator.getRandomPassword(), TestDataGenerator.getRandomPassword());
 
         assertUtils.assertEquals(registerPage.getEmailAlreadyRegisteredErrorText(), TestData.EMAIL_ALREADY_REGISTERED_MESSAGE);
     }
 
     @Test(description = "TC_Register_008: Validate Registering an Account with invalid email format", groups = {"regression"})
     public void testRegisterWithInvalidEmailFormat() {
-        registerPage.invalidRegister(
-                TestDataGenerator.getRandomFirstName(),
-                TestDataGenerator.getRandomLastName(),
-                TestData.INVALID_EMAIL_FORMAT,
-                TestDataGenerator.getRandomTelephone(),
-                password,
-                password);
+        registerPage.invalidRegister(TestDataGenerator.getRandomFirstName(), TestDataGenerator.getRandomLastName(), TestData.INVALID_EMAIL_FORMAT, TestDataGenerator.getRandomTelephone(), password, password);
 
         assertUtils.assertEquals(registerPage.getEmailErrorMessage(), TestData.EMAIL_ERROR_MESSAGE);
     }
@@ -163,13 +122,7 @@ public class RegisterTests extends BaseTest {
 
     @Test(description = "TC_Register_017: Validate Registering an Account without selecting the 'Privacy Policy' checkbox", groups = {"regression"})
     public void testRegisterWithoutCheckPrivacyCheckbox() {
-        registerPage.registerWithoutPrivacyCheckbox(
-                TestDataGenerator.getRandomFirstName(),
-                TestDataGenerator.getRandomLastName(),
-                TestDataGenerator.getRandomEmail(),
-                TestDataGenerator.getRandomTelephone(),
-                password,
-                password);
+        registerPage.registerWithoutPrivacyCheckbox(TestDataGenerator.getRandomFirstName(), TestDataGenerator.getRandomLastName(), TestDataGenerator.getRandomEmail(), TestDataGenerator.getRandomTelephone(), password, password);
 
         assertUtils.assertEquals(registerPage.getPrivacyPolicyWarningMessage(), TestData.PRIVACY_POLICY_WARNING_MESSAGE);
     }
@@ -187,13 +140,7 @@ public class RegisterTests extends BaseTest {
 
     @Test(description = "TC_Register_019: Validate Registering an Account by filling 'Password' field but not 'Password Confirm'", groups = {"regression"})
     public void testRegisterAccountByNotFillingConfirmPassword() {
-        registerPage.invalidRegister(
-                TestDataGenerator.getRandomFirstName(),
-                TestDataGenerator.getRandomLastName(),
-                TestDataGenerator.getRandomEmail(),
-                TestDataGenerator.getRandomTelephone(),
-                password,
-                "");
+        registerPage.invalidRegister(TestDataGenerator.getRandomFirstName(), TestDataGenerator.getRandomLastName(), TestDataGenerator.getRandomEmail(), TestDataGenerator.getRandomTelephone(), password, "");
 
         assertUtils.assertEquals(registerPage.getPasswordNoMatchErrorMessageText(), TestData.PASSWORD_NOT_MATCH_ERROR_MESSAGE);
     }

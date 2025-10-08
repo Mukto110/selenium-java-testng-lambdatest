@@ -20,10 +20,11 @@ public class SearchTests extends BaseTest {
     @Test(description = "TC_Search_001: Validate searching with an existing Product Name", groups = {"sanity", "regression"})
     public void testSearchWithAnExistingProduct() {
         String value = "imac";
-        assertUtils.assertTrue(homePage.getSearchBox().isSearchInputBoxVisible());
+        assertUtils.assertTrue(homePage.getSearchBox().isSearchInputBoxVisible(), "Search input box should be visible on the homepage");
         homePage.getSearchBox().fillSearchInputBox(value);
         SearchPage searchPage = homePage.getSearchBox().clickOnSearchButton();
-        assertUtils.assertEquals(searchPage.getSearchPageHeaderText(), TestData.SEARCH_PAGE_HEADER+ " " + value);
-        assertUtils.assertTrue(searchPage.doesResultContains(value));
+        assertUtils.assertTrue(searchPage.getPageTitle().contains("Search"), "Title should contain 'Search' after performing a search. Actual Title: " + searchPage.getPageTitle());
+        assertUtils.assertEquals(searchPage.getSearchPageHeaderText(), TestData.SEARCH_PAGE_HEADER + " " + value);
+        assertUtils.assertTrue(searchPage.doesResultContains(value), "Search results should contain the product name: '" + value + "'");
     }
 }
