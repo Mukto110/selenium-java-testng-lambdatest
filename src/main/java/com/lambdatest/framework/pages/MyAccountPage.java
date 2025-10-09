@@ -2,6 +2,7 @@ package com.lambdatest.framework.pages;
 
 import com.lambdatest.framework.base.BasePage;
 import com.lambdatest.framework.data.TestData;
+import com.lambdatest.framework.pages.components.SearchBox;
 import com.lambdatest.framework.pages.components.Sidebar;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -10,10 +11,12 @@ import org.openqa.selenium.support.FindBy;
 public class MyAccountPage extends BasePage {
 
     private final Sidebar sidebar;
+    private final SearchBox searchBox;
 
     public MyAccountPage(WebDriver driver) {
         super(driver);
         this.sidebar = new Sidebar(driver, log);
+        this.searchBox = new SearchBox(driver, log);
     }
 
     @FindBy(xpath = "//h2[normalize-space()='My Account']")
@@ -28,6 +31,10 @@ public class MyAccountPage extends BasePage {
 
     public Sidebar getSidebar() {
         return sidebar;
+    }
+
+    public SearchBox getSearchBox() {
+        return searchBox;
     }
 
     public String getMyAccountPageHeaderText() {

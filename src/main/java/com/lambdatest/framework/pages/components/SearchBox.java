@@ -19,6 +19,7 @@ public class SearchBox extends BasePage {
     @FindBy(xpath = "//button[normalize-space()='Search']")
     private WebElement searchButton;
 
+
     public boolean isSearchInputBoxVisible() {
         log.info("Checking is search input box is visible and enable");
         return actions.isDisplayed(searchInputBox) && actions.isEnabled(searchInputBox);
@@ -34,5 +35,10 @@ public class SearchBox extends BasePage {
         log.info("Clicking on search button");
         actions.click(searchButton);
         return new SearchPage(driver);
+    }
+
+    public String getSearchInputBoxPlaceholderText() {
+        log.info("Getting search input box placeholder text");
+        return actions.getAttribute(searchInputBox, "placeholder");
     }
 }

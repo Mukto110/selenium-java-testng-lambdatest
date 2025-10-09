@@ -9,14 +9,18 @@ import org.testng.annotations.Test;
 
 public class SearchTests extends BaseTest {
 
+    // TODO: Move test credentials to a secure external config or test data class later.
     String existingValue = "imac";
     String nonExistingValue = "Fitbit";
+    String searchCriteriaValue = "mac";
 
     private HomePage homePage;
+    private SearchPage searchPage;
 
     @BeforeMethod(alwaysRun = true)
     public void navigateToHomePage() {
         homePage = new HomePage(driver);
+        searchPage = new SearchPage(driver);
         homePage.navigateToHomePage();
     }
 
@@ -27,17 +31,35 @@ public class SearchTests extends BaseTest {
 
     @Test(description = "TC_Search_001: Validate searching with an existing Product Name", groups = {"sanity", "regression"})
     public void testSearchWithAnExistingProduct() {
-        homePage.getSearchBox().fillSearchInputBox(existingValue);
-        SearchPage searchPage = homePage.getSearchBox().clickOnSearchButton();
+        homePage.getSearchBox().fillSearchInputBox(existingValue).clickOnSearchButton();
         assertUtils.assertEquals(searchPage.getSearchPageHeaderText(), TestData.SEARCH_PAGE_HEADER + " " + existingValue);
         assertUtils.assertTrue(searchPage.doesResultContains(existingValue), "Search results should contain the product name: '" + existingValue + "'");
     }
 
     @Test(description = "TC_Search_002: Validate searching with a non existing Product Name", groups = {"regression", "negative"})
     public void testSearchWithAnNotExistingProduct() {
-        homePage.getSearchBox().fillSearchInputBox(nonExistingValue);
-        SearchPage searchPage = homePage.getSearchBox().clickOnSearchButton();
+        homePage.getSearchBox().fillSearchInputBox(nonExistingValue).clickOnSearchButton();
         assertUtils.assertEquals(searchPage.getSearchPageHeaderText(), TestData.SEARCH_PAGE_HEADER + " " + nonExistingValue);
         assertUtils.assertEquals(searchPage.getNoProductMatchMessage(), TestData.NO_PRODUCT_MATCH_MESSAGE);
+    }
+
+    @Test(description = "TC_Search_003: Validate searching without providing any Product Name", groups = {"regression"})
+    public void testSearchWithNoValue() {
+        homePage.getSearchBox().fillSearchInputBox("").clickOnSearchButton();
+        assertUtils.assertEquals(searchPage.getSearchPageHeaderText(), TestData.SEARCH_PAGE_HEADER);
+    }
+
+    @Test(description = "TC_Search_005: Validate searching by providing a search criteria which results in multiple products", groups = {"regression"})
+    public void testSearchByProvidingSearchCriteria() {
+        homePage.getSearchBox().fillSearchInputBox(searchCriteriaValue).clickOnSearchButton();
+        assertUtils.assertTrue(searchPage.doesResultContains(searchCriteriaValue), "Product titles should match with value: "+searchCriteriaValue);
+    }
+
+    @Test(description = "TC_Search_006: Validate search boxes has the placeholder text", groups = {"ui"})
+    public void testSearchInputsPlaceholderTexts() {
+        homePage.getSearchBox().fillSearchInputBox("").clickOnSearchButton();
+        assertUtils.assertEquals(searchPage.getSearchPageHeaderText(), TestData.SEARCH_PAGE_HEADER);
+        assertUtils.assertEquals(searchPage.getSearchBox().getSearchInputBoxPlaceholderText(), "Search For Products");
+        assertUtils.assertEquals(searchPage.getSearchCriteriaInputBoxPlaceholderText(), "Keywords");
     }
 }

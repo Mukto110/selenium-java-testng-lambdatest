@@ -6,6 +6,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.apache.logging.log4j.Logger;
 
 import java.time.Duration;
+import java.util.List;
 
 public class WaitUtils {
     private final WebDriverWait wait;
@@ -26,6 +27,18 @@ public class WaitUtils {
             throw e;
         }
     }
+
+    public void waitForVisibilityOfAllElements(List<WebElement> elements) {
+        try {
+            log.debug("Waiting for visibility of all elements in list. Total elements: {}", elements.size());
+            wait.until(ExpectedConditions.visibilityOfAllElements(elements));
+            log.debug("✅ All elements are visible.");
+        } catch (TimeoutException e) {
+            log.error("⏰ Timeout waiting for visibility of all elements. Element list: {}", elements, e);
+            throw e;
+        }
+    }
+
 
     public void waitForClickable(WebElement element) {
         try {
