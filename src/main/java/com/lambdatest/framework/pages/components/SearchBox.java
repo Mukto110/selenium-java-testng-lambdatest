@@ -37,6 +37,11 @@ public class SearchBox extends BasePage {
         return new SearchPage(driver);
     }
 
+    public SearchPage performSearch(String value) {
+        log.info("Searching for product with value: {}", value);
+        return fillSearchInputBox(value).clickOnSearchButton();
+    }
+
     public String getSearchInputBoxPlaceholderText() {
         log.info("Getting search input box placeholder text");
         return actions.getAttribute(searchInputBox, "placeholder");
