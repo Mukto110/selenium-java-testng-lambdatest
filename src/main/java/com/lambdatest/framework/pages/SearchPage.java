@@ -63,6 +63,7 @@ public class SearchPage extends BasePage {
         List<Double> prices = new ArrayList<>();
         for (WebElement price : productPrices) {
             String priceText = price.getText().replace("$", "").trim();
+            priceText = priceText.replaceAll("[^0-9.]", "");
             if (!priceText.isEmpty())
                 prices.add(Double.parseDouble(priceText));
         }

@@ -8,6 +8,11 @@ import com.lambdatest.framework.pages.SearchPage;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+
 public class SearchTests extends BaseTest {
 
     // TODO: Move test credentials to a secure external config or test data class later.
@@ -80,7 +85,17 @@ public class SearchTests extends BaseTest {
 
     @Test(description = "TC_Search_014: Validate User is able to sort the Products displayed in the Search Results", groups = {"regression"})
     public void testValidateSortSearchedProduct() {
-        homePage.getSearchBox().performSearch(searchCriteriaValue).selectSortOption("Price (High > Low)");
-
+        homePage.getSearchBox().performSearch(searchCriteriaValue);
+        searchPage.selectSortOption("Name (A - Z)");
+        List<String> actualNames = searchPage.getProductNames();
+        List<String> expectedNames = new ArrayList<>(actualNames);
+        expectedNames.sort(String.CASE_INSENSITIVE_ORDER);
+        assertUtils.assertEquals(actualNames, expectedNames);
+        homePage.getSearchBox().performSearch(searchCriteriaValue);
+        searchPage.selectSortOption("Price (Low > High)");
+        List<Double> actualPrices = searchPage.getProductPrices();
+        List<Double> expectedPrices = new ArrayList<>(actualPrices);
+        Collections.sort(expectedPrices);
+        assertUtils.assertEquals(actualPrices, expectedPrices);
     }
 }
