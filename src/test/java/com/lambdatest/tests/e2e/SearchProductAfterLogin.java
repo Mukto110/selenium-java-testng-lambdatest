@@ -20,6 +20,6 @@ public class SearchProductAfterLogin extends BaseTest {
         MyAccountPage myAccountPage = loginPage.loginAsValidUser(TestData.VALID_EMAIL, TestData.VALID_PASSWORD);
         SearchPage searchPage = myAccountPage.getSearchBox().fillSearchInputBox(productName).clickOnSearchButton();
         assertUtils.assertEquals(searchPage.getSearchPageHeaderText(), TestData.SEARCH_PAGE_HEADER + " " +productName);
-        assertUtils.assertTrue(searchPage.doesResultContains(productName), "Product list should match with the value: "+productName);
+        assertUtils.assertTrue(searchPage.doesProductNameContain(productName), "Product list should match with the value: "+productName);
     }
 }

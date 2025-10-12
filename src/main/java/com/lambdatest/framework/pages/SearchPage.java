@@ -39,6 +39,9 @@ public class SearchPage extends BasePage {
     @FindBy(xpath = "//a[normalize-space()='Product Compare (0)']")
     private WebElement productCompareLink;
 
+    @FindBy(id = "input-sort-212464")
+    private WebElement sortByDropdown;
+
 
     public SearchBox getSearchBox() {
         return searchBox;
@@ -66,20 +69,25 @@ public class SearchPage extends BasePage {
         return prices;
     }
 
-//    public boolean doesResultContains(String expectedValue) {
-//        log.info("🔍 Validating that search results contain the product name: '{}'", expectedValue);
-//        wait.waitForVisibilityOfAllElements(productsTitles);
-//        for (WebElement productTitle : productsTitles) {
-//            String titleText = actions.getText(productTitle);
-//            log.info("🧩 Found product title: {}", titleText);
-//            if (titleText.toLowerCase().contains(expectedValue.toLowerCase())) {
-//                log.info("✅ Match found with: {}", titleText);
-//                return true;
-//            }
-//        }
-//        log.warn("❌ No matching product found for: {}", expectedValue);
-//        return false;
-//    }
+    public boolean doesProductNameContain(String expectedValue) {
+        log.info("🔍 Validating that search results contain the product name: '{}'", expectedValue);
+        wait.waitForVisibilityOfAllElements(productNames);
+        for (WebElement productName : productNames) {
+            String titleText = actions.getText(productName);
+            log.info("Found product title: {}", titleText);
+            if (titleText.toLowerCase().contains(expectedValue.toLowerCase())) {
+                log.info("✅ Match found with: {}", titleText);
+                return true;
+            }
+        }
+        log.warn("❌ No matching product found for: {}", expectedValue);
+        return false;
+    }
+
+    public void selectSortOption(String visibleText) {
+        log.info("Selecting sorting options by text: {}", visibleText);
+        actions.selectByText(sortByDropdown ,visibleText);
+    }
 
     public String getNoProductMatchMessage() {
         log.info("Getting no product match text");
