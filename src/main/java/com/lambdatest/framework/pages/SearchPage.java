@@ -42,6 +42,9 @@ public class SearchPage extends BasePage {
     @FindBy(id = "input-sort-212464")
     private WebElement sortByDropdown;
 
+    @FindBy(id = "input-limit-212463")
+    private WebElement showDropdown;
+
 
     public SearchBox getSearchBox() {
         return searchBox;
@@ -70,6 +73,13 @@ public class SearchPage extends BasePage {
         return prices;
     }
 
+    public int getProductCount() {
+        log.info("Getting total number of products displayed in search results");
+        wait.waitForVisibilityOfAllElements(productNames);
+        return productNames.size();
+    }
+
+
     public boolean doesProductNameContain(String expectedValue) {
         log.info("🔍 Validating that search results contain the product name: '{}'", expectedValue);
         wait.waitForVisibilityOfAllElements(productNames);
@@ -88,6 +98,11 @@ public class SearchPage extends BasePage {
     public void selectSortOption(String visibleText) {
         log.info("Selecting sorting options by text: {}", visibleText);
         actions.selectByText(sortByDropdown ,visibleText);
+    }
+
+    public void selectShowOption(String visibleText) {
+        log.info("Selecting show options by text: {}", visibleText);
+        actions.selectByText(showDropdown ,visibleText);
     }
 
     public String getNoProductMatchMessage() {
