@@ -41,7 +41,7 @@ public class LoginAfterPasswordChangeTest extends BaseTest {
         log.info("✅ Navigated to Change Password page.");
 
         // Step 5 -> Change Password (original → new)
-        log.info("🔐 Changing password from original to new...");
+        log.info("Changing password from original to new");
         myAccountPage = changePasswordPage.changePassword(newPassword, newPassword);
         assertUtils.assertEquals(myAccountPage.getPasswordUpdateSuccessText(), TestData.PASSWORD_UPDATE_SUCCESS_MESSAGE);
         log.info("✅ Password changed successfully.");
@@ -55,18 +55,17 @@ public class LoginAfterPasswordChangeTest extends BaseTest {
         log.info("✅ Navigated back to Login Page.");
 
         // Step 8 -> Login again using the new password
-        log.info("🔁 Logging in again using the new password...");
+        log.info("Logging in again using the new password");
         myAccountPage = loginPage.loginAsValidUser(email, newPassword);
         assertUtils.assertEquals(myAccountPage.getMyAccountPageHeaderText(), TestData.MY_ACCOUNT_PAGE_HEADER);
         log.info("✅ Logged in successfully with the new password.");
 
         // Step 9 -> ROLLBACK (Temporary - restore original password)
-        log.info("♻️ Rolling back password to original for test reusability...");
+        log.info("Rolling back password to original for test reusability");
         changePasswordPage = myAccountPage.getSidebar().clickOnSidebarPasswordLink();
         myAccountPage = changePasswordPage.changePassword(originalPassword, originalPassword);
         assertUtils.assertEquals(myAccountPage.getPasswordUpdateSuccessText(), TestData.PASSWORD_UPDATE_SUCCESS_MESSAGE);
-        log.info("✅ Rollback complete — password restored to original.");
-
-        log.info("🎯 Test completed successfully: Login after password change and rollback verified.");
+        log.info("Rollback complete — password restored to original.");
+        log.info("Test completed successfully: Login after password change and rollback verified.");
     }
 }
