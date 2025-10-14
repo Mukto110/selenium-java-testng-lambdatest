@@ -3,6 +3,7 @@ package com.lambdatest.framework.pages.search;
 import com.lambdatest.framework.base.BasePage;
 import com.lambdatest.framework.pages.components.SearchBox;
 import com.lambdatest.framework.pages.product.ProductComparePage;
+import com.lambdatest.framework.pages.product.ProductDisplayPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -45,6 +46,9 @@ public class SearchPage extends BasePage {
 
     @FindBy(id = "input-limit-212463")
     private WebElement showDropdown;
+
+    @FindBy(css = "button[title='Add to Cart']")
+    private List<WebElement> addToCartButtons;
 
 
     public SearchBox getSearchBox() {
@@ -132,5 +136,18 @@ public class SearchPage extends BasePage {
         log.info("Clicking on product compare link");
         actions.click(productCompareLink);
         return new ProductComparePage(driver);
+    }
+
+    public ProductDisplayPage clickOnProduct() {
+        log.info("Clicking on a product");
+        wait.waitForVisibilityOfAllElements(productNames);
+        actions.click(productNames.get(1));
+        return new ProductDisplayPage(driver);
+    }
+
+    public SearchPage clickAddToCartByIndex(int index) {
+        log.info("Clicking on add to cart button of product number: {}", index + 1);
+        addToCartButtons.get(index).click();
+        return this;
     }
 }
