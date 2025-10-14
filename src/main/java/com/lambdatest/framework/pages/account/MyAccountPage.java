@@ -1,7 +1,8 @@
-package com.lambdatest.framework.pages;
+package com.lambdatest.framework.pages.account;
 
 import com.lambdatest.framework.base.BasePage;
 import com.lambdatest.framework.data.TestData;
+import com.lambdatest.framework.pages.newsletter.NewsletterSubscriptionPage;
 import com.lambdatest.framework.pages.components.SearchBox;
 import com.lambdatest.framework.pages.components.Sidebar;
 import org.openqa.selenium.WebDriver;

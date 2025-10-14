@@ -1,4 +1,4 @@
-package com.lambdatest.framework.pages;
+package com.lambdatest.framework.pages.product;
 
 import com.lambdatest.framework.base.BasePage;
 import org.openqa.selenium.WebDriver;

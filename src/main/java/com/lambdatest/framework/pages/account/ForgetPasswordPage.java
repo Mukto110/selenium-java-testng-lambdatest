@@ -1,9 +1,6 @@
-package com.lambdatest.framework.pages;
+package com.lambdatest.framework.pages.account;
 
 import com.lambdatest.framework.base.BasePage;
-import com.lambdatest.framework.utils.ElementActions;
-import com.lambdatest.framework.utils.LoggerHelper;
-import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;

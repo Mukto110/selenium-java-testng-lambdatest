@@ -1,4 +1,4 @@
-package com.lambdatest.framework.pages;
+package com.lambdatest.framework.pages.home;
 
 import com.lambdatest.framework.base.BasePage;
 import com.lambdatest.framework.pages.components.Navbar;

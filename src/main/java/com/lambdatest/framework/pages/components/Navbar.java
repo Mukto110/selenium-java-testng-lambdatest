@@ -1,9 +1,9 @@
 package com.lambdatest.framework.pages.components;
 
 import com.lambdatest.framework.base.BasePage;
-import com.lambdatest.framework.pages.AccountLogoutPage;
-import com.lambdatest.framework.pages.LoginPage;
-import com.lambdatest.framework.pages.RegisterPage;
+import com.lambdatest.framework.pages.account.AccountLogoutPage;
+import com.lambdatest.framework.pages.account.LoginPage;
+import com.lambdatest.framework.pages.account.RegisterPage;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

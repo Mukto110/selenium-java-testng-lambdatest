@@ -2,10 +2,10 @@ package com.lambdatest.tests.e2e;
 
 import com.lambdatest.framework.base.BaseTest;
 import com.lambdatest.framework.data.TestData;
-import com.lambdatest.framework.pages.HomePage;
-import com.lambdatest.framework.pages.LoginPage;
-import com.lambdatest.framework.pages.MyAccountPage;
-import com.lambdatest.framework.pages.SearchPage;
+import com.lambdatest.framework.pages.home.HomePage;
+import com.lambdatest.framework.pages.account.LoginPage;
+import com.lambdatest.framework.pages.account.MyAccountPage;
+import com.lambdatest.framework.pages.search.SearchPage;
 import org.testng.annotations.Test;
 
 public class SearchProductAfterLogin extends BaseTest {

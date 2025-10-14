@@ -1,7 +1,7 @@
 package com.lambdatest.framework.pages.components;
 
 import com.lambdatest.framework.base.BasePage;
-import com.lambdatest.framework.pages.SearchPage;
+import com.lambdatest.framework.pages.search.SearchPage;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

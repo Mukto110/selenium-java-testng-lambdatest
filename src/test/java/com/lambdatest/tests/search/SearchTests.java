@@ -2,9 +2,9 @@ package com.lambdatest.tests.search;
 
 import com.lambdatest.framework.base.BaseTest;
 import com.lambdatest.framework.data.TestData;
-import com.lambdatest.framework.pages.HomePage;
-import com.lambdatest.framework.pages.ProductComparePage;
-import com.lambdatest.framework.pages.SearchPage;
+import com.lambdatest.framework.pages.home.HomePage;
+import com.lambdatest.framework.pages.product.ProductComparePage;
+import com.lambdatest.framework.pages.search.SearchPage;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -14,9 +14,9 @@ import java.util.List;
 
 public class SearchTests extends BaseTest {
 
-    String existingValue = "imac";
-    String nonExistingValue = "Fitbit";
-    String searchCriteriaValue = "mac";
+    String existingValue = TestData.EXISTING_VALUE;
+    String nonExistingValue = TestData.NON_EXISTING_VALUE;
+    String searchCriteriaValue = TestData.SEARCH_CRITERIA_VALUE;
 
     private HomePage homePage;
     private SearchPage searchPage;

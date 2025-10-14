@@ -1,6 +1,7 @@
-package com.lambdatest.framework.pages;
+package com.lambdatest.framework.pages.account;
 
 import com.lambdatest.framework.base.BasePage;
+import com.lambdatest.framework.pages.home.HomePage;
 import com.lambdatest.framework.pages.components.Sidebar;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

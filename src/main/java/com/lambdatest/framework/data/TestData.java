@@ -41,4 +41,9 @@ public class TestData {
     // Newsletter options
     public static final String NEWSLETTER_YES = "Yes";
     public static final String NEWSLETTER_NO = "No";
+
+    // Search Data
+    public static final String EXISTING_VALUE = reader.getProperty("existingValue");
+    public static final String NON_EXISTING_VALUE = reader.getProperty("nonExistingValue");
+    public static final String SEARCH_CRITERIA_VALUE = reader.getProperty("searchCriteriaValue");
 }

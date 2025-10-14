@@ -1,7 +1,8 @@
-package com.lambdatest.framework.pages;
+package com.lambdatest.framework.pages.search;
 
 import com.lambdatest.framework.base.BasePage;
 import com.lambdatest.framework.pages.components.SearchBox;
+import com.lambdatest.framework.pages.product.ProductComparePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;

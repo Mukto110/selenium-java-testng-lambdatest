@@ -2,7 +2,10 @@ package com.lambdatest.tests.auth;
 
 import com.lambdatest.framework.base.BaseTest;
 import com.lambdatest.framework.data.TestData;
-import com.lambdatest.framework.pages.*;
+import com.lambdatest.framework.pages.account.AccountLogoutPage;
+import com.lambdatest.framework.pages.account.LoginPage;
+import com.lambdatest.framework.pages.account.MyAccountPage;
+import com.lambdatest.framework.pages.home.HomePage;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 

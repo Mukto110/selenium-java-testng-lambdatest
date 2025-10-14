@@ -1,4 +1,4 @@
-package com.lambdatest.framework.pages;
+package com.lambdatest.framework.pages.account;
 
 import com.lambdatest.framework.base.BasePage;
 import com.lambdatest.framework.pages.components.Sidebar;
