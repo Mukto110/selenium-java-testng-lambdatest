@@ -9,7 +9,7 @@ import org.openqa.selenium.support.FindBy;
 
 public class SearchBox extends BasePage {
 
-    public SearchBox(WebDriver driver, Logger log){
+    public SearchBox(WebDriver driver){
         super(driver);
     }
 

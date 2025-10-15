@@ -13,7 +13,7 @@ public class AccountLogoutPage extends BasePage {
 
     public AccountLogoutPage(WebDriver driver) {
         super(driver);
-        this.sidebar = new Sidebar(driver, log);
+        this.sidebar = new Sidebar(driver);
     }
 
     @FindBy(css = "div[id$='content'] h1[class='page-title my-3']")

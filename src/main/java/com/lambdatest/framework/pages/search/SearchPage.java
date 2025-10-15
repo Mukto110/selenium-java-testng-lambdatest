@@ -1,6 +1,7 @@
 package com.lambdatest.framework.pages.search;
 
 import com.lambdatest.framework.base.BasePage;
+import com.lambdatest.framework.pages.components.CartModal;
 import com.lambdatest.framework.pages.components.SearchBox;
 import com.lambdatest.framework.pages.product.ProductComparePage;
 import com.lambdatest.framework.pages.product.ProductDisplayPage;
@@ -14,14 +15,19 @@ import java.util.List;
 public class SearchPage extends BasePage {
 
     private final SearchBox searchBox;
+    private final CartModal cartModal;
 
     public SearchPage(WebDriver driver){
         super(driver);
-        searchBox = new SearchBox(driver, log);
+        searchBox = new SearchBox(driver);
+        cartModal = new CartModal(driver);
     }
 
     @FindBy(css = "div[id='entry_212456'] h1[class='h4']")
     private WebElement searchPageHeader;
+
+    @FindBy(css = "div[id$='entry_212469'] div[class$='product-layout product-grid no-desc col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6']")
+    private List<WebElement> products;
 
     @FindBy(css = "div[id='entry_212469'] h4[class='title'] a")
     private List<WebElement> productNames;
@@ -54,6 +60,7 @@ public class SearchPage extends BasePage {
     public SearchBox getSearchBox() {
         return searchBox;
     }
+    public CartModal getCartModal() {return cartModal;}
 
     public String getSearchPageHeaderText() {
         log.info("Getting search page header text");
@@ -145,9 +152,16 @@ public class SearchPage extends BasePage {
         return new ProductDisplayPage(driver);
     }
 
-    public SearchPage clickAddToCartByIndex(int index) {
-        log.info("Clicking on add to cart button of product number: {}", index + 1);
-        addToCartButtons.get(index).click();
+    public SearchPage hoverOnProduct() {
+        log.info("Hovering on product number 2");
+        wait.waitForVisibilityOfAllElements(productNames);
+        actions.hover(productNames.get(1));
+        return this;
+    }
+
+    public SearchPage clickAddToCartByIndex() {
+        log.info("Clicking on add to cart button of product number: 2");
+        actions.click(addToCartButtons.get(1));
         return this;
     }
 }

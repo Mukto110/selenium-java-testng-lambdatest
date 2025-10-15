@@ -15,8 +15,8 @@ public class HomePage extends BasePage {
 
     public HomePage(WebDriver driver) {
         super(driver);
-        this.navbar = new Navbar(driver, log);
-        this.searchBox = new SearchBox(driver, log);
+        this.navbar = new Navbar(driver);
+        this.searchBox = new SearchBox(driver);
     }
 
     @FindBy(css = "img[alt='Poco Electro']")

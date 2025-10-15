@@ -16,8 +16,8 @@ public class MyAccountPage extends BasePage {
 
     public MyAccountPage(WebDriver driver) {
         super(driver);
-        this.sidebar = new Sidebar(driver, log);
-        this.searchBox = new SearchBox(driver, log);
+        this.sidebar = new Sidebar(driver);
+        this.searchBox = new SearchBox(driver);
     }
 
     @FindBy(xpath = "//h2[normalize-space()='My Account']")

@@ -33,6 +33,7 @@ public class AddToCartTests extends BaseTest {
     @Test(description = "TC_AddToCart_003: Validate adding the product to Cart from Search Results Page", groups = {"regression"})
     public void testAddProductToCartFromWishlistPage() {
         SearchPage searchPage = homePage.getSearchBox().performSearch(TestData.EXISTING_VALUE);
-        searchPage.clickAddToCartByIndex(1);
+        searchPage.hoverOnProduct().clickAddToCartByIndex();
+        assertUtils.assertTrue(searchPage.getCartModal().getModalAddToCartSuccessMessageText().contains("Success: You have added"), "User should see the success message");
     }
 }

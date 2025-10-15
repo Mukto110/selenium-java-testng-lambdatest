@@ -11,7 +11,7 @@ import org.openqa.selenium.support.FindBy;
 
 public class Navbar extends BasePage {
 
-    public Navbar(WebDriver driver, Logger log) {
+    public Navbar(WebDriver driver) {
         super(driver);
     }
 

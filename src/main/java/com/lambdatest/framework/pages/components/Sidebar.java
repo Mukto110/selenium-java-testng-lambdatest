@@ -12,7 +12,7 @@ import org.openqa.selenium.support.FindBy;
 
 public class Sidebar extends BasePage {
 
-    public Sidebar(WebDriver driver, Logger log) {
+    public Sidebar(WebDriver driver) {
         super(driver);
     }
 

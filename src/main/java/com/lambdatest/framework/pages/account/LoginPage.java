@@ -13,7 +13,7 @@ public class LoginPage extends BasePage {
 
     public LoginPage(WebDriver driver) {
         super(driver);
-        this.sidebar = new Sidebar(driver, log);
+        this.sidebar = new Sidebar(driver);
     }
 
     @FindBy(xpath = "//h2[normalize-space()='Returning Customer']")
