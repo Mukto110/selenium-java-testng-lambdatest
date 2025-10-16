@@ -5,6 +5,8 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 
+import java.util.List;
+
 public class ElementActions {
 
     private final WebDriver driver;
@@ -152,6 +154,18 @@ public class ElementActions {
         }
     }
 
+    public void scrollToElement(WebElement element) {
+        try {
+            log.debug("Scrolling to element: {}", shortDescribe(element));
+            int y = element.getLocation().getY();
+            ((JavascriptExecutor) driver).executeScript("window.scrollTo(0, arguments[0]);", y - 100);
+            // y - 100 gives a little top offset (optional)
+        } catch (Exception e) {
+            log.error("❌ Failed to scroll to element: {}", fullDescribe(element), e);
+            throw e;
+        }
+    }
+
     public void scrollIntoView(WebElement element) {
         try {
             log.debug("Scrolling into view: {}", shortDescribe(element));
@@ -159,6 +173,12 @@ public class ElementActions {
         } catch (Exception e) {
             log.error("❌ Failed to scroll into view: {}", fullDescribe(element), e);
             throw e;
+        }
+    }
+
+    public void scrollIntoView(List<WebElement> elements) {
+        for (WebElement element : elements) {
+            scrollIntoView(element);
         }
     }
 

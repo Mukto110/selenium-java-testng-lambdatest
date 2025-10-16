@@ -17,12 +17,13 @@ public class AddToCartTests extends BaseTest {
     public void navigateToHomePage() {
         homePage = new HomePage(driver);
         homePage.navigateToHomePage();
+        assertUtils.assertTrue(homePage.isHomeLogoVisible(), "Homepage logo should be visible");
     }
 
     @Test(description = "TC_AddToCart_001: Validate adding the product to Cart from 'Product Display' Page", groups = {"regression"})
     public void testAddProductToCartFromProductDisplayPage() {
         SearchPage searchPage = homePage.getSearchBox().performSearch(TestData.EXISTING_VALUE);
-        ProductDisplayPage productDisplayPage = searchPage.clickOnProduct();
+        ProductDisplayPage productDisplayPage = searchPage.clickOnProduct(1);
         productDisplayPage.clickOnAddToCartButton();
         assertUtils.assertTrue(productDisplayPage.getCartModal().getModalAddToCartSuccessMessageText().contains("Success: You have added"), "User should see the success message");
         ShoppingCartPage shoppingCartPage = productDisplayPage.getCartModal().clickOnShoppingCartLink();
@@ -33,7 +34,15 @@ public class AddToCartTests extends BaseTest {
     @Test(description = "TC_AddToCart_003: Validate adding the product to Cart from Search Results Page", groups = {"regression"})
     public void testAddProductToCartFromWishlistPage() {
         SearchPage searchPage = homePage.getSearchBox().performSearch(TestData.EXISTING_VALUE);
-        searchPage.hoverOnProduct().clickAddToCartByIndex();
-        assertUtils.assertTrue(searchPage.getCartModal().getModalAddToCartSuccessMessageText().contains("Success: You have added"), "User should see the success message");
+        searchPage.hoverOnProduct(1).clickAddToCartByIndex(1);
+        assertUtils.assertTrue(searchPage.getCartModal().getModalAddToCartSuccessMessageText().contains("Success: You have added"), "User should see the success message in modal");
+        ShoppingCartPage shoppingCartPage = searchPage.getCartModal().clickOnViewCartButton();
+        assertUtils.assertTrue(shoppingCartPage.getShoppingCartPageHeaderText().contains("Shopping Cart"), "Shopping cart header should contain  the header value: Shopping Cart");
+        assertUtils.assertEquals(shoppingCartPage.getProductName(), TestData.EXISTING_VALUE);
+    }
+
+    @Test(description = "TC_AddToCart_004: Validate adding the product to Cart from the 'Top Products' section in homepage", groups = {"regression"})
+    public void testAddProductToCartFromTopProductsSection () {
+//        homePage.hoverOnProduct(3).clickOnAddToCartButton(3);
     }
 }

@@ -17,6 +17,9 @@ public class CartModal extends BasePage {
     @FindBy(css = "div[id='notification-box-top'] div[class='d-flex mb-3 align-items-start'] a[href='https://ecommerce-playground.lambdatest.io/index.php?route=checkout/cart']")
     private WebElement shoppingCartLink;
 
+    @FindBy(css = "a[class='btn btn-primary btn-block']")
+    private WebElement viewCartButton;
+
     public String getModalAddToCartSuccessMessageText() {
         log.info("Getting modal add to cart success message");
         return actions.getText(modalAddToCartSuccessMessage);
@@ -25,6 +28,12 @@ public class CartModal extends BasePage {
     public ShoppingCartPage clickOnShoppingCartLink() {
         log.info("Clicking on shopping cart link from modal");
         actions.click(shoppingCartLink);
+        return new ShoppingCartPage(driver);
+    }
+
+    public ShoppingCartPage clickOnViewCartButton() {
+        log.info("Clicking on view cart button from modal");
+        actions.click(viewCartButton);
         return new ShoppingCartPage(driver);
     }
 }

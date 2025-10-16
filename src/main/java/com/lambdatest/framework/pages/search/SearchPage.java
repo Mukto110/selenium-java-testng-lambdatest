@@ -145,23 +145,24 @@ public class SearchPage extends BasePage {
         return new ProductComparePage(driver);
     }
 
-    public ProductDisplayPage clickOnProduct() {
+    public ProductDisplayPage clickOnProduct(int index) {
         log.info("Clicking on a product");
         wait.waitForVisibilityOfAllElements(productNames);
-        actions.click(productNames.get(1));
+        actions.click(productNames.get(index));
         return new ProductDisplayPage(driver);
     }
 
-    public SearchPage hoverOnProduct() {
-        log.info("Hovering on product number 2");
-        wait.waitForVisibilityOfAllElements(productNames);
-        actions.hover(productNames.get(1));
+    public SearchPage hoverOnProduct(int index) {
+        log.info("Hovering on product number: {}", index);
+        wait.waitForVisibilityOfAllElements(products);
+        actions.hover(products.get(index));
         return this;
     }
 
-    public SearchPage clickAddToCartByIndex() {
+    public SearchPage clickAddToCartByIndex(int index) {
         log.info("Clicking on add to cart button of product number: 2");
-        actions.click(addToCartButtons.get(1));
+        wait.waitForVisibilityOfAllElements(addToCartButtons);
+        actions.click(addToCartButtons.get(index));
         return this;
     }
 }
