@@ -69,7 +69,7 @@ public class TestListener implements ITestListener {
 
                 log.info("✅ Screenshot saved at: {}", screenshotPath);
             } catch (IOException e) {
-                log.error("⚠️ Failed to save screenshot for test: {}", result.getMethod().getMethodName(), e);
+                log.error("❌ FAILED in class: {} → {}", result.getTestClass().getName(), result.getThrowable().getMessage());
             }
         } else {
             log.warn("⚠️ WebDriver instance was null. Cannot capture screenshot.");

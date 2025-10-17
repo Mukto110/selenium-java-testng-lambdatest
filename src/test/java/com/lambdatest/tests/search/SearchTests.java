@@ -28,13 +28,15 @@ public class SearchTests extends BaseTest {
         homePage.navigateToHomePage();
     }
 
-    @Test(description = "TC_Search_UI_000: Validate Search box is visible on homepage", groups = {"ui", "smoke"})
+    @Test(description = "TC_Search_UI_000: Validate Search box is visible on homepage",
+            groups = {"ui", "search", "smoke"})
     public void testSearchBoxIsVisible() {
         assertUtils.assertTrue(homePage.getSearchBox().isSearchInputBoxVisible(),
                 "Search input box should be visible on the homepage");
     }
 
-    @Test(description = "TC_Search_001: Validate searching with an existing Product Name", groups = {"sanity", "regression"})
+    @Test(description = "TC_Search_001: Validate searching with an existing Product Name",
+            groups = {"search", "sanity", "regression"})
     public void testSearchWithAnExistingProduct() {
         homePage.getSearchBox().performSearch(existingValue);
         assertUtils.assertEquals(searchPage.getSearchPageHeaderText(),
@@ -48,7 +50,8 @@ public class SearchTests extends BaseTest {
                 "Product count should be greater than 0 for: " + existingValue);
     }
 
-    @Test(description = "TC_Search_002: Validate searching with a non existing Product Name", groups = {"regression", "negative"})
+    @Test(description = "TC_Search_002: Validate searching with a non existing Product Name",
+            groups = {"search", "negative", "regression"})
     public void testSearchWithAnNotExistingProduct() {
         homePage.getSearchBox().performSearch(nonExistingValue);
         assertUtils.assertEquals(searchPage.getSearchPageHeaderText(),
@@ -57,14 +60,16 @@ public class SearchTests extends BaseTest {
                 TestData.NO_PRODUCT_MATCH_MESSAGE);
     }
 
-    @Test(description = "TC_Search_003: Validate searching without providing any Product Name", groups = {"regression"})
+    @Test(description = "TC_Search_003: Validate searching without providing any Product Name",
+            groups = {"search", "negative", "regression"})
     public void testSearchWithNoValue() {
         homePage.getSearchBox().performSearch("");
         assertUtils.assertEquals(searchPage.getSearchPageHeaderText(),
                 TestData.SEARCH_PAGE_HEADER);
     }
 
-    @Test(description = "TC_Search_005: Validate searching by providing a search criteria which results in multiple products", groups = {"regression"})
+    @Test(description = "TC_Search_005: Validate searching by providing a search criteria which results in multiple products",
+            groups = {"search", "regression"})
     public void testSearchByProvidingSearchCriteria() {
         homePage.getSearchBox().performSearch(searchCriteriaValue);
         assertUtils.assertTrue(searchPage.doesProductNameContain(searchCriteriaValue),
@@ -76,7 +81,8 @@ public class SearchTests extends BaseTest {
                 "More than one product should be displayed for: " + searchCriteriaValue);
     }
 
-    @Test(description = "TC_Search_006: Validate search boxes has the placeholder text", groups = {"ui"})
+    @Test(description = "TC_Search_006: Validate search boxes have the placeholder text",
+            groups = {"ui", "search"})
     public void testSearchInputsPlaceholderTexts() {
         homePage.getSearchBox().performSearch("");
         assertUtils.assertEquals(searchPage.getSearchPageHeaderText(),
@@ -87,7 +93,8 @@ public class SearchTests extends BaseTest {
                 "Keywords");
     }
 
-    @Test(description = "TC_Search_007: Validate searching using 'Search Criteria' field", groups = {"regression"})
+    @Test(description = "TC_Search_007: Validate searching using 'Search Criteria' field",
+            groups = {"search", "regression"})
     public void testSearchUsingSearchCriteria() {
         homePage.getSearchBox().performSearch("");
         searchPage.fillSearchCriteriaInputBox(existingValue).clickOnSearchCriteriaSearchButton();
@@ -100,7 +107,8 @@ public class SearchTests extends BaseTest {
                 "Product count should be greater than 0 for: " + existingValue);
     }
 
-    @Test(description = "TC_Search_013: Validate navigating to Product Compare Page from Search Results page", groups = {"regression"})
+    @Test(description = "TC_Search_013: Validate navigating to Product Compare Page from Search Results page",
+            groups = {"search", "navigation", "regression"})
     public void testValidateNavigateToProductComparePage() {
         homePage.getSearchBox().performSearch("");
         ProductComparePage productComparePage = searchPage.clickOnProductCompareLink();
@@ -108,7 +116,8 @@ public class SearchTests extends BaseTest {
                 TestData.PRODUCT_COMPARE_PAGE_HEADER);
     }
 
-    @Test(description = "TC_Search_014: Validate User is able to sort the Products displayed in the Search Results", groups = {"regression"})
+    @Test(description = "TC_Search_014: Validate the User is able to sort the Products displayed in the Search Results",
+            groups = {"search", "sorting", "regression"})
     public void testValidateSortSearchedProduct() {
         homePage.getSearchBox().performSearch(searchCriteriaValue);
         searchPage.selectSortOption("Name (A - Z)");
@@ -133,7 +142,8 @@ public class SearchTests extends BaseTest {
         assertUtils.assertTrue(productCountByPrice > 1, "Expected multiple products for sorting check");
     }
 
-    @Test(description = "TC_Search_015: Validate the User can select how many products can be displayed in the Search Results", groups = {"regression"})
+    @Test(description = "TC_Search_015: Validate the User can select how many products can be displayed in the Search Results",
+            groups = {"search", "pagination", "regression"})
     public void testValidateProductDisplayLimitOption() {
         homePage.getSearchBox().performSearch("apple");
         searchPage.selectShowOption("25");

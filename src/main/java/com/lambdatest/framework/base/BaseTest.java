@@ -17,7 +17,7 @@ public class BaseTest {
     protected AssertUtils assertUtils;
     protected WaitUtils wait;
 
-    @BeforeClass
+    @BeforeClass(alwaysRun = true)
     public void preSetUp() {
         log = LoggerHelper.getLogger(this.getClass());
         log.info("==========================================================");
@@ -25,7 +25,7 @@ public class BaseTest {
     }
 
     @Parameters("browser")
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void setUp(@Optional("chrome") String browser, Method method) {
         log.info("------------------------------------------------------------");
         log.info("Starting test: {}", method.getName());
@@ -39,14 +39,16 @@ public class BaseTest {
         log.info("Browser launched: {}", browserName);
     }
 
-    @AfterMethod
+    @AfterMethod(alwaysRun = true)
     public void tearDown(Method method) {
         log.info("Closing browser for test: {}", method.getName());
-        WebDriverFactory.closeDriver();
+        if (driver != null) {
+            WebDriverFactory.closeDriver();
+        }
         log.info("------------------------------------------------------------");
     }
 
-    @AfterClass
+    @AfterClass(alwaysRun = true)
     public void postSetUp() {
         log.info("Closing browser for test: {}", this.getClass());
         log.info("==========================================================");

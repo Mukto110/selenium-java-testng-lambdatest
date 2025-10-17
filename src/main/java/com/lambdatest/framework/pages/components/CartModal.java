@@ -20,6 +20,10 @@ public class CartModal extends BasePage {
     @FindBy(css = "a[class='btn btn-primary btn-block']")
     private WebElement viewCartButton;
 
+    @FindBy(css = "div[id='notification-box-top'] button[data-dismiss='toast']")
+    private WebElement modalCloseIcon;
+
+
     public String getModalAddToCartSuccessMessageText() {
         log.info("Getting modal add to cart success message");
         return actions.getText(modalAddToCartSuccessMessage);
@@ -35,5 +39,10 @@ public class CartModal extends BasePage {
         log.info("Clicking on view cart button from modal");
         actions.click(viewCartButton);
         return new ShoppingCartPage(driver);
+    }
+
+    public void clickOnModalCloseButton() {
+        log.info("Clicking on modal close button");
+        actions.click(modalCloseIcon);
     }
 }

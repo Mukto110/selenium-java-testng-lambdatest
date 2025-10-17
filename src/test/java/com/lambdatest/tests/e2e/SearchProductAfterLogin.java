@@ -12,14 +12,29 @@ public class SearchProductAfterLogin extends BaseTest {
 
     String productName = "imac";
 
-    @Test(description = "TC_004: Validate searching for a product after login to the Application", groups = {"e2e"})
+    @Test(description = "TC_004: Validate searching for a product after login to the Application",
+            groups = {"auth", "search", "e2e", "regression"})
     public void testSearchForProductAfterLogin() {
+
+        // Step 1 -> Navigate to Home Page
         HomePage homePage = new HomePage(driver);
         homePage.navigateToHomePage();
-        LoginPage loginPage = homePage.getNavbar().clickLogin();
+
+        // Step 2 -> Go to Login Page
+        LoginPage loginPage = homePage.getHeader().clickLogin();
+
+        // Step 3 -> Login with valid credentials
         MyAccountPage myAccountPage = loginPage.loginAsValidUser(TestData.VALID_EMAIL, TestData.VALID_PASSWORD);
-        SearchPage searchPage = myAccountPage.getSearchBox().fillSearchInputBox(productName).clickOnSearchButton();
-        assertUtils.assertEquals(searchPage.getSearchPageHeaderText(), TestData.SEARCH_PAGE_HEADER + " " +productName);
-        assertUtils.assertTrue(searchPage.doesProductNameContain(productName), "Product list should match with the value: "+productName);
+
+        // Step 4 -> Search for product
+        SearchPage searchPage = myAccountPage.getSearchBox()
+                .fillSearchInputBox(productName)
+                .clickOnSearchButton();
+
+        // Step 5 -> Validate search result page
+        assertUtils.assertEquals(searchPage.getSearchPageHeaderText(),
+                TestData.SEARCH_PAGE_HEADER + " " + productName);
+        assertUtils.assertTrue(searchPage.doesProductNameContain(productName),
+                "Product list should match with the value: " + productName);
     }
 }

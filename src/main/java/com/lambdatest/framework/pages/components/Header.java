@@ -4,16 +4,18 @@ import com.lambdatest.framework.base.BasePage;
 import com.lambdatest.framework.pages.account.AccountLogoutPage;
 import com.lambdatest.framework.pages.account.LoginPage;
 import com.lambdatest.framework.pages.account.RegisterPage;
-import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class Navbar extends BasePage {
+public class Header extends BasePage {
 
-    public Navbar(WebDriver driver) {
+    public Header(WebDriver driver) {
         super(driver);
     }
+
+    @FindBy(css = "img[alt='Poco Electro']")
+    private WebElement homeLogo;
 
     @FindBy(css = "a.nav-link.dropdown-toggle[href*='route=account/account']")
     private WebElement myAccountDropdown;
@@ -27,7 +29,15 @@ public class Navbar extends BasePage {
     @FindBy(xpath = "//span[normalize-space()='Register']")
     private WebElement registerOption;
 
-    public Navbar hoverOnMyAccountDropdown() {
+    @FindBy(css = "div[id='entry_217825'] a[role='button']")
+    private WebElement cartIcon;
+
+    public boolean isHomeLogoVisible() {
+        log.info("Checking if home logo is visible on the homepage");
+        return actions.isDisplayed(homeLogo);
+    }
+
+    public Header hoverOnMyAccountDropdown() {
         log.info("Hovering on 'My Account' navbar option");
         actions.hover(myAccountDropdown);
         return this;
@@ -54,5 +64,12 @@ public class Navbar extends BasePage {
     public boolean isLogoutOptionVisible() {
         log.info("Checking if logout option is visible or not");
         return actions.isDisplayed(logoutOption);
+    }
+
+    public CartDrawer clickOnCartIcon() {
+        actions.scrollToTop();
+        log.info("Clicking on cart icon");
+        actions.click(cartIcon);
+        return new CartDrawer(driver);
     }
 }

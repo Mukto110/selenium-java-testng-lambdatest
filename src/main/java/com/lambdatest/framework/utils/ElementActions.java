@@ -166,6 +166,17 @@ public class ElementActions {
         }
     }
 
+    public void scrollToTop() {
+        try {
+            log.debug("Scrolling to top of the page");
+            ((JavascriptExecutor) driver).executeScript("window.scrollTo(0, 0);");
+        } catch (Exception e) {
+            log.error("❌ Failed to scroll to top", e);
+            throw e;
+        }
+    }
+
+
     public void scrollIntoView(WebElement element) {
         try {
             log.debug("Scrolling into view: {}", shortDescribe(element));

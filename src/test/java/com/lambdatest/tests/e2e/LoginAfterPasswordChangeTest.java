@@ -16,7 +16,7 @@ public class LoginAfterPasswordChangeTest extends BaseTest {
     private final String newPassword = "Thisistest102";
 
     @Test(description = "TC_Login_016: Validate login into the application after password change",
-            groups = {"e2e"})
+            groups = {"auth", "e2e", "regression"})
     public void testLoginAfterPasswordChange() {
 
         log.info("🔹 Starting E2E Test: Login after password change.");
@@ -26,7 +26,7 @@ public class LoginAfterPasswordChangeTest extends BaseTest {
         homePage.navigateToHomePage();
 
         // Step 2 -> Go to Login Page
-        LoginPage loginPage = homePage.getNavbar().hoverOnMyAccountDropdown().clickLogin();
+        LoginPage loginPage = homePage.getHeader().hoverOnMyAccountDropdown().clickLogin();
 
         // Step 3 -> Login with valid credentials (old/original password)
         MyAccountPage myAccountPage = loginPage.loginAsValidUser(email, originalPassword);
@@ -44,13 +44,13 @@ public class LoginAfterPasswordChangeTest extends BaseTest {
         homePage = myAccountPage.getSidebar().clickOnSidebarLogout().clickOnContinueButton();
 
         // Step 7 -> Navigate to the login page again
-        loginPage = homePage.getNavbar().hoverOnMyAccountDropdown().clickLogin();
+        loginPage = homePage.getHeader().hoverOnMyAccountDropdown().clickLogin();
 
         // Step 8 -> Login again using the new password
         myAccountPage = loginPage.loginAsValidUser(email, newPassword);
         assertUtils.assertEquals(myAccountPage.getMyAccountPageHeaderText(), TestData.MY_ACCOUNT_PAGE_HEADER);
 
-        // Step 9 -> ROLLBACK (Temporary - restore original password to run this tests multiple times)
+        // Step 9 -> ROLLBACK (Temporary - restore original password to run this test multiple times)
         log.info("Rolling back password to original for test reusability");
         changePasswordPage = myAccountPage.getSidebar().clickOnSidebarPasswordLink();
         myAccountPage = changePasswordPage.changePassword(originalPassword, originalPassword);

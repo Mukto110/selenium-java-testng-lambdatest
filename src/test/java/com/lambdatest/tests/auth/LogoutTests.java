@@ -23,7 +23,7 @@ public class LogoutTests extends BaseTest {
         homePage.navigateToHomePage();
 
         // Step 2: Hover and navigate to Login page
-        LoginPage loginPage = homePage.getNavbar().hoverOnMyAccountDropdown().clickLogin();
+        LoginPage loginPage = homePage.getHeader().hoverOnMyAccountDropdown().clickLogin();
 
         // Step 3: Log in with valid credentials
         myAccountPage = loginPage.loginAsValidUser(TestData.VALID_EMAIL, TestData.VALID_PASSWORD);
@@ -32,9 +32,9 @@ public class LogoutTests extends BaseTest {
         assertUtils.assertEquals(myAccountPage.getMyAccountPageHeaderText(), TestData.MY_ACCOUNT_PAGE_HEADER);
     }
 
-    @Test(description = "TC_Logout_001: Validate logout from My Account dropdown", groups = {"smoke", "regression"})
+    @Test(description = "TC_Logout_001: Validate logout from My Account dropdown", groups = {"auth", "smoke", "regression"})
     public void testLogoutFromMyAccountDropMenu() {
-        accountLogoutPage = homePage.getNavbar().hoverOnMyAccountDropdown().clickLogout();
+        accountLogoutPage = homePage.getHeader().hoverOnMyAccountDropdown().clickLogout();
 
         assertUtils.assertEquals(accountLogoutPage.getAccountLogoutPageHeaderText(), TestData.ACCOUNT_LOGOUT_PAGE_HEADER);
 
@@ -43,7 +43,7 @@ public class LogoutTests extends BaseTest {
         assertUtils.assertTrue(homePage.getCurrentUrl().contains("index.php?route=common/home"), "User should be in homepage, but current URL: " + homePage.getCurrentUrl());
     }
 
-    @Test(description = "TC_Logout_002: Validate logout from sidebar options", groups = {"smoke", "regression"})
+    @Test(description = "TC_Logout_002: Validate logout from sidebar options", groups = {"auth", "smoke", "regression"})
     public void testLogoutFromSidebarOptions() {
         accountLogoutPage = myAccountPage.getSidebar().clickOnSidebarLogout();
         accountLogoutPage.clickOnContinueButton();
@@ -51,29 +51,29 @@ public class LogoutTests extends BaseTest {
         assertUtils.assertTrue(homePage.getCurrentUrl().contains("index.php?route=common/home"), "User should be in homepage, but current URL: " + homePage.getCurrentUrl());
     }
 
-    @Test(description = "TC_Logout_005: Validate logout option is not visible after logout", groups = {"regression", "security"})
+    @Test(description = "TC_Logout_005: Validate logout option is not visible after logout", groups = {"auth", "regression", "security"})
     public void testLogoutOptionNotVisibleAfterLogout() {
-        accountLogoutPage = homePage.getNavbar().hoverOnMyAccountDropdown().clickLogout();
+        accountLogoutPage = homePage.getHeader().hoverOnMyAccountDropdown().clickLogout();
         accountLogoutPage.clickOnContinueButton();
 
-        homePage.getNavbar().hoverOnMyAccountDropdown();
-        assertUtils.assertFalse(homePage.getNavbar().isLogoutOptionVisible());
+        homePage.getHeader().hoverOnMyAccountDropdown();
+        assertUtils.assertFalse(homePage.getHeader().isLogoutOptionVisible());
     }
 
-    @Test(description = "TC_Logout_007: Validate logging out and logging in immediately after logout", groups = {"regression", "sanity"})
+    @Test(description = "TC_Logout_007: Validate logging out and logging in immediately after logout", groups = {"auth", "regression", "sanity"})
     public void testImmediateLoginAfterLogout() {
-        accountLogoutPage = homePage.getNavbar().hoverOnMyAccountDropdown().clickLogout();
+        accountLogoutPage = homePage.getHeader().hoverOnMyAccountDropdown().clickLogout();
 
         accountLogoutPage.clickOnContinueButton();
 
-        LoginPage loginPage = homePage.getNavbar().hoverOnMyAccountDropdown().clickLogin();
+        LoginPage loginPage = homePage.getHeader().hoverOnMyAccountDropdown().clickLogin();
 
         assertUtils.assertEquals(loginPage.getLoginFormHeaderText(), TestData.LOGIN_PAGE_HEADER);
     }
 
-    @Test(description = "TC_Logout_008: Validate 'Account Logout' page breadcrumb", groups = {"ui", "regression"})
+    @Test(description = "TC_Logout_008: Validate 'Account Logout' page breadcrumb", groups = {"auth", "ui", "regression"})
     public void testAccountLogoutPageUi() {
-        accountLogoutPage = homePage.getNavbar().clickLogout();
+        accountLogoutPage = homePage.getHeader().clickLogout();
         assertUtils.softAssertEquals(accountLogoutPage.getBreadcrumbText(), "Logout");
     }
 }
