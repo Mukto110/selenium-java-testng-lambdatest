@@ -1,0 +1,71 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name="Master Automation Suite" verbose="1" parallel="false">
+
+    <listeners>
+        <listener class-name="com.lambdatest.framework.listeners.TestListener"/>
+    </listeners>
+
+
+    <!-- ===========================
+         Global Parameters (Can be overridden in test level)
+         =========================== -->
+    <parameter name="os" value="Windows 11"/>
+    <parameter name="browser" value="chrome"/>
+
+    <!-- ===========================
+         SMOKE SUITE
+         =========================== -->
+    <test name="Smoke Suite">
+        <groups>
+            <run>
+                <include name="smoke"/>
+                <include name="sanity"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.lambdatest.tests.auth.LoginTests"/>
+            <class name="com.lambdatest.tests.auth.LogoutTests"/>
+            <class name="com.lambdatest.tests.auth.RegisterTests"/>
+            <class name="com.lambdatest.tests.cart.AddToCartTests"/>
+            <class name="com.lambdatest.tests.search.SearchTests"/>
+        </classes>
+    </test>
+
+    <!-- ===========================
+         REGRESSION SUITE
+         =========================== -->
+    <test name="Regression Suite">
+        <groups>
+            <run>
+                <include name="regression"/>
+                <exclude name="ui"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.lambdatest.tests.auth.LoginTests"/>
+            <class name="com.lambdatest.tests.auth.LogoutTests"/>
+            <class name="com.lambdatest.tests.auth.RegisterTests"/>
+            <class name="com.lambdatest.tests.cart.AddToCartTests"/>
+            <class name="com.lambdatest.tests.e2e.LoginAfterPasswordChangeTest"/>
+            <class name="com.lambdatest.tests.e2e.SearchProductAfterLogin"/>
+            <class name="com.lambdatest.tests.search.SearchTests"/>
+        </classes>
+    </test>
+
+    <!-- ===========================
+         E2E SUITE
+         =========================== -->
+    <test name="E2E Suite">
+        <groups>
+            <run>
+                <include name="e2e"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.lambdatest.tests.e2e.LoginAfterPasswordChangeTest"/>
+            <class name="com.lambdatest.tests.e2e.SearchProductAfterLogin"/>
+        </classes>
+    </test>
+
+</suite>

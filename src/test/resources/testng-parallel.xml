@@ -1,38 +1,37 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 
-<suite name="LambdaTest Automation Suite" parallel="tests" thread-count="4">
+<suite name="Parallel Execution Suite" parallel="classes" thread-count="4" verbose="1">
+
     <listeners>
-        <listener class-name="com.lambdatest.framework.listeners.TestListener" />
+        <listener class-name="com.lambdatest.framework.listeners.TestListener"/>
     </listeners>
 
-    <!-- ==========================
-         Test 1: Auth Tests (Chrome)
-         ========================== -->
-    <test name="Auth Tests - Chrome">
-        <parameter name="browser" value="chrome" />
+    <!-- ===========================
+         GLOBAL PARAMETERS (Can be overridden in CI/CD or locally)
+         =========================== -->
+    <parameter name="os" value="Windows 11"/>
+    <parameter name="browser" value="chrome"/>
+
+    <!-- ===========================
+         PARALLEL EXECUTION SET
+         =========================== -->
+    <test name="Cross Functional Parallel Tests">
         <classes>
-            <class name="com.lambdatest.tests.auth.LoginTests" />
+            <!-- Auth module -->
+            <class name="com.lambdatest.tests.auth.LoginTests"/>
+            <class name="com.lambdatest.tests.auth.LogoutTests"/>
+            <class name="com.lambdatest.tests.auth.RegisterTests"/>
+
+            <!-- Cart module -->
+            <class name="com.lambdatest.tests.cart.AddToCartTests"/>
+
+            <!-- Search module -->
+            <class name="com.lambdatest.tests.search.SearchTests"/>
+
+            <!-- E2E module -->
+            <class name="com.lambdatest.tests.e2e.LoginAfterPasswordChangeTest"/>
+            <class name="com.lambdatest.tests.e2e.SearchProductAfterLogin"/>
         </classes>
     </test>
 
-    <!-- ==========================
-         Test 2: Search Tests (Firefox)
-         ========================== -->
-    <test name="Search Tests - Firefox">
-        <parameter name="browser" value="firefox" />
-        <classes>
-            <class name="com.lambdatest.tests.search.SearchTests" />
-        </classes>
-    </test>
-
-    <!-- ==========================
-         Test 3: E2E Tests (Edge)
-         ========================== -->
-    <test name="E2E Tests - Edge">
-        <parameter name="browser" value="edge" />
-        <classes>
-            <class name="com.lambdatest.tests.e2e.LoginAfterPasswordChangeTest" />
-            <class name="com.lambdatest.tests.e2e.SearchProductAfterLogin" />
-        </classes>
-    </test>
 </suite>

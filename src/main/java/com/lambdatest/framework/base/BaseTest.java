@@ -24,14 +24,15 @@ public class BaseTest {
         log.info("Starting test: {}", this.getClass());
     }
 
-    @Parameters("browser")
+    @Parameters({"os" ,"browser"})
     @BeforeMethod(alwaysRun = true)
-    public void setUp(@Optional("chrome") String browser, Method method) {
+    public void setUp(@Optional("chrome") String os, String browser, Method method) {
         log.info("------------------------------------------------------------");
         log.info("Starting test: {}", method.getName());
         String browserName = System.getProperty("browser", browser);
         WebDriverFactory.setDriver(browserName);
         driver = WebDriverFactory.getDriver();
+        log.info("Running on OS: {} | Browser: {}", os, browserName);
         driver.manage().window().maximize();
         driver.manage().deleteAllCookies();
         assertUtils = new AssertUtils(log);
