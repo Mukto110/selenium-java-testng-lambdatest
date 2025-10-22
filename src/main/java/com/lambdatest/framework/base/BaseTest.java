@@ -26,7 +26,7 @@ public class BaseTest {
 
     @Parameters({"os" ,"browser"})
     @BeforeMethod(alwaysRun = true)
-    public void setUp(@Optional("chrome") String os, String browser, Method method) {
+    public void setUp(@Optional("Windows 11") String os, @Optional("chrome") String browser, Method method) {
         log.info("------------------------------------------------------------");
         log.info("Starting test: {}", method.getName());
         String browserName = System.getProperty("browser", browser);
