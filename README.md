@@ -7,12 +7,12 @@ A modern, scalable test automation framework built with **Java**, **Selenium Web
 ## 📋 Table of Contents
 
 - [Why This Framework?](#-why-this-framework)
-- [Tech Stack](#-tech-stack)
-- [Framework Architecture](#-framework-architecture)
+- [Tech Stack](#️-tech-stack)
+- [Framework Architecture](#️-framework-architecture)
 - [Key Features](#-key-features)
 - [Project Structure](#-project-structure)
 - [Getting Started](#-getting-started)
-- [Running Tests](#-running-tests)
+- [Running Tests](#️-running-tests)
 - [Reports & Logging](#-reports--logging)
 - [What I Learned](#-what-i-learned)
 
