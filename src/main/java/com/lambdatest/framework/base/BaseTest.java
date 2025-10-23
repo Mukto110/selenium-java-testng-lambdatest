@@ -5,10 +5,16 @@ import com.lambdatest.framework.utils.LoggerHelper;
 import com.lambdatest.framework.utils.WaitUtils;
 import com.lambdatest.framework.utils.WebDriverFactory;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.*;
 
+import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Method;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class BaseTest {
 
@@ -51,7 +57,33 @@ public class BaseTest {
 
     @AfterClass(alwaysRun = true)
     public void postSetUp() {
-        log.info("Closing browser for test: {}", this.getClass());
+        log.info("All tests finished for class: {}", this.getClass().getSimpleName());
         log.info("==========================================================");
     }
+
+//    public String captureScreen(String tname) throws IOException {
+//        String timeStamp = new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
+//        TakesScreenshot takesScreenshot = (TakesScreenshot) driver;
+//        File sourceFile = takesScreenshot.getScreenshotAs(OutputType.FILE);
+//        String targetFilePath=System.getProperty("user.dir")+"\\screenshots\\" + tname + "_" + timeStamp + ".png";
+//        File targetFile=new File(targetFilePath);
+//        sourceFile.renameTo(targetFile);
+//        return targetFilePath;
+//    }
+
+    public String captureScreen(String tname) throws IOException {
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        TakesScreenshot takesScreenshot = (TakesScreenshot) driver;
+        File sourceFile = takesScreenshot.getScreenshotAs(OutputType.FILE);
+        String screenshotDir = System.getProperty("user.dir") + "\\screenshots\\";
+        File directory = new File(screenshotDir);
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+        String targetFilePath = screenshotDir + tname + "_" + timeStamp + ".png";
+        File targetFile = new File(targetFilePath);
+        org.openqa.selenium.io.FileHandler.copy(sourceFile, targetFile);
+        return targetFilePath;
+    }
+
 }

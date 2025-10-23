@@ -1,8 +1,10 @@
 package com.lambdatest.framework.listeners;
 
-import com.lambdatest.framework.utils.LoggerHelper;
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.Status;
+import com.lambdatest.framework.utils.ExtentReportManager;
 import com.lambdatest.framework.utils.WebDriverFactory;
-import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -19,76 +21,60 @@ import java.util.Date;
 
 public class TestListener implements ITestListener {
 
-    private static final Logger log = LoggerHelper.getLogger(TestListener.class);
+    private static ExtentReports extent = ExtentReportManager.createInstance();
+    private static ThreadLocal<ExtentTest> testThread = new ThreadLocal<>();
 
     @Override
     public void onStart(ITestContext context) {
-        log.info("====================================================");
-        log.info("Test Suite started: {}", context.getName());
-        log.info("====================================================");
+        System.out.println("=== Test Suite Started: " + context.getName() + " ===");
     }
 
     @Override
     public void onFinish(ITestContext context) {
-        log.info("====================================================");
-        log.info("Test Suite finished: {}", context.getName());
-        log.info("====================================================");
+        extent.flush();
+        System.out.println("=== Test Suite Finished: " + context.getName() + " ===");
     }
 
     @Override
     public void onTestStart(ITestResult result) {
-        log.info("Test started: {}", result.getMethod().getMethodName());
+        ExtentTest test = extent.createTest(result.getMethod().getMethodName());
+        testThread.set(test);
     }
 
     @Override
     public void onTestSuccess(ITestResult result) {
-        log.info("Test passed: {}", result.getMethod().getMethodName());
+        testThread.get().log(Status.PASS, "Test passed");
     }
 
     @Override
     public void onTestFailure(ITestResult result) {
-        log.error("❌ Test FAILED: {}", result.getMethod().getMethodName(), result.getThrowable());
-
-        Object testClass = result.getInstance();
         WebDriver driver = WebDriverFactory.getDriver();
+        String screenshotPath = captureScreenshot(driver, result.getMethod().getMethodName());
+        testThread.get().log(Status.FAIL, "Test failed: " + result.getThrowable());
 
-        if (driver != null) {
-            try {
-                log.info("📸 Capturing screenshot for failed test: {}", result.getMethod().getMethodName());
-
-                // Take screenshot
-                File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-
-                // Save screenshot with timestamp
-                String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-                String screenshotDir = "target/screenshots/";
-                Files.createDirectories(Paths.get(screenshotDir));
-                String screenshotPath = screenshotDir + result.getMethod().getMethodName() + "_" + timestamp + ".png";
-
-                Files.copy(screenshot.toPath(), Paths.get(screenshotPath));
-
-                log.info("✅ Screenshot saved at: {}", screenshotPath);
-            } catch (IOException e) {
-                log.error("❌ FAILED in class: {} → {}", result.getTestClass().getName(), result.getThrowable().getMessage());
-            }
-        } else {
-            log.warn("⚠️ WebDriver instance was null. Cannot capture screenshot.");
+        if (screenshotPath != null) {
+            testThread.get().addScreenCaptureFromPath(screenshotPath);
         }
     }
 
     @Override
     public void onTestSkipped(ITestResult result) {
-        log.warn("⚠️ Test SKIPPED: {}", result.getMethod().getMethodName());
+        testThread.get().log(Status.SKIP, "Test skipped: " + result.getThrowable());
+    }
 
-        if (result.getThrowable() != null) {
-            log.warn("↪️ Reason: {}", result.getThrowable().getMessage());
+    private String captureScreenshot(WebDriver driver, String testName) {
+        if (driver == null) return null;
+        String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String screenshotDir = "target/screenshots/";
+        try {
+            Files.createDirectories(Paths.get(screenshotDir));
+            String screenshotPath = screenshotDir + testName + "_" + timestamp + ".png";
+            File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+            Files.copy(screenshot.toPath(), Paths.get(screenshotPath));
+            return screenshotPath;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
         }
     }
-
-    @Override
-    public void onTestFailedButWithinSuccessPercentage(ITestResult result) {
-        log.warn("⚠️ Test '{}' FAILED but is within success percentage → continuing.",
-                result.getMethod().getMethodName());
-    }
-
 }
