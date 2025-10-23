@@ -165,7 +165,7 @@ selenium-ecommerce-framework/
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -177,8 +177,8 @@ selenium-ecommerce-framework/
 
 1. **Clone the repository**
 ```bash
-   git clone https://github.com/yourusername/selenium-ecommerce-framework.git
-   cd selenium-ecommerce-framework
+   git clone https://github.com/yourusername/selenium-ecommerce-framework.git](https://github.com/Mukto110/selenium-java-testng-lambdatest.git
+   cd selenium-java-testng-lambdatest
 ```
 
 2. **Install dependencies**
@@ -287,9 +287,9 @@ This is a personal showcase project, but I'm always open to feedback and suggest
 ## 📬 Contact
 
 **Your Name**  
-📧 your.email@example.com  
-💼 [LinkedIn](https://linkedin.com/in/yourprofile)  
-🐙 [GitHub](https://github.com/yourusername)
+📧 merajhossainmukto@gmail.com 
+💼 [LinkedIn]([https://linkedin.com/in/yourprofile](https://www.linkedin.com/in/meraj-hossain-mukto-05aa4a275/))  
+🐙 [GitHub](https://github.com/Mukto110)
 
 ---
 
