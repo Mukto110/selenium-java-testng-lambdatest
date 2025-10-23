@@ -177,7 +177,7 @@ selenium-ecommerce-framework/
 
 1. **Clone the repository**
 ```bash
-   git clone https://github.com/yourusername/selenium-ecommerce-framework.git](https://github.com/Mukto110/selenium-java-testng-lambdatest.git
+   git clone https://github.com/Mukto110/selenium-java-testng-lambdatest.git
    cd selenium-java-testng-lambdatest
 ```
 
