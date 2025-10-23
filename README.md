@@ -1,4 +1,4 @@
-# 🚀 Selenium E-Commerce Test Automation Framework
+# Selenium E-Commerce Test Automation Framework
 
 A modern, scalable test automation framework built with **Java**, **Selenium WebDriver**, and **TestNG** to demonstrate professional QA engineering practices. This project showcases comprehensive testing of an e-commerce application with parallel execution, method chaining, and industry-standard design patterns.
 
