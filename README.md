@@ -29,6 +29,19 @@ I built this framework from scratch to demonstrate my ability to design robust, 
 
 This isn't just a framework—it's a showcase of how I approach test automation challenges.
 
+### 📝 From Manual to Automated Testing
+
+**Here's what makes this project unique:** I didn't just build a random automation framework. I started with a complete **manual testing project** on the LambdaTest Playground e-commerce application, where I:
+
+1. **Designed comprehensive test scenarios** covering all critical user flows
+2. **Documented detailed test cases** in a structured Google Sheet
+3. **Executed manual testing** to understand the application behavior thoroughly
+4. **Then automated selected test cases** from my manual suite using this framework
+
+This approach gave me a solid foundation before writing a single line of automation code. I knew exactly what to test, what edge cases to cover, and what the expected behavior should be. **This is how real-world QA works** - you understand the application manually first, then strategically automate the repetitive and critical test cases.
+
+**The result?** Automated tests that are meaningful, comprehensive, and based on real testing experience rather than just technical exercises.
+
 ---
 
 ## 🛠️ Tech Stack
