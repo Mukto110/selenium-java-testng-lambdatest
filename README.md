@@ -42,6 +42,9 @@ This approach gave me a solid foundation before writing a single line of automat
 
 **The result?** Automated tests that are meaningful, comprehensive, and based on real testing experience rather than just technical exercises.
 
+> 📂 **Want to see my complete manual testing work?**  
+> Check out my [Manual Testing Project Repository](https://github.com/Mukto110/your-manual-testing-repo) with detailed test scenarios, test cases, and bug reports.
+
 ---
 
 ## 🛠️ Tech Stack
