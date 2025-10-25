@@ -24,18 +24,21 @@ import java.util.*;
 
 public class TestListener implements ITestListener {
 
-    private static ExtentReports extent = ExtentReportManager.createInstance();
-    private static ThreadLocal<ExtentTest> testThread = new ThreadLocal<>();
+    private static final ExtentReports extent = ExtentReportManager.createInstance();
+    private static final ThreadLocal<ExtentTest> testThread = new ThreadLocal<>();
 
     // 🔹 Store logs for each test
-    private static ThreadLocal<List<String>> logMessages = ThreadLocal.withInitial(ArrayList::new);
+    private static final ThreadLocal<List<String>> logMessages = ThreadLocal.withInitial(ArrayList::new);
 
     @Override
-    public void onStart(ITestContext context) {
-        System.out.println("=== Test Suite Started: " + context.getName() + " ===");
-        // Attach temporary appender to collect logs
-        org.apache.logging.log4j.core.Logger rootLogger =
-                (org.apache.logging.log4j.core.Logger) LogManager.getRootLogger();
+    public void onStart(ITestContext testContext) {
+        System.out.println("=== Test Suite Started: " + testContext.getName() + " ===");
+
+        List<String> includedGroups = testContext.getCurrentXmlTest().getIncludedGroups();
+        if (!includedGroups.isEmpty()) {
+            extent.setSystemInfo("Groups", includedGroups.toString());
+        }
+        org.apache.logging.log4j.core.Logger rootLogger = (org.apache.logging.log4j.core.Logger) LogManager.getRootLogger();
         rootLogger.addAppender(new MemoryAppender("MemoryAppender"));
     }
 
@@ -51,9 +54,7 @@ public class TestListener implements ITestListener {
             if (dir.exists()) {
                 File[] files = dir.listFiles((d, name) -> name.endsWith(".html"));
                 if (files != null && files.length > 0) {
-                    File latestReport = Arrays.stream(files)
-                            .max(Comparator.comparingLong(File::lastModified))
-                            .orElse(null);
+                    File latestReport = Arrays.stream(files).max(Comparator.comparingLong(File::lastModified)).orElse(null);
                     System.out.println("Opening report: " + latestReport.getAbsolutePath());
                     java.awt.Desktop.getDesktop().browse(latestReport.toURI());
                 }
@@ -68,7 +69,13 @@ public class TestListener implements ITestListener {
         ExtentTest test = extent.createTest(result.getMethod().getMethodName());
         testThread.set(test);
         logMessages.get().clear();
+        String[] groups = result.getMethod().getGroups();
+        if (groups.length > 0) {
+            test.assignCategory(groups);
+            test.log(Status.INFO, "Groups: " + String.join(", ", groups));
+        }
     }
+
 
     @Override
     public void onTestSuccess(ITestResult result) {

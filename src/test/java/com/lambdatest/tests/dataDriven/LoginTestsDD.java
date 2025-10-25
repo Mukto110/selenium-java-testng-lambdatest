@@ -14,7 +14,6 @@ public class LoginTestsDD extends BaseTest {
     public void testLoginDD(String email, String password, String expectedResult) {
         HomePage homePage = new HomePage(driver);
         LoginPage loginPage = homePage.navigateToHomePage().getHeader().hoverOnMyAccountDropdown().clickLogin();
-
         if (expectedResult.equalsIgnoreCase("valid")) {
             MyAccountPage myAccountPage = loginPage.loginAsValidUser(email, password);
             assertUtils.assertEquals(myAccountPage.getMyAccountPageHeaderText(), TestData.MY_ACCOUNT_PAGE_HEADER);
