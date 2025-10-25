@@ -248,9 +248,9 @@ mvn clean test -Dsurefire.suiteXmlFiles=src/test/resources/testng-dataDriven.xml
 ## 📈 Reports & Logging
 
 ### ExtentReports
-After test execution, open the HTML report:
+After test execution, open the HTML report (Open the specified HTML report file in the default web browser):
 ```
-test-output/ExtentReport.html
+open reports/Test-Report-2025.10.25.14.21.15.html
 ```
 
 The report includes:
