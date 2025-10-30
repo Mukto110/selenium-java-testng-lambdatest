@@ -41,7 +41,7 @@
                     <systemPropertyVariables>
                         <suiteXmlFile>testng-master.xml</suiteXmlFile>
                     </systemPropertyVariables>
-                    <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
+                    <reportsDirectory>${project.build.directory}/reports</reportsDirectory>
                 </configuration>
             </plugin>
 
