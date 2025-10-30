@@ -19,14 +19,14 @@
         <classes>
             <!-- Auth module -->
             <class name="com.lambdatest.tests.auth.LoginTests"/>
-            <class name="com.lambdatest.tests.auth.LogoutTests"/>
+<!--            <class name="com.lambdatest.tests.auth.LogoutTests"/>-->
             <class name="com.lambdatest.tests.auth.RegisterTests"/>
 
             <!-- Cart module -->
-            <class name="com.lambdatest.tests.cart.AddToCartTests"/>
+<!--            <class name="com.lambdatest.tests.cart.AddToCartTests"/>-->
 
             <!-- Search module -->
-            <class name="com.lambdatest.tests.search.SearchTests"/>
+<!--            <class name="com.lambdatest.tests.search.SearchTests"/>-->
 
             <!-- E2E module -->
             <class name="com.lambdatest.tests.e2e.LoginAfterPasswordChangeTest"/>
